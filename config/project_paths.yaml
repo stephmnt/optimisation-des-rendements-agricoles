@@ -1,0 +1,20 @@
+preparation:
+  paths:
+    AGRI_CROP_YIELD_PATH: data/crop_yield.csv
+    YIELD_PATH: data/Crop Yield Prediction Dataset/yield.csv
+    RAINFALL_PATH: data/Crop Yield Prediction Dataset/rainfall.csv
+    PESTICIDES_PATH: data/Crop Yield Prediction Dataset/pesticides.csv
+    TEMP_PATH: data/Crop Yield Prediction Dataset/temp.csv
+    YIELD_DF_AUDIT_PATH: data/Crop Yield Prediction Dataset/yield_df.csv
+    DATASET_PATH: data/dataset_consolide.csv
+    ARTIFACTS_DIR: artifacts
+    PCA_ARTIFACTS_DIR: artifacts/pca
+    PCA_CORRELATION_TABLE_PATH: artifacts/pca/pca_correlation.csv
+    PCA_PC1_CONTRIBUTIONS_PATH: artifacts/pca/pca_pc1_contributions.csv
+    PCA_VARIANCE_TABLE_PATH: artifacts/pca/pca_variance.csv
+    PCA_SUMMARY_PATH: artifacts/pca/pca_summary.csv
+    PCA_CORRELATION_FIG_PATH: artifacts/pca/pca_correlation_and_projection.png
+    PCA_LOADINGS_FIG_PATH: artifacts/pca/pca_correlation_circle_and_loadings.png
+    PCA_VARIANCE_FIG_PATH: artifacts/pca/pca_explained_variance.png
+  parameters:
+    MIN_YEAR: 1990
