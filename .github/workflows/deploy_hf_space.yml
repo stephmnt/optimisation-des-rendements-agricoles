@@ -1,0 +1,63 @@
+name: Deploy Hugging Face Space
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/deploy_hf_space.yml"
+      - "demo_streamlit/**"
+      - "tests/test_demo_streamlit_logic.py"
+      - "data/dataset_consolide.csv"
+      - "agriculture.png"
+      - "!notebooks/**"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r demo_streamlit/requirements.txt pytest
+
+      - name: Run pytest
+        run: pytest -q tests/test_demo_streamlit_logic.py
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Space payload
+        run: |
+          rm -rf hf_space_build
+          mkdir -p hf_space_build/src hf_space_build/data
+          # Les notebooks restent dans le dépôt GitHub mais ne sont pas copiés vers le Space.
+          cp demo_streamlit/README.md hf_space_build/README.md
+          cp demo_streamlit/Dockerfile hf_space_build/Dockerfile
+          cp demo_streamlit/requirements.txt hf_space_build/requirements.txt
+          cp -R demo_streamlit/src/. hf_space_build/src/
+          cp data/dataset_consolide.csv hf_space_build/data/dataset_consolide.csv
+          if [ -f agriculture.png ]; then
+            cp agriculture.png hf_space_build/agriculture.png
+          fi
+
+      - name: Sync to Hugging Face Space
+        uses: huggingface/hub-sync@v0.1.0
+        with:
+          github_repo_id: ${{ github.repository }}
+          huggingface_repo_id: stephmnt/rendement_agricole
+          hf_token: ${{ secrets.HF_TOKEN }}
+          repo_type: space
+          space_sdk: docker
+          subdirectory: hf_space_build
