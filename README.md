@@ -1,5 +1,26 @@
 # Optimisation des rendements agricoles
 
+## Jeux de données
+
+Le brief de [mission.md](/Users/steph/Code/Python/Jupyter/OCR_Projet12/ressources/mission.md) distingue deux grands ensembles :
+
+- `Agriculture CropYield Dataset` : données de rendement utilisées pour l'analyse des facteurs clés ;
+- `CropYield Prediction Dataset` : données agronomiques et climatiques annuelles utilisées pour valider cette analyse et construire la base de modélisation.
+
+Le tableau ci-dessous résume la nature de chaque fichier dans le projet.
+
+| Fichier | Type de données | Granularité | Rôle dans le projet |
+|---|---|---|---|
+| [crop_yield.csv](/Users/steph/Code/Python/Jupyter/OCR_Projet12/data/simulation/crop_yield.csv) | Données simulées de rendement par culture avec variables agronomiques associées. Présenté dans le brief comme un jeu de données de rendement historique, mais utilisé ici surtout comme jeu d'analyse amont très pédagogique. | Observation individuelle sans clé `area + year` exploitable | Analyse exploratoire, nettoyage, ACP, lecture métier des facteurs associés au rendement |
+| [yield.csv](/Users/steph/Code/Python/Jupyter/OCR_Projet12/data/historique/yield.csv) | Données historiques annuelles de rendement | `area + crop + year` | Table de base du dataset consolidé et source de la cible de modélisation |
+| [rainfall.csv](/Users/steph/Code/Python/Jupyter/OCR_Projet12/data/historique/rainfall.csv) | Données historiques climatiques annuelles de pluie | `area + year` | Enrichissement climatique du dataset consolidé |
+| [temp.csv](/Users/steph/Code/Python/Jupyter/OCR_Projet12/data/historique/temp.csv) | Données historiques climatiques annuelles de température | `area + year` après agrégation des doublons | Enrichissement climatique du dataset consolidé |
+| [pesticides.csv](/Users/steph/Code/Python/Jupyter/OCR_Projet12/data/historique/pesticides.csv) | Données historiques annuelles d'intrants | `area + year` | Enrichissement agronomique du dataset consolidé |
+| [yield_df.csv](/Users/steph/Code/Python/Jupyter/OCR_Projet12/data/historique/yield_df.csv) | Données historiques annuelles déjà enrichies | `area + crop + year` | Fichier d'audit et de validation du scénario de fusion, pas table de base |
+| [dataset_consolide.csv](/Users/steph/Code/Python/Jupyter/OCR_Projet12/data/dataset_consolide.csv) | Données consolidées produites par le projet | `area + crop + year` | Source de vérité pour la modélisation et l'API |
+
+Les chemins de ces fichiers sont centralisés dans [project_paths.yaml](/Users/steph/Code/Python/Jupyter/OCR_Projet12/config/project_paths.yaml). Les notebooks et scripts du projet doivent s'appuyer sur cette configuration plutôt que sur des chemins codés en dur.
+
 ## Générerer le rapport
 
 ```bash
@@ -10,7 +31,7 @@ jupyter nbconvert rapport.ipynb --to pdf --no-input
 
 ### Rôle des trois éléments
 
-- `preparation.ipynb` est la source de vérité pour l'ACP exploratoire sur `data/crop_yield.csv`.
+- `preparation.ipynb` est la source de vérité pour l'ACP exploratoire sur `data/simulation/crop_yield.csv`.
 - `preparation.ipynb` écrit les tableaux et figures dans `artifacts/pca/`.
 - `rapport.ipynb` ne recalcule pas l'ACP : il relit uniquement les artefacts présents dans `artifacts/pca/`.
 - `scripts/acp.py` est un raccourci headless pour régénérer ces mêmes artefacts sans relancer tout `preparation.ipynb`.
@@ -20,8 +41,8 @@ jupyter nbconvert rapport.ipynb --to pdf --no-input
 Utiliser ce script si :
 
 - les fichiers de `artifacts/pca/` sont absents ;
-- tu as modifié la partie ACP dans `preparation.ipynb` et tu veux regénérer rapidement les sorties ;
-- tu veux mettre à jour `rapport.ipynb` sans relancer toute la préparation des données.
+- il y a eu une modification dans la partie ACP dans `preparation.ipynb` et il faut regénérer rapidement les sorties ;
+- il faut mettre à jour `rapport.ipynb` sans relancer toute la préparation des données.
 
 Commande :
 
@@ -43,8 +64,6 @@ Flux rapide quand seule l'ACP du rapport doit être rafraîchie :
 2. ouvrir ou réexécuter `rapport.ipynb`.
 
 ## MLflow
-
-### Où sont stockés les runs
 
 MLflow est stocké dans une base SQLite :
 
@@ -94,3 +113,11 @@ Si un ancien dossier racine `mlruns/` subsiste encore vide après migration, tu 
 ```bash
 rm -rf mlruns
 ```
+
+### Mémo git flow
+
+git flow release finish "nom"
+
+- premier vim -> merge sur main (:wq)
+- deuxième vim -> tag -> i -> 1.x -> Échap
+- deuxième vim -> merge sur develop (:wq)

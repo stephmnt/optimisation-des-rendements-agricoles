@@ -1,11 +1,11 @@
 preparation:
   paths:
-    AGRI_CROP_YIELD_PATH: data/crop_yield.csv
-    YIELD_PATH: data/Crop Yield Prediction Dataset/yield.csv
-    RAINFALL_PATH: data/Crop Yield Prediction Dataset/rainfall.csv
-    PESTICIDES_PATH: data/Crop Yield Prediction Dataset/pesticides.csv
-    TEMP_PATH: data/Crop Yield Prediction Dataset/temp.csv
-    YIELD_DF_AUDIT_PATH: data/Crop Yield Prediction Dataset/yield_df.csv
+    AGRI_CROP_YIELD_PATH: data/simulation/crop_yield.csv
+    YIELD_PATH: data/historique/yield.csv
+    RAINFALL_PATH: data/historique/rainfall.csv
+    PESTICIDES_PATH: data/historique/pesticides.csv
+    TEMP_PATH: data/historique/temp.csv
+    YIELD_DF_AUDIT_PATH: data/historique/yield_df.csv
     DATASET_PATH: data/dataset_consolide.csv
     ARTIFACTS_DIR: artifacts
     PCA_ARTIFACTS_DIR: artifacts/pca
