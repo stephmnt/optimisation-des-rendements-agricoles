@@ -96,6 +96,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Validate Hugging Face token
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "::error::Le secret GitHub Actions HF_TOKEN est absent."
+            exit 1
+          fi
+          case "$HF_TOKEN" in
+            hf_*) ;;
+            *)
+              echo "::error::HF_TOKEN ne ressemble pas a un token Hugging Face valide."
+              exit 1
+              ;;
+          esac
+
       - name: Build Space payload
         run: |
           rm -rf .hf_space_build
