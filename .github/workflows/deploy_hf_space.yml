@@ -6,8 +6,11 @@ on:
       - main
     paths:
       - ".github/workflows/deploy_hf_space.yml"
-      - "demo_streamlit/**"
-      - "tests/test_demo_streamlit_logic.py"
+      - ".dockerignore"
+      - "Dockerfile"
+      - "main.py"
+      - "streamlit/**"
+      - "tests/**"
       - "data/dataset_consolide.csv"
       - "agriculture.png"
       - "!notebooks/**"
@@ -26,13 +29,12 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r demo_streamlit/requirements.txt pytest
+          python -m pip install -r streamlit/requirements.txt pytest
 
       - name: Run pytest
-        run: pytest -q tests/test_demo_streamlit_logic.py
+        run: pytest -q tests
 
-  deploy:
-    if: github.ref == 'refs/heads/main'
+  build:
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -40,16 +42,104 @@ jobs:
 
       - name: Build Space payload
         run: |
-          rm -rf hf_space_build
-          mkdir -p hf_space_build/src hf_space_build/data
-          # Les notebooks restent dans le dépôt GitHub mais ne sont pas copiés vers le Space.
-          cp demo_streamlit/README.md hf_space_build/README.md
-          cp demo_streamlit/Dockerfile hf_space_build/Dockerfile
-          cp demo_streamlit/requirements.txt hf_space_build/requirements.txt
-          cp -R demo_streamlit/src/. hf_space_build/src/
-          cp data/dataset_consolide.csv hf_space_build/data/dataset_consolide.csv
+          rm -rf .hf_space_build
+          mkdir -p \
+            .hf_space_build/streamlit/src \
+            .hf_space_build/streamlit/icones \
+            .hf_space_build/data \
+            .hf_space_build/artifacts/models
+          cp Dockerfile .hf_space_build/Dockerfile
+          cp streamlit/requirements.txt .hf_space_build/streamlit/requirements.txt
+          cp -R streamlit/src/. .hf_space_build/streamlit/src/
+          cp -R streamlit/icones/. .hf_space_build/streamlit/icones/
+          cp data/dataset_consolide.csv .hf_space_build/data/dataset_consolide.csv
+          cp main.py .hf_space_build/main.py
+          touch .hf_space_build/artifacts/models/.keep
+          cat <<'EOF' > .hf_space_build/README.md
+          ---
+          title: Rendement Agricole
+          emoji: 🌾
+          colorFrom: green
+          colorTo: yellow
+          sdk: docker
+          app_port: 8501
+          tags:
+          - streamlit
+          - agriculture
+          pinned: false
+          short_description: Démo Streamlit et FastAPI de prédiction de rendement agricole
+          license: mit
+          ---
+          
+          # Rendement Agricole
+          
+          Ce Space Docker expose une interface Streamlit connectée à une API FastAPI interne dans le même conteneur.
+          
+          - UI Streamlit : port public `8501`
+          - API FastAPI : port interne `127.0.0.1:8000`
+          - modèle servi : artefact entraîné si disponible, sinon fallback Ridge entraîné depuis `data/dataset_consolide.csv`
+          EOF
+          if [ -f artifacts/models/best_pipeline.joblib ]; then
+            cp artifacts/models/best_pipeline.joblib .hf_space_build/artifacts/models/best_pipeline.joblib
+          fi
           if [ -f agriculture.png ]; then
-            cp agriculture.png hf_space_build/agriculture.png
+            cp agriculture.png .hf_space_build/agriculture.png
+          fi
+
+      - name: Build Docker image
+        run: docker build -t rendement-agricole-space:ci .hf_space_build
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Space payload
+        run: |
+          rm -rf .hf_space_build
+          mkdir -p \
+            .hf_space_build/streamlit/src \
+            .hf_space_build/streamlit/icones \
+            .hf_space_build/data \
+            .hf_space_build/artifacts/models
+          cp Dockerfile .hf_space_build/Dockerfile
+          cp streamlit/requirements.txt .hf_space_build/streamlit/requirements.txt
+          cp -R streamlit/src/. .hf_space_build/streamlit/src/
+          cp -R streamlit/icones/. .hf_space_build/streamlit/icones/
+          cp data/dataset_consolide.csv .hf_space_build/data/dataset_consolide.csv
+          cp main.py .hf_space_build/main.py
+          touch .hf_space_build/artifacts/models/.keep
+          cat <<'EOF' > .hf_space_build/README.md
+          ---
+          title: Rendement Agricole
+          emoji: 🌾
+          colorFrom: green
+          colorTo: yellow
+          sdk: docker
+          app_port: 8501
+          tags:
+          - streamlit
+          - agriculture
+          pinned: false
+          short_description: Démo Streamlit et FastAPI de prédiction de rendement agricole
+          license: mit
+          ---
+          
+          # Rendement Agricole
+          
+          Ce Space Docker expose une interface Streamlit connectée à une API FastAPI interne dans le même conteneur.
+          
+          - UI Streamlit : port public `8501`
+          - API FastAPI : port interne `127.0.0.1:8000`
+          - modèle servi : artefact entraîné si disponible, sinon fallback Ridge entraîné depuis `data/dataset_consolide.csv`
+          EOF
+          if [ -f artifacts/models/best_pipeline.joblib ]; then
+            cp artifacts/models/best_pipeline.joblib .hf_space_build/artifacts/models/best_pipeline.joblib
+          fi
+          if [ -f agriculture.png ]; then
+            cp agriculture.png .hf_space_build/agriculture.png
           fi
 
       - name: Sync to Hugging Face Space
@@ -60,4 +150,4 @@ jobs:
           hf_token: ${{ secrets.HF_TOKEN }}
           repo_type: space
           space_sdk: docker
-          subdirectory: hf_space_build
+          subdirectory: .hf_space_build

@@ -1,0 +1,23 @@
+.git
+.github
+.venv
+.pytest_cache
+__pycache__
+.hf_space_build
+hf_space_build
+*.pyc
+*.pyo
+*.pyd
+*.DS_Store
+
+artifacts/*
+!artifacts/models/
+artifacts/models/*
+!artifacts/models/best_pipeline.joblib
+notebooks
+ressources
+mlflow
+tests
+
+data/Agriculture Crop Yield.zip
+data/Crop Yield Prediction Dataset.zip
