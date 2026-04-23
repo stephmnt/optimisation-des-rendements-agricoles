@@ -67,7 +67,7 @@ jobs:
           - streamlit
           - agriculture
           pinned: false
-          short_description: Démo Streamlit et FastAPI de prédiction de rendement agricole
+          short_description: Démo Streamlit + FastAPI de rendement agricole
           license: mit
           ---
           
@@ -139,7 +139,7 @@ jobs:
           - streamlit
           - agriculture
           pinned: false
-          short_description: Démo Streamlit et FastAPI de prédiction de rendement agricole
+          short_description: Démo Streamlit + FastAPI de rendement agricole
           license: mit
           ---
           
