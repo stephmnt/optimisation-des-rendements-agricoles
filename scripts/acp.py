@@ -5,7 +5,7 @@ Usage :
 
 Role dans le projet :
 - `preparation.ipynb` reste le notebook de reference pour calculer l'ACP
-  de cadrage analytique sur `data/crop_yield.csv` et produire les artefacts dans
+  de cadrage analytique sur `data/simulation/crop_yield.csv` et produire les artefacts dans
   `artifacts/pca/`.
 - `rapport.ipynb` ne recalcule pas l'ACP : il relit uniquement les tableaux
   et figures présents dans `artifacts/pca/`.
