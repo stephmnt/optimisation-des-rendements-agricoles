@@ -49,6 +49,7 @@ jobs:
             .hf_space_build/data \
             .hf_space_build/artifacts/models
           cp Dockerfile .hf_space_build/Dockerfile
+          cp nginx.conf .hf_space_build/nginx.conf
           cp streamlit/requirements.txt .hf_space_build/streamlit/requirements.txt
           cp -R streamlit/src/. .hf_space_build/streamlit/src/
           cp -R streamlit/icones/. .hf_space_build/streamlit/icones/
@@ -121,6 +122,7 @@ jobs:
             .hf_space_build/data \
             .hf_space_build/artifacts/models
           cp Dockerfile .hf_space_build/Dockerfile
+          cp nginx.conf .hf_space_build/nginx.conf
           cp streamlit/requirements.txt .hf_space_build/streamlit/requirements.txt
           cp -R streamlit/src/. .hf_space_build/streamlit/src/
           cp -R streamlit/icones/. .hf_space_build/streamlit/icones/
