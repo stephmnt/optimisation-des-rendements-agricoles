@@ -32,7 +32,7 @@ jobs:
           python -m pip install -r streamlit/requirements.txt pytest
 
       - name: Run pytest
-        run: pytest -q tests
+        run: python -m pytest -q tests
 
   build:
     needs: test

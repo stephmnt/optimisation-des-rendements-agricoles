@@ -1,6 +1,9 @@
 # Optimisation des rendements agricoles
 
 [![Deploy Hugging Face Space](https://github.com/stephmnt/optimisation-des-rendements-agricoles/actions/workflows/deploy_hf_space.yml/badge.svg)](https://github.com/stephmnt/optimisation-des-rendements-agricoles/actions/workflows/deploy_hf_space.yml)
+[![GitHub Release Date](https://img.shields.io/github/release-date/stephmnt/optimisation-des-rendements-agricoles?display_date=published_at&style=flat-square)](https://github.com/stephmnt/optimisation-des-rendements-agricoles/releases)
+[![project_license](https://img.shields.io/github/license/stephmnt/optimisation-des-rendements-agricoles.svg)](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/LICENSE)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-stephanemanet-0A66C2?logo=linkedin&logoColor=white)](https://linkedin.com/in/stephanemanet)
 
 ## Application
 
@@ -60,33 +63,7 @@ Le Space Hugging Face utilise le [Dockerfile](/Users/steph/Code/Python/Jupyter/O
 
 ### Secrets et Variables GitHub Actions
 
-Le workflow utilise :
-
-- un seul secret GitHub Actions à créer : `HF_TOKEN`
-- aucune variable GitHub Actions personnalisée de type `vars.*`
-- aucun secret d'environnement GitHub distinct
-
-Configuration attendue pour `HF_TOKEN` :
-
-- type : Hugging Face User Access Token
-- permission minimale : écriture sur le Space `stephmnt/rendement_agricole`
-- emplacement GitHub : `Settings > Secrets and variables > Actions > New repository secret`
-
-Le workflow s'appuie aussi sur les contextes GitHub natifs suivants, qui ne nécessitent aucune configuration manuelle :
-
-- `${{ github.repository }}`
-- `${{ github.ref }}`
-
-Déclenchement :
-
-- push sur `main`
-- lancement manuel via `workflow_dispatch`
-
-Important :
-
-- `HF_TOKEN` n'est requis que pour le job de déploiement ;
-- les jobs `test` et `build` n'utilisent pas de secret ;
-- `API_BASE_URL`, `API_HOST`, `API_PORT`, `STREAMLIT_HOST` et `STREAMLIT_PORT` sont des variables d'exécution du conteneur Docker, pas des variables GitHub Actions.
+Le workflow utilise un seul secret GitHub Actions à créer : `HF_TOKEN`
 
 ### Audit des Requirements
 
