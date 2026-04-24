@@ -10,10 +10,10 @@
 Le dépôt embarque maintenant une architecture unique pour la démo et le déploiement :
 
 - Space : `stephmnt/rendement_agricole`
-- API FastAPI : [main.py](/Users/steph/Code/Python/Jupyter/OCR_Projet12/main.py)
-- interface Streamlit : [streamlit_app.py](/Users/steph/Code/Python/Jupyter/OCR_Projet12/streamlit/src/streamlit_app.py)
-- dépendances UI/runtime : [streamlit/requirements.txt](/Users/steph/Code/Python/Jupyter/OCR_Projet12/streamlit/requirements.txt)
-- environnement projet complet : [requirements.txt](/Users/steph/Code/Python/Jupyter/OCR_Projet12/requirements.txt)
+- API FastAPI : [main.py](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/main.py)
+- interface Streamlit : [streamlit_app.py](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/streamlit/src/streamlit_app.py)
+- dépendances UI/runtime : [streamlit/requirements.txt](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/streamlit/requirements.txt)
+- environnement projet complet : [requirements.txt](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/requirements.txt)
 
 Le conteneur Docker lance :
 
@@ -21,7 +21,7 @@ Le conteneur Docker lance :
 - Streamlit sur `8501` ;
 - Streamlit qui interroge FastAPI au lieu de recalculer un modèle côté front.
 
-Le démarrage du conteneur est défini directement dans le [Dockerfile](/Users/steph/Code/Python/Jupyter/OCR_Projet12/Dockerfile), et la construction du payload Hugging Face est définie directement dans [.github/workflows/deploy_hf_space.yml](/Users/steph/Code/Python/Jupyter/OCR_Projet12/.github/workflows/deploy_hf_space.yml).
+Le démarrage du conteneur est défini directement dans le [Dockerfile](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/Dockerfile), et la construction du payload Hugging Face est définie directement dans [.github/workflows/deploy_hf_space.yml](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/.github/workflows/deploy_hf_space.yml).
 
 ### Lancer en local
 
@@ -38,7 +38,7 @@ API_BASE_URL=http://127.0.0.1:8000 streamlit run streamlit/src/streamlit_app.py 
 
 ### Tester en Docker local
 
-Le [Dockerfile](/Users/steph/Code/Python/Jupyter/OCR_Projet12/Dockerfile) à la racine sert au runtime complet FastAPI + Streamlit :
+Le [Dockerfile](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/Dockerfile) à la racine sert au runtime complet FastAPI + Streamlit :
 
 ```bash
 docker build --no-cache -t rendement-agricole-space .
@@ -49,7 +49,7 @@ Puis ouvrir `http://localhost:8501`.
 
 ### Déployer sur Hugging Face
 
-Le workflow [deploy_hf_space.yml](/Users/steph/Code/Python/Jupyter/OCR_Projet12/.github/workflows/deploy_hf_space.yml) :
+Le workflow [deploy_hf_space.yml](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/.github/workflows/deploy_hf_space.yml) :
 
 1. installe les dépendances applicatives ;
 2. exécute `pytest` sur l'API et le client Streamlit ;
@@ -57,9 +57,9 @@ Le workflow [deploy_hf_space.yml](/Users/steph/Code/Python/Jupyter/OCR_Projet12/
 4. construit l'image Docker du Space ;
 5. synchronise ce payload vers `stephmnt/rendement_agricole`.
 
-Le dossier [notebooks](/Users/steph/Code/Python/Jupyter/OCR_Projet12/notebooks) reste dans le dépôt GitHub, mais il n'est pas recopié dans le payload envoyé sur Hugging Face.
+Le dossier [notebooks](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/notebooks) reste dans le dépôt GitHub, mais il n'est pas recopié dans le payload envoyé sur Hugging Face.
 
-Le Space Hugging Face utilise le [Dockerfile](/Users/steph/Code/Python/Jupyter/OCR_Projet12/Dockerfile) racine, recopié par le workflow dans `.hf_space_build/`.
+Le Space Hugging Face utilise le [Dockerfile](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/Dockerfile) racine, recopié par le workflow dans `.hf_space_build/`.
 
 ### Secrets et Variables GitHub Actions
 
@@ -67,17 +67,14 @@ Le workflow utilise un seul secret GitHub Actions à créer : `HF_TOKEN`
 
 ### Audit des Requirements
 
-L'audit des dépendances explicites a été vérifié avant push :
-
-- [streamlit/requirements.txt](/Users/steph/Code/Python/Jupyter/OCR_Projet12/streamlit/requirements.txt) contient les dépendances réellement nécessaires au runtime Docker/Hugging Face et à la CI de tests ;
+- [streamlit/requirements.txt](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/streamlit/requirements.txt) contient les dépendances réellement nécessaires au runtime Docker/Hugging Face et à la CI de tests ;
 - `httpx` y est conservé volontairement, car `fastapi.testclient.TestClient` en dépend pour la suite `pytest` ;
-- [requirements.txt](/Users/steph/Code/Python/Jupyter/OCR_Projet12/requirements.txt) reste l'environnement complet du projet : notebooks, MLflow, scripts d'analyse, API et Streamlit ;
+- [requirements.txt](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/requirements.txt) reste l'environnement complet du projet : notebooks, MLflow, scripts d'analyse, API et Streamlit ;
 - `xgboost` y est conservé volontairement, car il est encore utilisé dans les notebooks d'expérimentation du projet ;
 - aucune dépendance clairement obsolète n'a été conservée par erreur après le refactor FastAPI + Streamlit.
 
 ## Jeux de données
 
-Le brief de [mission.md](/Users/steph/Code/Python/Jupyter/OCR_Projet12/ressources/mission.md) distingue deux grands ensembles :
 
 - `Agriculture CropYield Dataset` : données de rendement utilisées pour l'analyse des facteurs clés ;
 - `CropYield Prediction Dataset` : données agronomiques et climatiques annuelles utilisées pour valider cette analyse et construire la base de modélisation.
@@ -86,15 +83,15 @@ Le tableau ci-dessous résume la nature de chaque fichier dans le projet.
 
 | Fichier | Type de données | Granularité | Rôle dans le projet |
 |---|---|---|---|
-| [crop_yield.csv](/Users/steph/Code/Python/Jupyter/OCR_Projet12/data/crop_yield.csv) | Données simulées de rendement par culture avec variables agronomiques associées. Présenté dans le brief comme un jeu de données de rendement historique, mais utilisé ici surtout comme jeu d'analyse amont très pédagogique. | Observation individuelle sans clé `area + year` exploitable | Analyse exploratoire, nettoyage, ACP, lecture métier des facteurs associés au rendement |
-| [yield.csv](/Users/steph/Code/Python/Jupyter/OCR_Projet12/data/Crop%20Yield%20Prediction%20Dataset/yield.csv) | Données historiques annuelles de rendement | `area + crop + year` | Table de base du dataset consolidé et source de la cible de modélisation |
-| [rainfall.csv](</Users/steph/Code/Python/Jupyter/OCR_Projet12/data/Crop Yield Prediction Dataset/rainfall.csv>) | Données historiques climatiques annuelles de pluie | `area + year` | Enrichissement climatique du dataset consolidé |
-| [temp.csv](</Users/steph/Code/Python/Jupyter/OCR_Projet12/data/Crop Yield Prediction Dataset/temp.csv>) | Données historiques climatiques annuelles de température | `area + year` après agrégation des doublons | Enrichissement climatique du dataset consolidé |
-| [pesticides.csv](</Users/steph/Code/Python/Jupyter/OCR_Projet12/data/Crop Yield Prediction Dataset/pesticides.csv>) | Données historiques annuelles d'intrants | `area + year` | Enrichissement agronomique du dataset consolidé |
-| [yield_df.csv](</Users/steph/Code/Python/Jupyter/OCR_Projet12/data/Crop Yield Prediction Dataset/yield_df.csv>) | Données historiques annuelles déjà enrichies | `area + crop + year` | Fichier d'audit et de validation du scénario de fusion, pas table de base |
-| [dataset_consolide.csv](/Users/steph/Code/Python/Jupyter/OCR_Projet12/data/dataset_consolide.csv) | Données consolidées produites par le projet | `area + crop + year` | Source de vérité pour la modélisation et l'API |
+| [crop_yield.csv](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/data/simulation/crop_yield.csv) | Données simulées de rendement par culture avec variables agronomiques associées. Présenté dans le brief comme un jeu de données de rendement historique, mais utilisé ici surtout comme jeu d'analyse amont très pédagogique. | Observation individuelle sans clé `area + year` exploitable | Analyse exploratoire, nettoyage, ACP, lecture métier des facteurs associés au rendement |
+| [yield.csv](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/data/historique/yield.csv) | Données historiques annuelles de rendement | `area + crop + year` | Table de base du dataset consolidé et source de la cible de modélisation |
+| [rainfall.csv](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/data/historique/rainfall.csv) | Données historiques climatiques annuelles de pluie | `area + year` | Enrichissement climatique du dataset consolidé |
+| [temp.csv](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/data/historique/temp.csv) | Données historiques climatiques annuelles de température | `area + year` après agrégation des doublons | Enrichissement climatique du dataset consolidé |
+| [pesticides.csv](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/data/historique/pesticides.csv) | Données historiques annuelles d'intrants | `area + year` | Enrichissement agronomique du dataset consolidé |
+| [yield_df.csv](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/data/historique/yield_df.csv) | Données historiques annuelles déjà enrichies | `area + crop + year` | Fichier d'audit et de validation du scénario de fusion, pas table de base |
+| [dataset_consolide.csv](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/data/historique/dataset_consolide.csv) | Données consolidées produites par le projet | `area + crop + year` | Source de vérité pour la modélisation et l'API |
 
-Les chemins de ces fichiers sont centralisés dans [project_paths.yaml](/Users/steph/Code/Python/Jupyter/OCR_Projet12/config/project_paths.yaml). Les notebooks et scripts du projet doivent s'appuyer sur cette configuration plutôt que sur des chemins codés en dur.
+Les chemins de ces fichiers sont centralisés dans [project_paths.yaml](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/data/historique/). Les notebooks et scripts du projet doivent s'appuyer sur cette configuration plutôt que sur des chemins codés en dur.
 
 ## Générer le rapport
 

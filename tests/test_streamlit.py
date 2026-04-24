@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import sys
+from io import BytesIO
 from pathlib import Path
 from urllib.parse import urlsplit
 
 import requests
 from fastapi.testclient import TestClient
+from PIL import Image
 
 import main
 from main import PredictRequest, RecommendRequest, RecommendationItem
@@ -131,6 +133,20 @@ def test_crop_icon_path_uses_top_level_icones_directory() -> None:
     assert maize_icon.parent.name == "icones"
     assert wheat_icon.parent.name == "icones"
     assert maize_icon.name == "corn.png"
+
+
+def test_load_image_for_display_bounds_app_image_to_128_pixels(tmp_path: Path) -> None:
+    image_path = tmp_path / "agriculture.png"
+    Image.new("RGB", (640, 360), color="green").save(image_path)
+
+    payload = streamlit_app.load_image_for_display(
+        str(image_path),
+        max_size=streamlit_app.APP_IMAGE_MAX_SIZE,
+    )
+
+    with Image.open(BytesIO(payload.getvalue())) as resized:
+        assert resized.width <= 128
+        assert resized.height <= 128
 
 
 def test_predict_yield_raises_api_error_when_backend_is_unreachable(monkeypatch) -> None:

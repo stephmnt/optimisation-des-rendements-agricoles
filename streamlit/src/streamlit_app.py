@@ -14,6 +14,7 @@ from PIL import Image
 SPACE_ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = SPACE_ROOT.parent
 DEFAULT_API_TIMEOUT_SECONDS = 15
+APP_IMAGE_MAX_SIZE = (128, 128)
 ICON_MAX_SIZE = (64, 64)
 
 
@@ -200,16 +201,6 @@ def format_recommendations_for_display(recommendations: pd.DataFrame) -> pd.Data
     return display_df[["Culture", "Rendement prédit (t/ha)", "Production totale prédite (tonnes)"]]
 
 
-def display_stretch_image(image_path: str) -> None:
-    try:
-        st.image(image_path, width="stretch")
-    except TypeError:
-        try:
-            st.image(image_path, use_container_width=True)
-        except TypeError:
-            st.image(image_path, use_column_width=True)
-
-
 def display_stretch_dataframe(data) -> None:
     try:
         st.dataframe(data, width="stretch")
@@ -224,7 +215,7 @@ def display_stretch_bar_chart(data) -> None:
         st.bar_chart(data, use_container_width=True)
 
 
-def load_icon_for_display(image_path: str, max_size: tuple[int, int] = ICON_MAX_SIZE) -> BytesIO:
+def load_image_for_display(image_path: str, max_size: tuple[int, int]) -> BytesIO:
     with Image.open(image_path) as image:
         prepared = image.copy()
     prepared.thumbnail(max_size)
@@ -232,6 +223,14 @@ def load_icon_for_display(image_path: str, max_size: tuple[int, int] = ICON_MAX_
     prepared.save(buffer, format="PNG")
     buffer.seek(0)
     return buffer
+
+
+def load_icon_for_display(image_path: str, max_size: tuple[int, int] = ICON_MAX_SIZE) -> BytesIO:
+    return load_image_for_display(image_path, max_size=max_size)
+
+
+def display_bounded_image(image_path: str, max_size: tuple[int, int] = APP_IMAGE_MAX_SIZE) -> None:
+    st.image(load_image_for_display(image_path, max_size=max_size))
 
 
 @st.cache_data(show_spinner=False)
@@ -264,16 +263,10 @@ def main() -> None:
 
     st.title("Rendement Agricole")
     st.caption(
-        "Interface Streamlit découplée : les formulaires interrogent l'API FastAPI "
-        "interne du conteneur Docker."
-    )
-    st.info(
-        f"Année utilisée dans les scénarios : {year_used}. "
-        f"Source du modèle côté API : {base_metadata.get('model_source', 'inconnue')}."
+        "Obtenir les prédictions de rendement et les recommandations de cultures."
     )
 
-    if DEFAULT_IMAGE_PATH.exists():
-        display_stretch_image(str(DEFAULT_IMAGE_PATH))
+    display_bounded_image(str(DEFAULT_IMAGE_PATH))
 
     st.sidebar.header("Contexte de simulation")
     selected_area = st.sidebar.selectbox("Zone", areas)
