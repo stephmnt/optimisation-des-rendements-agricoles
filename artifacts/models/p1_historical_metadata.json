@@ -6,7 +6,7 @@
   "search_family": "random_forest_focus",
   "tuning_stage": "targeted_search",
   "regularization_profile": "manual_targeted_search",
-  "trained_at_utc": "2026-05-04T15:24:36.220043+00:00",
+  "trained_at_utc": "2026-05-06T16:17:51.044344+00:00",
   "dataset_source": "/Users/steph/Code/Python/Jupyter/OCR_Projet12/artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv",
   "target_year": 2016,
   "target_column": "target_yield_t_ha_2016",
@@ -100,11 +100,11 @@
   "split_strategy": "GroupShuffleSplit(area, test_size=0.2, random_state=42)",
   "metrics": {
     "test_rmse": 2.0567290945222525,
-    "test_mae": 0.803685316179513,
+    "test_mae": 0.8036853161795128,
     "test_r2": 0.9469692315080867,
-    "cv_val_rmse_mean": 1.5918897323750298,
+    "cv_val_rmse_mean": 1.5918897323750296,
     "cv_val_mae_mean": 0.6402693687442532,
     "cv_val_r2_mean": 0.9618082601070855
   },
-  "mlflow_run_id": "ac8b6a704b864909b2b6495f78063f33"
+  "mlflow_run_id": "63f009fb085d45f8b92db2004fabcea7"
 }

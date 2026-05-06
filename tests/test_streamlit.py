@@ -1,3 +1,5 @@
+"""Tests du client Streamlit et de ses helpers de presentation."""
+
 from __future__ import annotations
 
 import sys
@@ -21,6 +23,8 @@ import streamlit_app
 
 
 class FakeAdjustedYieldService:
+    """Double de test du service metier pour les tests Streamlit."""
+
     available_areas = ["France", "Kenya"]
     available_crops = ["Maize", "Rice, paddy", "Wheat"]
     crops_by_area = {
@@ -47,6 +51,7 @@ class FakeAdjustedYieldService:
     }
 
     def get_baseline(self, area: str, crop: str, *, reference_overrides=None) -> dict[str, object]:
+        """Retourne un baseline deterministic pour les tests Streamlit."""
         return {
             "country": area,
             "crop": crop,
@@ -61,6 +66,7 @@ class FakeAdjustedYieldService:
         }
 
     def predict_adjusted_yield(self, area: str, crop: str, user_conditions: dict[str, object], *, reference_overrides=None) -> dict[str, object]:
+        """Retourne une prediction ajustee deterministic pour les tests Streamlit."""
         reference_profile = {
             **self.simulation_global_reference,
             **(reference_overrides or {}),
@@ -148,20 +154,25 @@ class FakeAdjustedYieldService:
 
 
 class RequestsCompatibleResponse:
+    """Adaptateur minimal pour simuler `requests.Response` dans les tests."""
+
     def __init__(self, response) -> None:
         self._response = response
 
     def raise_for_status(self) -> None:
+        """Releve les erreurs HTTP au format attendu par `requests`."""
         try:
             self._response.raise_for_status()
         except Exception as exc:
             raise requests.HTTPError(str(exc)) from exc
 
     def json(self):
+        """Retourne le corps JSON de la reponse proxifiee."""
         return self._response.json()
 
 
 def _bridge_request(client: TestClient):
+    """Redirige les appels `requests` du client Streamlit vers le TestClient FastAPI."""
     def request(method: str, url: str, timeout: int = 15, **kwargs):
         del timeout
         parsed = urlsplit(url)
@@ -249,12 +260,73 @@ def test_format_recommendations_for_display_exposes_new_columns() -> None:
     assert display_df.columns.tolist() == [
         "Rang",
         "Culture",
-        "P1 historique (t/ha)",
-        "P2 référence",
-        "P3 utilisateur",
-        "Ajustement local",
+        "Rendement historique estimé (t/ha)",
+        "Rendement de référence (t/ha)",
+        "Rendement avec vos conditions (t/ha)",
+        "Impact des conditions locales (t/ha)",
         "Écart vs historique (%)",
-        "Rendement final (t/ha)",
+        "Rendement final estimé (t/ha)",
+    ]
+
+
+def test_business_labels_translate_soil_weather_and_region() -> None:
+    assert streamlit_app.translate_region_name("North") == "Nord"
+    assert streamlit_app.translate_soil_type("Clay") == "Argileux"
+    assert streamlit_app.translate_weather_condition("Sunny") == "Ensoleillé"
+
+
+def test_condition_profiles_comparison_frame_formats_values_for_business_users() -> None:
+    frame = streamlit_app.condition_profiles_comparison_frame(
+        {
+            "region": "North",
+            "soil_type": "Sandy",
+            "rainfall_mm": 620.0,
+            "temperature_celsius": 21.0,
+            "fertilizer_used": True,
+            "irrigation_used": False,
+            "weather_condition": "Sunny",
+            "days_to_harvest": 110.0,
+        },
+        {
+            "region": "North",
+            "soil_type": "Clay",
+            "rainfall_mm": 540.0,
+            "temperature_celsius": 24.0,
+            "fertilizer_used": True,
+            "irrigation_used": True,
+            "weather_condition": "Rainy",
+            "days_to_harvest": 95.0,
+        },
+    )
+
+    soil_row = frame.loc[frame["Paramètre"] == "Type de sol"].iloc[0]
+    weather_row = frame.loc[frame["Paramètre"] == "Météo dominante"].iloc[0]
+    irrigation_row = frame.loc[frame["Paramètre"] == "Irrigation"].iloc[0]
+
+    assert soil_row["Référence"] == "Sableux"
+    assert soil_row["Votre parcelle"] == "Argileux"
+    assert weather_row["Votre parcelle"] == "Pluvieux"
+    assert irrigation_row["Référence"] == "Non"
+    assert irrigation_row["Votre parcelle"] == "Oui"
+
+
+def test_prediction_breakdown_frame_uses_business_friendly_labels() -> None:
+    breakdown_df = streamlit_app.prediction_breakdown_frame(
+        {
+            "p1_historical_prediction": 5.25,
+            "p2_reference_simulation": 6.00,
+            "p3_user_simulation": 6.85,
+            "local_adjustment": 0.85,
+            "final_prediction": 6.10,
+        }
+    )
+
+    assert breakdown_df["composant"].tolist() == [
+        "Rendement historique estimé",
+        "Rendement de référence",
+        "Rendement avec vos conditions",
+        "Impact de vos conditions",
+        "Rendement final estimé",
     ]
 
 

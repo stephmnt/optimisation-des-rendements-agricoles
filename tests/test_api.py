@@ -1,3 +1,5 @@
+"""Tests des endpoints FastAPI exposes par l'application finale."""
+
 from __future__ import annotations
 
 import pandas as pd
@@ -7,6 +9,8 @@ import main
 
 
 class FakeAdjustedYieldService:
+    """Double de test du service metier pour isoler l'API."""
+
     available_areas = ["France", "Kenya"]
     available_crops = ["Maize", "Rice, paddy", "Wheat"]
     crops_by_area = {
@@ -33,6 +37,7 @@ class FakeAdjustedYieldService:
     }
 
     def get_baseline(self, area: str, crop: str, *, reference_overrides=None) -> dict[str, object]:
+        """Retourne un baseline deterministic pour les tests API."""
         assert area
         assert crop
         return {
@@ -49,6 +54,7 @@ class FakeAdjustedYieldService:
         }
 
     def predict_adjusted_yield(self, area: str, crop: str, user_conditions: dict[str, object], *, reference_overrides=None) -> dict[str, object]:
+        """Retourne une prediction ajustee deterministic pour les tests API."""
         assert area
         assert crop
         assert "rainfall_mm" in user_conditions
@@ -115,6 +121,7 @@ class FakeAdjustedYieldService:
         *,
         reference_overrides=None,
     ) -> pd.DataFrame:
+        """Retourne un classement deterministic pour les tests API."""
         del user_conditions
         del reference_overrides
         crops = candidate_crops or self.crops_by_area[area]

@@ -1,3 +1,5 @@
+"""Tests des helpers de journalisation MLflow du projet."""
+
 from __future__ import annotations
 
 import json
@@ -9,6 +11,8 @@ from scripts.mlflow_logging import EvaluationPredictionLookupModel, sanitize_log
 
 
 class _FakeContext:
+    """Contexte pyfunc minimal utilise pour simuler les artefacts MLflow."""
+
     def __init__(self, *, predictions: Path, specification: Path) -> None:
         self.artifacts = {
             "predictions": str(predictions),

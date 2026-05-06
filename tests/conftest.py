@@ -1,3 +1,5 @@
+"""Configuration pytest commune pour le projet."""
+
 from __future__ import annotations
 
 import sys

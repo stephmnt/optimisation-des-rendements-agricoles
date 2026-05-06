@@ -1,3 +1,9 @@
+"""Exporte un registered model MLflow vers un artefact local versionne.
+
+Le script applique volontairement une selection stricte du modele source pour
+eviter les exports ambigus quand le registre MLflow contient plusieurs modeles.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -19,6 +25,7 @@ DEFAULT_METADATA_OUTPUT_PATH = PROJECT_ROOT / "artifacts" / "models" / "best_pip
 
 
 def parse_args() -> argparse.Namespace:
+    """Construit l'interface en ligne de commande du script d'export."""
     parser = argparse.ArgumentParser(
         description=(
             "Exporte un registered model MLflow vers artifacts/models/best_pipeline.joblib. "
@@ -54,6 +61,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def project_relative_path(path: Path) -> str:
+    """Retourne un chemin relatif au projet si possible."""
     resolved = path.resolve()
     try:
         return str(resolved.relative_to(PROJECT_ROOT))
@@ -62,10 +70,20 @@ def project_relative_path(path: Path) -> str:
 
 
 def normalize_registered_model_names(models: list[Any]) -> list[str]:
+    """Extrait et trie les noms de registered models MLflow."""
     return sorted(str(model.name) for model in models)
 
 
 def resolve_registered_model_name(available_names: list[str], requested_name: str | None = None) -> str:
+    """Selectionne un registered model de maniere non ambigue.
+
+    Args:
+        available_names: Noms presents dans le registre MLflow.
+        requested_name: Nom explicitement demande, si fourni.
+
+    Returns:
+        str: Nom du registered model retenu.
+    """
     if requested_name:
         if requested_name not in available_names:
             available = ", ".join(available_names) if available_names else "aucun"
@@ -93,11 +111,13 @@ def resolve_registered_model_name(available_names: list[str], requested_name: st
 
 
 def _version_sort_key(version: str) -> tuple[int, str]:
+    """Produit une cle de tri robuste pour les versions MLflow."""
     value = str(version)
     return (int(value), value) if value.isdigit() else (-1, value)
 
 
 def resolve_model_version(versions: list[Any], requested_version: str | None = None) -> Any:
+    """Selectionne la version a exporter pour un registered model donne."""
     if requested_version is not None:
         for version in versions:
             if str(version.version) == str(requested_version):
@@ -114,12 +134,14 @@ def resolve_model_version(versions: list[Any], requested_version: str | None = N
 
 
 def read_json_if_exists(path: Path) -> dict[str, Any]:
+    """Charge un JSON local si present, sinon retourne un dictionnaire vide."""
     if not path.exists():
         return {}
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def json_ready(value: Any) -> Any:
+    """Convertit recursivement les types Python en valeurs serialisables JSON."""
     if isinstance(value, dict):
         return {str(key): json_ready(item) for key, item in value.items()}
     if isinstance(value, list):
@@ -142,6 +164,19 @@ def build_export_metadata(
     model_output_path: Path,
     source_run: Any | None,
 ) -> dict[str, Any]:
+    """Construit les metadonnees de tracabilite de l'export local.
+
+    Args:
+        existing_metadata: Metadonnees deja presentes sur disque.
+        registered_model_name: Nom du registered model exporte.
+        model_version: Version MLflow exportee.
+        tracking_uri: Tracking URI source.
+        model_output_path: Chemin du joblib genere.
+        source_run: Run MLflow source, si disponible.
+
+    Returns:
+        dict[str, Any]: Metadonnees consolidees de l'export.
+    """
     metadata = dict(existing_metadata)
 
     metadata.update(
@@ -179,6 +214,7 @@ def export_registered_model(
     model_version: Any,
     model_output_path: Path,
 ) -> None:
+    """Charge un modele depuis MLflow et l'exporte en `joblib` local."""
     mlflow.set_tracking_uri(tracking_uri)
     model_uri = f"models:/{registered_model_name}/{model_version.version}"
     estimator = mlflow.sklearn.load_model(model_uri)
@@ -187,6 +223,7 @@ def export_registered_model(
 
 
 def main() -> None:
+    """Execute l'export du registered model depuis la CLI."""
     args = parse_args()
     tracking_uri = str(args.tracking_uri)
     model_output_path = Path(args.output_model_path).resolve()

@@ -1,3 +1,10 @@
+"""Assemble la logique metier finale de prediction et de recommandation.
+
+Le module combine un modele historique `P1` et un modele local `P2/P3` pour
+produire un rendement ajuste, une explication interpretable et un classement de
+cultures candidates.
+"""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -42,11 +49,14 @@ SIMULATION_FEATURE_COLUMNS = [
 
 @dataclass
 class LoadedModel:
+    """Couple simple contenant un pipeline charge et ses metadonnees."""
+
     pipeline: Pipeline
     metadata: dict[str, Any]
 
 
 def _resolve_path(path: str | Path) -> Path:
+    """Resout un chemin absolu ou relatif par rapport au depot."""
     raw_path = Path(path)
     if raw_path.is_absolute():
         return raw_path
@@ -54,10 +64,12 @@ def _resolve_path(path: str | Path) -> Path:
 
 
 def _ensure_parent_dir(path: Path) -> None:
+    """Cree le dossier parent d'un artefact si necessaire."""
     path.parent.mkdir(parents=True, exist_ok=True)
 
 
 def _json_ready(value: Any) -> Any:
+    """Convertit les types numpy et pandas en types JSON-compatibles."""
     if isinstance(value, (np.floating, np.integer)):
         return value.item()
     if isinstance(value, np.ndarray):
@@ -72,10 +84,12 @@ def _json_ready(value: Any) -> Any:
 
 
 def _safe_float(value: Any) -> float:
+    """Convertit de maniere defensive un scalaire potentiel en `float`."""
     return float(np.asarray(value).reshape(-1)[0])
 
 
 def _value_for_display(value: Any) -> Any:
+    """Normalise une valeur pour l'affichage ou la serialisation."""
     if pd.isna(value):
         return None
     if isinstance(value, (np.floating, np.integer)):
@@ -84,6 +98,7 @@ def _value_for_display(value: Any) -> Any:
 
 
 def make_dense_onehot_encoder() -> OneHotEncoder:
+    """Construit un `OneHotEncoder` dense compatible avec plusieurs versions sklearn."""
     try:
         return OneHotEncoder(handle_unknown="ignore", sparse_output=False)
     except TypeError:
@@ -91,6 +106,14 @@ def make_dense_onehot_encoder() -> OneHotEncoder:
 
 
 def build_preprocessor(feature_frame: pd.DataFrame) -> ColumnTransformer:
+    """Construit le preprocesseur commun aux modeles tabulaires.
+
+    Args:
+        feature_frame: Table de caracteristiques de reference.
+
+    Returns:
+        ColumnTransformer: Pipeline de pretraitement numerique et categoriel.
+    """
     numeric_features = feature_frame.select_dtypes(include=np.number).columns.tolist()
     categorical_features = [col for col in feature_frame.columns if col not in numeric_features]
 
@@ -120,6 +143,7 @@ def build_preprocessor(feature_frame: pd.DataFrame) -> ColumnTransformer:
 
 
 def compute_regression_metrics(y_true: pd.Series | np.ndarray, y_pred: np.ndarray) -> dict[str, float]:
+    """Calcule les metriques de regression standard du projet."""
     y_true_array = np.asarray(y_true, dtype=float)
     y_pred_array = np.asarray(y_pred, dtype=float)
     rmse = float(np.sqrt(mean_squared_error(y_true_array, y_pred_array)))
@@ -133,10 +157,12 @@ def compute_regression_metrics(y_true: pd.Series | np.ndarray, y_pred: np.ndarra
 
 
 def normalize_label(value: Any) -> str:
+    """Normalise une etiquette textuelle issue des datasets ou de l'API."""
     return str(value).strip()
 
 
 def load_historical_wide_dataset(dataset_path: str | Path = HISTORICAL_WIDE_DATASET_PATH) -> pd.DataFrame:
+    """Charge le dataset historique consolide utilise par la brique P1."""
     path = _resolve_path(dataset_path)
     historical_df = pd.read_csv(path)
     historical_df["area"] = historical_df["area"].map(normalize_label)
@@ -148,6 +174,7 @@ def load_historical_model(
     model_path: str | Path = HISTORICAL_MODEL_PATH,
     metadata_path: str | Path = HISTORICAL_METADATA_PATH,
 ) -> LoadedModel:
+    """Charge le pipeline historique et ses metadonnees."""
     resolved_model_path = _resolve_path(model_path)
     resolved_metadata_path = _resolve_path(metadata_path)
 
@@ -164,6 +191,7 @@ def load_historical_model(
 def load_and_prepare_simulation_dataset(
     simulation_path: str | Path = SIMULATION_DATASET_PATH,
 ) -> pd.DataFrame:
+    """Charge et normalise le dataset de simulation locale."""
     simulation_df = pd.read_csv(_resolve_path(simulation_path)).rename(
         columns={
             "Region": "region",
@@ -195,6 +223,7 @@ def _fit_simulation_pipeline(
     feature_columns: list[str] | None = None,
     sample_size: int = SIMULATION_SAMPLE_SIZE,
 ) -> dict[str, Any]:
+    """Entraine le modele lineaire local utilise pour P2 et P3."""
     selected_features = feature_columns or SIMULATION_FEATURE_COLUMNS
     sampled_df = simulation_df.sample(n=min(sample_size, len(simulation_df)), random_state=SEED).copy()
 
@@ -261,6 +290,19 @@ def load_or_train_simulation_model(
     metadata_path: str | Path = SIMULATION_METADATA_PATH,
     sample_size: int = SIMULATION_SAMPLE_SIZE,
 ) -> tuple[LoadedModel, pd.DataFrame]:
+    """Charge ou regenere le modele local de simulation.
+
+    Args:
+        force_retrain: Force le reentrainement meme si les artefacts existent.
+        save_artifact: Ecrit les artefacts sur disque si `True`.
+        simulation_path: Source tabulaire du modele local.
+        model_path: Chemin cible du pipeline serialize.
+        metadata_path: Chemin cible des metadonnees JSON.
+        sample_size: Taille maximale de l'echantillon d'entrainement.
+
+    Returns:
+        tuple[LoadedModel, pd.DataFrame]: Modele local et dataset normalise.
+    """
     resolved_model_path = _resolve_path(model_path)
     resolved_metadata_path = _resolve_path(metadata_path)
     simulation_df = load_and_prepare_simulation_dataset(simulation_path)
@@ -290,6 +332,7 @@ def infer_target_year_from_metadata_or_dataset(
     historical_metadata: dict[str, Any],
     historical_df: pd.DataFrame,
 ) -> int:
+    """Determine l'annee cible du modele historique."""
     target_year = historical_metadata.get("target_year")
     if target_year is not None:
         return int(target_year)
@@ -306,6 +349,7 @@ def infer_target_year_from_metadata_or_dataset(
 
 
 def latest_available_from_row(row: pd.Series, prefix: str, years: list[int]) -> tuple[float, int | None]:
+    """Recupere la derniere valeur non nulle disponible pour une serie annuelle."""
     for year in sorted(years, reverse=True):
         value = row.get(f"{prefix}_{year}", np.nan)
         if pd.notna(value):
@@ -318,6 +362,7 @@ def build_historical_reference_frame(
     *,
     target_year: int,
 ) -> pd.DataFrame:
+    """Construit les reperes climatiques utilises comme reference locale."""
     feature_years = [year for year in range(target_year) if year >= 0]
     rainfall_years = [
         year for year in feature_years if f"average_rain_fall_mm_per_year_{year}" in historical_df.columns
@@ -345,6 +390,7 @@ def build_historical_reference_frame(
 
 
 def build_simulation_global_reference(simulation_df: pd.DataFrame) -> dict[str, Any]:
+    """Construit un profil global median/modal pour le modele de simulation."""
     return {
         "region": simulation_df["region"].mode().iloc[0],
         "soil_type": simulation_df["soil_type"].mode().iloc[0],
@@ -364,6 +410,12 @@ def build_reference_profile_from_row(
     selected_simulation_features: list[str],
     overrides: dict[str, Any] | None = None,
 ) -> tuple[pd.DataFrame, dict[str, str]]:
+    """Construit le profil de reference local pour un couple pays/culture.
+
+    Returns:
+        tuple[pd.DataFrame, dict[str, str]]: Profil pret pour l'inference et
+        informations de provenance des references pluie/temperature.
+    """
     rainfall_source = (
         "row_latest_history"
         if pd.notna(row["reference_rainfall_mm"])
@@ -406,6 +458,8 @@ def build_reference_profile_from_row(
 
 
 class AdjustedYieldService:
+    """Service metier principal expose a l'API et a l'interface Streamlit."""
+
     def __init__(
         self,
         *,
@@ -417,6 +471,7 @@ class AdjustedYieldService:
         simulation_metadata_path: str | Path = SIMULATION_METADATA_PATH,
         force_retrain_simulation: bool = False,
     ) -> None:
+        """Initialise les modeles, datasets et catalogues utiles au runtime."""
         self.context = _load_prediction_context(
             historical_dataset_path=historical_dataset_path,
             historical_model_path=historical_model_path,
@@ -451,6 +506,7 @@ class AdjustedYieldService:
         self._historical_shap_state: dict[str, Any] | None = None
 
     def _sanitize_overrides(self, overrides: dict[str, Any] | None = None) -> dict[str, Any]:
+        """Nettoie les surcharges de conditions avant utilisation."""
         if not overrides:
             return {}
 
@@ -468,9 +524,11 @@ class AdjustedYieldService:
         return cleaned
 
     def _get_row(self, area: str, crop: str) -> pd.Series:
+        """Recupere la ligne historique unique correspondant au couple demande."""
         return _get_area_crop_row(self.strategy_df, area=area, crop=crop)
 
     def _predict_p1(self, row: pd.Series) -> float:
+        """Calcule la prediction historique P1 a partir d'une ligne consolidee."""
         return _predict_p1_from_row(row, self.historical_model, self.historical_metadata)
 
     def _map_transformed_feature_to_raw_feature(
@@ -478,6 +536,7 @@ class AdjustedYieldService:
         transformed_feature_name: str,
         raw_feature_names: list[str],
     ) -> str:
+        """Ramene un nom de feature transformee vers sa variable brute d'origine."""
         candidates = [transformed_feature_name]
         if "__" in transformed_feature_name:
             parts = transformed_feature_name.split("__")
@@ -496,6 +555,7 @@ class AdjustedYieldService:
         contribution_values: np.ndarray,
         raw_feature_names: list[str],
     ) -> dict[str, float]:
+        """Agrege les contributions encodees par modalite au niveau variable brute."""
         aggregated: dict[str, float] = {}
         for transformed_feature_name, contribution_value in zip(transformed_feature_names, contribution_values):
             raw_feature_name = self._map_transformed_feature_to_raw_feature(
@@ -506,6 +566,7 @@ class AdjustedYieldService:
         return aggregated
 
     def _ensure_historical_shap_state(self) -> dict[str, Any]:
+        """Initialise a la demande l'etat SHAP du modele historique."""
         if self._historical_shap_state is not None:
             return self._historical_shap_state
 
@@ -561,6 +622,7 @@ class AdjustedYieldService:
         p1_prediction: float,
         top_n: int = 10,
     ) -> dict[str, Any]:
+        """Produit l'explication SHAP agregee de la prediction P1."""
         shap_state = self._ensure_historical_shap_state()
         if not shap_state["available"]:
             return {
@@ -620,6 +682,7 @@ class AdjustedYieldService:
         p3_prediction: float,
         top_n: int = 10,
     ) -> dict[str, Any]:
+        """Decompose lineairement l'ajustement local applique entre P2 et P3."""
         preprocessor = self.simulation_model.named_steps["preprocessor"]
         regressor = self.simulation_model.named_steps["regressor"]
         transformed_feature_names = list(preprocessor.get_feature_names_out())
@@ -666,6 +729,7 @@ class AdjustedYieldService:
         *,
         reference_overrides: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
+        """Retourne le profil de reference local pour un pays et une culture."""
         row = self._get_row(area, crop)
         normalized_reference_overrides = self._sanitize_overrides(reference_overrides)
         reference_profile, reference_sources = build_reference_profile_from_row(
@@ -688,6 +752,7 @@ class AdjustedYieldService:
         *,
         reference_overrides: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
+        """Retourne la prediction historique de base et son profil de reference."""
         row = self._get_row(area, crop)
         reference_payload = self.get_reference_profile(
             area,
@@ -713,6 +778,18 @@ class AdjustedYieldService:
         *,
         reference_overrides: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
+        """Calcule le rendement final ajuste pour une culture donnee.
+
+        Args:
+            area: Pays ou zone retenue.
+            crop: Culture cible.
+            user_conditions: Conditions locales saisies par l'utilisateur.
+            reference_overrides: Surcharges appliquees au profil de reference.
+
+        Returns:
+            dict[str, Any]: Detail complet des composantes P1, P2, P3 et des
+            explications associees.
+        """
         row = self._get_row(area, crop)
         normalized_reference_overrides = self._sanitize_overrides(reference_overrides)
         normalized_user_conditions = self._sanitize_overrides(user_conditions)
@@ -776,6 +853,7 @@ class AdjustedYieldService:
         *,
         reference_overrides: dict[str, Any] | None = None,
     ) -> pd.DataFrame:
+        """Classe les cultures candidates pour un pays et des conditions locales."""
         normalized_area = normalize_label(area)
         area_rows = self.strategy_df.loc[self.strategy_df["area"] == normalized_area].copy()
         if area_rows.empty:
@@ -863,6 +941,7 @@ def _load_prediction_context(
     simulation_metadata_path: str | Path = SIMULATION_METADATA_PATH,
     force_retrain_simulation: bool = False,
 ) -> dict[str, Any]:
+    """Charge l'ensemble des briques necessaires au runtime final."""
     historical_loaded = load_historical_model(
         model_path=historical_model_path,
         metadata_path=historical_metadata_path,
@@ -897,12 +976,14 @@ def _predict_p1_from_row(
     historical_model: Pipeline,
     historical_metadata: dict[str, Any],
 ) -> float:
+    """Projette une ligne historique consolidee dans le modele P1."""
     feature_columns = historical_metadata["feature_columns"]
     feature_frame = pd.DataFrame([row[feature_columns].to_dict()])[feature_columns]
     return float(historical_model.predict(feature_frame)[0])
 
 
 def _get_area_crop_row(strategy_df: pd.DataFrame, area: str, crop: str) -> pd.Series:
+    """Retourne la ligne unique correspondant a un couple pays/culture."""
     normalized_area = normalize_label(area)
     normalized_crop = normalize_label(crop)
     filtered = strategy_df.loc[
@@ -930,6 +1011,7 @@ def predict_adjusted_yield(
     simulation_metadata_path: str | Path = SIMULATION_METADATA_PATH,
     force_retrain_simulation: bool = False,
 ) -> dict[str, Any]:
+    """Helper procedural pour calculer un rendement ajuste sans gerer le service."""
     service = AdjustedYieldService(
         historical_dataset_path=historical_dataset_path,
         historical_model_path=historical_model_path,
@@ -954,6 +1036,7 @@ def recommend_crops(
     simulation_metadata_path: str | Path = SIMULATION_METADATA_PATH,
     force_retrain_simulation: bool = False,
 ) -> pd.DataFrame:
+    """Helper procedural pour classer les cultures candidates."""
     service = AdjustedYieldService(
         historical_dataset_path=historical_dataset_path,
         historical_model_path=historical_model_path,

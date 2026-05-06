@@ -1,3 +1,5 @@
+"""Helpers MLflow pour journaliser des modeles et des predictions evaluees."""
+
 from __future__ import annotations
 
 import json
@@ -11,7 +13,14 @@ import pandas as pd
 
 
 def sanitize_logged_model_name(raw_name: str) -> str:
-    """Return a stable MLflow logged-model name derived from a run/model name."""
+    """Construit un nom de modele MLflow stable a partir d'un identifiant brut.
+
+    Args:
+        raw_name: Nom de run ou de modele d'origine.
+
+    Returns:
+        str: Nom nettoye et compatible avec MLflow.
+    """
     candidate = str(raw_name).strip()
     if "::" in candidate:
         candidate = candidate.rsplit("::", 1)[-1]
@@ -30,7 +39,15 @@ def sanitize_logged_model_name(raw_name: str) -> str:
 
 
 def log_named_sklearn_model(estimator: Any, *, model_name: str) -> str:
-    """Log a scikit-learn model under a meaningful MLflow logged-model name."""
+    """Journalise un estimateur scikit-learn sous un nom MLflow stable.
+
+    Args:
+        estimator: Estimateur scikit-learn a enregistrer.
+        model_name: Nom descriptif du modele dans le run courant.
+
+    Returns:
+        str: Nom effectivement utilise dans MLflow.
+    """
     logged_model_name = sanitize_logged_model_name(model_name)
     mlflow.sklearn.log_model(estimator, name=logged_model_name)
     return logged_model_name
@@ -44,6 +61,7 @@ class EvaluationPredictionLookupModel(mlflow.pyfunc.PythonModel):
     """
 
     def load_context(self, context) -> None:
+        """Charge les artefacts CSV et JSON exposes au modele pyfunc."""
         predictions_path = Path(context.artifacts["predictions"])
         self.predictions_df = pd.read_csv(predictions_path)
 
@@ -54,6 +72,15 @@ class EvaluationPredictionLookupModel(mlflow.pyfunc.PythonModel):
             self.specification = {}
 
     def predict(self, context: Any, model_input: pd.DataFrame) -> pd.DataFrame:
+        """Restitue les predictions pre-calculees correspondant aux cles demandees.
+
+        Args:
+            context: Contexte pyfunc MLflow, inutilise ici.
+            model_input: Table contenant au minimum `area`, `crop` et `year`.
+
+        Returns:
+            pd.DataFrame: Entree enrichie avec les predictions journalisees.
+        """
         del context
         input_df = model_input if isinstance(model_input, pd.DataFrame) else pd.DataFrame(model_input)
 
@@ -93,7 +120,17 @@ def log_evaluation_lookup_model(
     specification_path: Path | str,
     model_metadata: dict[str, Any] | None = None,
 ) -> str:
-    """Log a lightweight pyfunc model backed by precomputed evaluation predictions."""
+    """Journalise un pyfunc MLflow adosse a des predictions pre-calculees.
+
+    Args:
+        model_name: Nom du modele a creer dans MLflow.
+        predictions_path: CSV des predictions evaluees.
+        specification_path: JSON de specification associe au modele.
+        model_metadata: Metadonnees complementaires a propager.
+
+    Returns:
+        str: Nom effectivement utilise dans MLflow.
+    """
     logged_model_name = sanitize_logged_model_name(model_name)
     predictions_path = Path(predictions_path).resolve()
     specification_path = Path(specification_path).resolve()

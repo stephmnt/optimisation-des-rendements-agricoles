@@ -1,3 +1,9 @@
+"""Lance l'interface MLflow du projet avec le bon backend local.
+
+Le script encapsule `python -m mlflow server`, prepare la base SQLite et
+realigne au besoin les chemins d'artefacts du tracking local.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -14,6 +20,7 @@ DEFAULT_ARTIFACTS_DIR = (PROJECT_ROOT / "artifacts" / "mlruns").resolve()
 
 
 def parse_args() -> argparse.Namespace:
+    """Construit l'interface en ligne de commande du serveur MLflow."""
     parser = argparse.ArgumentParser(
         description="Lance l'interface graphique MLflow pour ce projet."
     )
@@ -42,6 +49,14 @@ def parse_args() -> argparse.Namespace:
 
 
 def ensure_backend_target(raw_value: str) -> str:
+    """Normalise et cree la cible du backend store MLflow.
+
+    Args:
+        raw_value: URI ou chemin brut fourni en argument.
+
+    Returns:
+        str: URI ou chemin normalise utilisable par MLflow.
+    """
     if raw_value.startswith("sqlite:///"):
         db_path = Path(raw_value.removeprefix("sqlite:///"))
         if not db_path.is_absolute():
@@ -57,6 +72,7 @@ def ensure_backend_target(raw_value: str) -> str:
 
 
 def ensure_artifact_root(raw_value: str) -> tuple[str, Path]:
+    """Normalise et cree la racine d'artefacts du tracking MLflow."""
     if raw_value.startswith("file://"):
         artifact_root = Path(raw_value.removeprefix("file://"))
     else:
@@ -69,12 +85,19 @@ def ensure_artifact_root(raw_value: str) -> tuple[str, Path]:
 
 
 def artifact_location_to_path(raw_value: str) -> Path:
+    """Convertit une `artifact_location` MLflow en `Path` local."""
     if raw_value.startswith("file://"):
         return Path(raw_value.removeprefix("file://")).resolve()
     return Path(raw_value).resolve()
 
 
 def migrate_sqlite_artifact_locations(backend_uri: str, artifact_root: Path) -> None:
+    """Realigne la base SQLite MLflow sur une racine d'artefacts unique.
+
+    Args:
+        backend_uri: URI du backend store MLflow.
+        artifact_root: Racine cible pour les artefacts des experiences.
+    """
     if not backend_uri.startswith("sqlite:///"):
         return
 
@@ -121,6 +144,7 @@ def migrate_sqlite_artifact_locations(backend_uri: str, artifact_root: Path) -> 
 
 
 def main() -> None:
+    """Lance le serveur MLflow avec la configuration du projet."""
     args = parse_args()
     backend_uri = ensure_backend_target(args.backend_store_uri)
     default_artifact_root_uri, artifact_root_path = ensure_artifact_root(args.default_artifact_root)

@@ -1,6 +1,6 @@
 {
   "model_name": "linear_regression",
-  "trained_at_utc": "2026-05-01T12:51:17.775655+00:00",
+  "trained_at_utc": "2026-05-06T16:18:00.021688+00:00",
   "dataset_source": "data/simulation/crop_yield.csv",
   "feature_columns": [
     "region",
@@ -14,11 +14,11 @@
   ],
   "sample_size": 200000,
   "metrics": {
-    "train_rmse": 0.4998781947765297,
-    "train_mae": 0.3988944248509967,
+    "train_rmse": 0.49987819477652967,
+    "train_mae": 0.39889442485099674,
     "train_r2": 0.9130634145187704,
-    "test_rmse": 0.4966893326694818,
-    "test_mae": 0.3960649705568734,
+    "test_rmse": 0.49668933266948173,
+    "test_mae": 0.39606497055687334,
     "test_r2": 0.9139501848982343
   },
   "strategy": "2_models_3_predictions_combined",

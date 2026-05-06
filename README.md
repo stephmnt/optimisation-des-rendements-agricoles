@@ -38,6 +38,31 @@ Dans un second terminal :
 API_V2_BASE_URL=http://127.0.0.1:8000 streamlit run streamlit/src/streamlit_app.py --server.address 0.0.0.0 --server.port 8501
 ```
 
+### Pipeline headless
+
+Une premiere orchestration executable existe maintenant pour regenerer les artefacts du projet sans passer manuellement notebook par notebook.
+
+Etapes disponibles :
+
+- `python3 scripts/run_preparation.py`
+- `python3 scripts/train_historical_model.py`
+- `python3 scripts/train_simulation_model.py --force-retrain`
+- `python3 scripts/validate_runtime.py`
+- `python3 scripts/run_full_pipeline.py`
+
+Exemple pragmatique pour reconstruire les artefacts applicatifs avec le pipeline local actuel :
+
+```bash
+python3 scripts/run_full_pipeline.py
+```
+
+Important :
+
+- la brique historique est maintenant script-native : `scripts/train_historical_model.py` execute `scripts/experience_1.py`, tandis que `notebooks/experience_1.ipynb` reste conserve comme trace experimentale ;
+- la preparation reste notebook-backed : `scripts/run_preparation.py` pilote encore `notebooks/preparation.ipynb` en mode headless ;
+- `scripts/run_full_pipeline.py` peut relancer `notebooks/experience_3.ipynb` et, sur demande explicite, `notebooks/experience_2.ipynb` qui est maintenant une piste abandonnee conservee dans le depot ;
+- cette orchestration industrialise la chaine locale du projet, sans changer le choix actuel de ne pas reentrainer les modeles dans le workflow de deploiement.
+
 ### Tester en Docker local
 
 Le [Dockerfile](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/Dockerfile) à la racine sert au runtime complet FastAPI + Streamlit :
@@ -72,7 +97,7 @@ Le workflow utilise un seul secret GitHub Actions à créer : `HF_TOKEN`
 - [streamlit/requirements.txt](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/streamlit/requirements.txt) contient les dépendances réellement nécessaires au runtime Docker/Hugging Face et à la CI de tests ;
 - `httpx` y est conservé volontairement, car `fastapi.testclient.TestClient` en dépend pour la suite `pytest` ;
 - [requirements.txt](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/requirements.txt) reste l'environnement complet du projet : notebooks, MLflow, scripts d'analyse, API et Streamlit ;
-- `xgboost` y est conservé volontairement, car il est encore utilisé dans les notebooks d'expérimentation du projet ;
+- `xgboost` y est conservé volontairement, car il est encore utilisé dans `scripts/experience_1.py` et dans les notebooks d'expérimentation du projet ;
 - aucune dépendance clairement obsolète n'a été conservée par erreur après le refactor FastAPI + Streamlit.
 
 ## Jeux de données
@@ -159,10 +184,10 @@ Par défaut, l'UI sera disponible sur `http://127.0.0.1:5000`.
 
 Important :
 
-- il n'est pas nécessaire de laisser l'interface ouverte pendant l'exécution des notebooks ;
-- les notebooks `notebooks/experience_1.ipynb` et `notebooks/experience_2.ipynb` écrivent directement dans `artifacts/mlflow.db` ;
+- il n'est pas nécessaire de laisser l'interface ouverte pendant l'exécution des notebooks ou des scripts d'entrainement ;
+- `scripts/experience_1.py` et `notebooks/experience_2.ipynb` ecrivent directement dans `artifacts/mlflow.db` ;
 - les artefacts des runs sont stockés dans `artifacts/mlruns/` ;
-- l'UI peut donc être ouverte avant ou après l'exécution des notebooks.
+- l'UI peut donc être ouverte avant ou après l'exécution de ces etapes.
 - la piste historique `notebooks/modelisation.ipynb` est abandonnée ; le dépôt conserve seulement ses artefacts utiles pour archive.
 - `mlflow/mlflow.py` lance maintenant `python -m mlflow` avec l'interpréteur actif, ce qui évite d'utiliser par erreur un `mlflow` système d'une autre version.
 - `mlflow/mlflow.py` lance `mlflow server` et fixe explicitement `artifacts/mlruns/` comme racine d'artefacts.
@@ -195,7 +220,7 @@ Pour repartir d'un historique MLflow vide, arrêter d'abord l'interface MLflow e
 rm -f artifacts/mlflow.db
 ```
 
-Au prochain lancement de `notebooks/experience_1.ipynb`, de `notebooks/experience_2.ipynb` ou de `python3 mlflow/mlflow.py`, la base sera recréée automatiquement.
+Au prochain lancement de `python3 scripts/experience_1.py`, de `notebooks/experience_2.ipynb` ou de `python3 mlflow/mlflow.py`, la base sera recréée automatiquement.
 
 Si tu veux aussi nettoyer les anciens artefacts du backend fichier abandonné, tu peux supprimer en plus :
 

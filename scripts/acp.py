@@ -40,6 +40,12 @@ ARTIFACTS_DIR = PREPARATION_CONFIG["PCA_ARTIFACTS_DIR"]
 
 
 def load_clean_dataset() -> tuple[pd.DataFrame, list[str]]:
+    """Charge et normalise le dataset de simulation utilise pour l'ACP.
+
+    Returns:
+        tuple[pd.DataFrame, list[str]]: Dataset nettoye et liste des colonnes
+        quantitatives retenues pour l'ACP.
+    """
     if not DATA_PATH.exists():
         raise FileNotFoundError(f"Fichier introuvable : {DATA_PATH}")
 
@@ -71,6 +77,7 @@ def load_clean_dataset() -> tuple[pd.DataFrame, list[str]]:
 
 
 def save_correlation_projection(pca_input: pd.DataFrame, pca_model: PCA, pca_scores: pd.DataFrame) -> None:
+    """Genere la heatmap de correlation et la projection PC1-PC2."""
     correlation = pca_input.corr().round(3)
     correlation.to_csv(ARTIFACTS_DIR / "pca_correlation.csv")
 
@@ -112,6 +119,7 @@ def save_correlation_projection(pca_input: pd.DataFrame, pca_model: PCA, pca_sco
 
 
 def save_loadings_visuals(pca_model: PCA, pca_numeric_cols: list[str], pca_scores: pd.DataFrame) -> None:
+    """Produit les visuels de charges factorielles et de lecture de PC1."""
     loadings = pd.DataFrame(
         pca_model.components_.T,
         index=pca_numeric_cols,
@@ -200,6 +208,12 @@ def save_loadings_visuals(pca_model: PCA, pca_numeric_cols: list[str], pca_score
 
 
 def save_variance_outputs(pca_model: PCA, pca_numeric_cols: list[str]) -> tuple[int, float]:
+    """Sauvegarde les tableaux et la figure de variance expliquee.
+
+    Returns:
+        tuple[int, float]: Dimension intrinseque retenue et variance cumulee
+        correspondante.
+    """
     variance = pd.DataFrame(
         {
             "composante": [f"PC{i + 1}" for i in range(len(pca_numeric_cols))],
@@ -248,6 +262,7 @@ def save_variance_outputs(pca_model: PCA, pca_numeric_cols: list[str]) -> tuple[
 
 
 def main() -> None:
+    """Regenerer les artefacts ACP a partir du dataset de simulation."""
     ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
     sns.set_theme(style="whitegrid")
 

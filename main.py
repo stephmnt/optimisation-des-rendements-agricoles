@@ -1,3 +1,10 @@
+"""Expose l'API FastAPI finale de prediction et de recommandation.
+
+L'application assemble le service `AdjustedYieldService` avec des schemas
+Pydantic et des endpoints HTTP simples pour la demo locale, les tests et le
+deploiement sur Hugging Face Space.
+"""
+
 from __future__ import annotations
 
 from functools import lru_cache
@@ -9,6 +16,15 @@ from scripts.prediction_adjustment import AdjustedYieldService
 
 
 def _round_float(value: float, digits: int = 4) -> float:
+    """Arrondit une valeur flottante pour la serialisation API.
+
+    Args:
+        value: Valeur numerique a arrondir.
+        digits: Nombre de decimales a conserver.
+
+    Returns:
+        float: Valeur arrondie.
+    """
     return round(float(value), digits)
 
 
@@ -229,16 +245,19 @@ COUNTRY_TO_SIMULATION_REGION = {
 
 
 def _normalize_country(country: str) -> str:
+    """Normalise un nom de pays recu par l'API."""
     return country.strip()
 
 
 def _infer_region_from_country(country: str | None) -> str | None:
+    """Associe un pays a une region du dataset de simulation."""
     if not country:
         return None
     return COUNTRY_TO_SIMULATION_REGION.get(_normalize_country(country))
 
 
 def _reference_overrides_from_country(country: str | None) -> dict[str, str]:
+    """Construit les surcharges de profil de reference derivees du pays."""
     inferred_region = _infer_region_from_country(country)
     if inferred_region is None:
         return {}
@@ -246,6 +265,8 @@ def _reference_overrides_from_country(country: str | None) -> dict[str, str]:
 
 
 class UserConditionsRequest(BaseModel):
+    """Conditions agronomiques saisies par l'utilisateur."""
+
     region: str | None = None
     soil_type: str | None = None
     rainfall_mm: float | None = Field(default=None, ge=0.0)
@@ -257,6 +278,8 @@ class UserConditionsRequest(BaseModel):
 
 
 class ConditionProfileResponse(BaseModel):
+    """Profil de conditions complet renvoye par l'API."""
+
     region: str
     soil_type: str
     rainfall_mm: float
@@ -268,12 +291,16 @@ class ConditionProfileResponse(BaseModel):
 
 
 class SimulationOptionsResponse(BaseModel):
+    """Catalogue des valeurs disponibles dans le modele de simulation."""
+
     regions: list[str]
     soil_types: list[str]
     weather_conditions: list[str]
 
 
 class HealthV2Response(BaseModel):
+    """Statut simplifie de sante et de versionnement du service."""
+
     status: str
     strategy: str
     historical_model_name: str
@@ -281,6 +308,8 @@ class HealthV2Response(BaseModel):
 
 
 class MetadataV2Response(BaseModel):
+    """Metadonnees de catalogue pour initialiser l'interface cliente."""
+
     countries: list[str]
     available_crops: list[str]
     target_year: int
@@ -293,11 +322,15 @@ class MetadataV2Response(BaseModel):
 
 
 class BaselineRequest(BaseModel):
+    """Payload demande pour estimer le rendement historique de base."""
+
     country: str = Field(..., min_length=1)
     crop: str = Field(..., min_length=1)
 
 
 class BaselineResponse(BaseModel):
+    """Reponse de rendement historique et de profil de reference."""
+
     country: str
     crop: str
     target_year: int
@@ -308,12 +341,16 @@ class BaselineResponse(BaseModel):
 
 
 class PredictAdjustedRequest(BaseModel):
+    """Payload demande pour la prediction ajustee."""
+
     country: str = Field(..., min_length=1)
     crop: str = Field(..., min_length=1)
     user_conditions: UserConditionsRequest
 
 
 class HistoricalShapContributionResponse(BaseModel):
+    """Contribution agregee d'une variable dans l'explication SHAP historique."""
+
     feature: str
     raw_value: str | float | bool | None
     contribution: float
@@ -321,6 +358,8 @@ class HistoricalShapContributionResponse(BaseModel):
 
 
 class HistoricalShapExplanationResponse(BaseModel):
+    """Explication SHAP de la brique historique P1."""
+
     available: bool
     status: str
     message: str | None = None
@@ -331,6 +370,8 @@ class HistoricalShapExplanationResponse(BaseModel):
 
 
 class LocalAdjustmentContributionResponse(BaseModel):
+    """Contribution d'une variable a l'ajustement local P3 - P2."""
+
     feature: str
     reference_value: str | float | bool | None
     user_value: str | float | bool | None
@@ -339,6 +380,8 @@ class LocalAdjustmentContributionResponse(BaseModel):
 
 
 class LocalAdjustmentExplanationResponse(BaseModel):
+    """Decomposition de l'ajustement local applique a la prediction finale."""
+
     method: str
     reference_prediction: float
     user_prediction: float
@@ -347,11 +390,15 @@ class LocalAdjustmentExplanationResponse(BaseModel):
 
 
 class PredictionExplanationResponse(BaseModel):
+    """Bloc d'explication complet renvoye avec une prediction ajustee."""
+
     historical_shap: HistoricalShapExplanationResponse
     local_adjustment: LocalAdjustmentExplanationResponse
 
 
 class PredictAdjustedResponse(BaseModel):
+    """Prediction finale composee des briques historique et locale."""
+
     country: str
     crop: str
     p1_historical_prediction: float
@@ -368,6 +415,8 @@ class PredictAdjustedResponse(BaseModel):
 
 
 class RecommendationItemResponse(BaseModel):
+    """Ligne de recommandation pour une culture candidate."""
+
     country: str
     crop: str
     p1_historical_prediction: float
@@ -382,6 +431,8 @@ class RecommendationItemResponse(BaseModel):
 
 
 class RecommendAdjustedRequest(BaseModel):
+    """Payload demande pour le classement multi-cultures."""
+
     country: str = Field(..., min_length=1)
     user_conditions: UserConditionsRequest
     candidate_crops: list[str] | None = None
@@ -389,6 +440,8 @@ class RecommendAdjustedRequest(BaseModel):
 
 
 class RecommendAdjustedResponse(BaseModel):
+    """Reponse de recommandation complete pour un pays donne."""
+
     country: str
     best_crop: str
     best_final_prediction: float
@@ -396,6 +449,7 @@ class RecommendAdjustedResponse(BaseModel):
 
 
 def _to_condition_profile(profile: dict[str, object]) -> ConditionProfileResponse:
+    """Convertit un dictionnaire brut de conditions vers le schema API."""
     return ConditionProfileResponse(
         region=str(profile["region"]),
         soil_type=str(profile["soil_type"]),
@@ -409,6 +463,7 @@ def _to_condition_profile(profile: dict[str, object]) -> ConditionProfileRespons
 
 
 def _to_prediction_explanation(explanation_payload: dict[str, object]) -> PredictionExplanationResponse:
+    """Mappe la charge d'explication brute vers les schemas Pydantic exposes."""
     historical_payload = explanation_payload["historical_shap"]
     local_payload = explanation_payload["local_adjustment"]
 
@@ -459,6 +514,7 @@ def _to_prediction_explanation(explanation_payload: dict[str, object]) -> Predic
 
 @lru_cache(maxsize=1)
 def get_adjusted_yield_service() -> AdjustedYieldService:
+    """Instancie et met en cache le service metier final."""
     return AdjustedYieldService()
 
 
@@ -471,6 +527,7 @@ app = FastAPI(
 
 @app.get("/health", response_model=HealthV2Response)
 def health() -> HealthV2Response:
+    """Retourne l'etat de sante minimal de l'API."""
     service = get_adjusted_yield_service()
     return HealthV2Response(
         status="ok",
@@ -482,6 +539,15 @@ def health() -> HealthV2Response:
 
 @app.get("/metadata", response_model=MetadataV2Response)
 def metadata(country: str | None = Query(default=None)) -> MetadataV2Response:
+    """Retourne le catalogue de pays, cultures et options de simulation.
+
+    Args:
+        country: Pays optionnel servant a filtrer les cultures disponibles et a
+            inferer la region de simulation par defaut.
+
+    Returns:
+        MetadataV2Response: Metadonnees utiles a l'interface cliente.
+    """
     service = get_adjusted_yield_service()
     available_crops = service.available_crops
     inferred_region = _infer_region_from_country(country)
@@ -506,6 +572,7 @@ def metadata(country: str | None = Query(default=None)) -> MetadataV2Response:
 
 @app.post("/baseline", response_model=BaselineResponse)
 def baseline(payload: BaselineRequest) -> BaselineResponse:
+    """Calcule la prediction historique de reference pour une culture."""
     service = get_adjusted_yield_service()
     try:
         baseline_payload = service.get_baseline(
@@ -529,6 +596,7 @@ def baseline(payload: BaselineRequest) -> BaselineResponse:
 
 @app.post("/predict", response_model=PredictAdjustedResponse)
 def predict(payload: PredictAdjustedRequest) -> PredictAdjustedResponse:
+    """Calcule le rendement ajuste pour une culture et des conditions donnees."""
     service = get_adjusted_yield_service()
     try:
         prediction_payload = service.predict_adjusted_yield(
@@ -559,6 +627,7 @@ def predict(payload: PredictAdjustedRequest) -> PredictAdjustedResponse:
 
 @app.post("/recommend", response_model=RecommendAdjustedResponse)
 def recommend(payload: RecommendAdjustedRequest) -> RecommendAdjustedResponse:
+    """Classe les cultures candidates selon la prediction finale ajustee."""
     service = get_adjusted_yield_service()
     try:
         recommendation_df = service.recommend_crops(
