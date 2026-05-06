@@ -1,0 +1,5 @@
+fichier,lignes,colonnes,nan_detectes
+yield.csv,56717,12,0
+rainfall.csv,6727,3,780
+pesticides.csv,4349,7,0
+temp.csv,71311,3,2547

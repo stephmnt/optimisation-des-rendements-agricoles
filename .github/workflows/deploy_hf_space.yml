@@ -53,6 +53,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Validate deployment artifacts
+        run: |
+          required_files=(
+            "artifacts/models/p1_historical_pipeline.joblib"
+            "artifacts/models/p1_historical_metadata.json"
+            "artifacts/models/p23_simulation_pipeline.joblib"
+            "artifacts/models/p23_simulation_metadata.json"
+            "artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv"
+          )
+          for path in "${required_files[@]}"; do
+            if [ ! -f "$path" ]; then
+              echo "::error file=$path::Missing deployment artifact in repository checkout. Commit this file or regenerate it before rerunning the workflow."
+              exit 1
+            fi
+          done
+
       - name: Build Space payload
         run: |
           rm -rf .hf_space_build
@@ -115,6 +131,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Validate deployment artifacts
+        run: |
+          required_files=(
+            "artifacts/models/p1_historical_pipeline.joblib"
+            "artifacts/models/p1_historical_metadata.json"
+            "artifacts/models/p23_simulation_pipeline.joblib"
+            "artifacts/models/p23_simulation_metadata.json"
+            "artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv"
+          )
+          for path in "${required_files[@]}"; do
+            if [ ! -f "$path" ]; then
+              echo "::error file=$path::Missing deployment artifact in repository checkout. Commit this file or regenerate it before rerunning the workflow."
+              exit 1
+            fi
+          done
 
       - name: Validate Hugging Face token
         env:

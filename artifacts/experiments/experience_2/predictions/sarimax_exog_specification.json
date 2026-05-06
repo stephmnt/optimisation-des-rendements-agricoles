@@ -1,0 +1,14 @@
+{
+  "order": [
+    1,
+    0,
+    0
+  ],
+  "trend": "c",
+  "uses_exog": true,
+  "exog_columns": [
+    "average_rain_fall_mm_per_year",
+    "pesticides_tonnes",
+    "avg_temp"
+  ]
+}

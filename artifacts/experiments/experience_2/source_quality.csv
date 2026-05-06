@@ -1,0 +1,5 @@
+source,rows_after_cleaning,min_year,max_year,duplicate_key_count
+yield,29367,1990,2016,0
+rainfall,5859,1990,2017,0
+pesticides,4349,1990,2016,0
+temp,3288,1990,2013,0

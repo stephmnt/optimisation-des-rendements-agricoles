@@ -1,0 +1,5 @@
+table,clé,doublons_sur_cle,nan_totaux
+yield_clean,area + crop + year,0,0
+rainfall_clean,area + year,0,677
+pesticides_clean,area + year,0,0
+temp_clean,area + year,0,0

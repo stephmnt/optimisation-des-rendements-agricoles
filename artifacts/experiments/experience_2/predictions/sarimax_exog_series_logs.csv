@@ -1,0 +1,568 @@
+area,crop,train_rows,test_rows,status
+Albania,Maize,23,4,ok
+Albania,Potatoes,23,4,ok
+Albania,Soybeans,23,4,ok
+Albania,Wheat,23,4,ok
+Algeria,Maize,23,4,ok
+Algeria,Potatoes,23,4,ok
+Algeria,"Rice, paddy",23,4,ok
+Algeria,Wheat,23,4,ok
+Angola,Cassava,23,4,ok
+Angola,Maize,23,4,ok
+Angola,Potatoes,23,4,ok
+Angola,"Rice, paddy",23,4,ok
+Angola,Sorghum,13,4,ok
+Angola,Soybeans,13,4,ok
+Angola,Sweet potatoes,23,4,ok
+Angola,Wheat,23,4,ok
+Argentina,Cassava,23,4,ok
+Argentina,Maize,23,4,ok
+Argentina,Potatoes,23,4,ok
+Argentina,"Rice, paddy",23,4,ok
+Argentina,Sorghum,23,4,ok
+Argentina,Soybeans,23,4,ok
+Argentina,Sweet potatoes,23,4,ok
+Argentina,Wheat,23,4,ok
+Armenia,Maize,21,4,ok
+Armenia,Potatoes,21,4,ok
+Armenia,Wheat,21,4,ok
+Australia,Maize,23,4,ok
+Australia,Potatoes,23,4,ok
+Australia,"Rice, paddy",23,4,ok
+Australia,Sorghum,23,4,ok
+Australia,Soybeans,23,4,ok
+Australia,Sweet potatoes,23,4,ok
+Australia,Wheat,23,4,ok
+Austria,Maize,23,4,ok
+Austria,Potatoes,23,4,ok
+Austria,Soybeans,23,4,ok
+Austria,Wheat,23,4,ok
+Azerbaijan,Maize,21,4,ok
+Azerbaijan,Potatoes,21,4,ok
+Azerbaijan,"Rice, paddy",21,4,ok
+Azerbaijan,Wheat,21,4,ok
+Bahamas,Cassava,23,4,ok
+Bahamas,Maize,23,4,ok
+Bahamas,Sweet potatoes,23,4,ok
+Bahrain,Potatoes,23,4,ok
+Bangladesh,Maize,23,4,ok
+Bangladesh,Potatoes,23,4,ok
+Bangladesh,"Rice, paddy",23,4,ok
+Bangladesh,Sorghum,23,4,ok
+Bangladesh,Sweet potatoes,23,4,ok
+Bangladesh,Wheat,23,4,ok
+Belarus,Maize,21,4,ok
+Belarus,Potatoes,21,4,ok
+Belarus,Wheat,21,4,ok
+Belgium,Maize,13,4,ok
+Belgium,Potatoes,13,4,ok
+Belgium,Wheat,13,4,ok
+Botswana,Maize,23,4,ok
+Botswana,Sorghum,23,4,ok
+Brazil,Cassava,23,4,ok
+Brazil,Maize,23,4,ok
+Brazil,Potatoes,23,4,ok
+Brazil,"Rice, paddy",23,4,ok
+Brazil,Sorghum,23,4,ok
+Brazil,Soybeans,23,4,ok
+Brazil,Sweet potatoes,23,4,ok
+Brazil,Wheat,23,4,ok
+Brazil,Yams,23,4,ok
+Bulgaria,Maize,23,4,ok
+Bulgaria,Potatoes,23,4,ok
+Bulgaria,"Rice, paddy",23,4,ok
+Bulgaria,Sorghum,23,4,ok
+Bulgaria,Soybeans,23,4,ok
+Bulgaria,Wheat,23,4,ok
+Burkina Faso,Cassava,23,4,ok
+Burkina Faso,Maize,23,4,ok
+Burkina Faso,Potatoes,23,4,ok
+Burkina Faso,"Rice, paddy",23,4,ok
+Burkina Faso,Sorghum,23,4,ok
+Burkina Faso,Soybeans,23,4,ok
+Burkina Faso,Sweet potatoes,23,4,ok
+Burkina Faso,Yams,23,4,ok
+Burundi,Cassava,23,4,ok
+Burundi,Maize,23,4,ok
+Burundi,Potatoes,23,4,ok
+Burundi,"Rice, paddy",23,4,ok
+Burundi,Sorghum,23,4,ok
+Burundi,Soybeans,23,4,ok
+Burundi,Sweet potatoes,23,4,ok
+Burundi,Wheat,23,4,ok
+Burundi,Yams,23,4,ok
+Cameroon,Cassava,23,4,ok
+Cameroon,Maize,23,4,ok
+Cameroon,Plantains and others,23,4,ok
+Cameroon,Potatoes,23,4,ok
+Cameroon,"Rice, paddy",23,4,ok
+Cameroon,Sorghum,23,4,ok
+Cameroon,Soybeans,23,4,ok
+Cameroon,Sweet potatoes,23,4,ok
+Cameroon,Wheat,23,4,ok
+Cameroon,Yams,23,4,ok
+Canada,Maize,23,4,ok
+Canada,Potatoes,23,4,ok
+Canada,Soybeans,23,4,ok
+Canada,Wheat,23,4,ok
+Central African Republic,Cassava,23,4,ok
+Central African Republic,Maize,23,4,ok
+Central African Republic,Plantains and others,23,4,ok
+Central African Republic,Potatoes,23,4,ok
+Central African Republic,"Rice, paddy",23,4,ok
+Central African Republic,Sorghum,23,4,ok
+Central African Republic,Yams,23,4,ok
+Chile,Maize,23,4,ok
+Chile,Potatoes,23,4,ok
+Chile,"Rice, paddy",23,4,ok
+Chile,Sweet potatoes,23,4,ok
+Chile,Wheat,23,4,ok
+Colombia,Cassava,23,4,ok
+Colombia,Maize,23,4,ok
+Colombia,Plantains and others,23,4,ok
+Colombia,Potatoes,23,4,ok
+Colombia,"Rice, paddy",23,4,ok
+Colombia,Sorghum,23,4,ok
+Colombia,Soybeans,23,4,ok
+Colombia,Wheat,23,4,ok
+Colombia,Yams,23,4,ok
+Croatia,Maize,21,4,ok
+Croatia,Potatoes,21,4,ok
+Croatia,Soybeans,21,4,ok
+Croatia,Wheat,21,4,ok
+Denmark,Potatoes,23,4,ok
+Denmark,Wheat,23,4,ok
+Dominican Republic,Cassava,23,4,ok
+Dominican Republic,Maize,23,4,ok
+Dominican Republic,Plantains and others,23,4,ok
+Dominican Republic,Potatoes,23,4,ok
+Dominican Republic,"Rice, paddy",23,4,ok
+Dominican Republic,Sorghum,23,4,ok
+Dominican Republic,Sweet potatoes,23,4,ok
+Dominican Republic,Yams,23,4,ok
+Ecuador,Cassava,23,4,ok
+Ecuador,Maize,23,4,ok
+Ecuador,Plantains and others,23,4,ok
+Ecuador,Potatoes,23,4,ok
+Ecuador,"Rice, paddy",23,4,ok
+Ecuador,Sorghum,23,4,ok
+Ecuador,Soybeans,23,4,ok
+Ecuador,Sweet potatoes,23,4,ok
+Ecuador,Wheat,23,4,ok
+Egypt,Maize,23,4,ok
+Egypt,Potatoes,23,4,ok
+Egypt,"Rice, paddy",23,4,ok
+Egypt,Sorghum,23,4,ok
+Egypt,Soybeans,23,4,ok
+Egypt,Sweet potatoes,23,4,ok
+Egypt,Wheat,23,4,ok
+El Salvador,Cassava,23,4,ok
+El Salvador,Maize,23,4,ok
+El Salvador,Plantains and others,23,4,ok
+El Salvador,Potatoes,23,4,ok
+El Salvador,"Rice, paddy",23,4,ok
+El Salvador,Sorghum,23,4,ok
+El Salvador,Soybeans,23,4,ok
+El Salvador,Sweet potatoes,23,4,ok
+Eritrea,Maize,20,4,ok
+Eritrea,Potatoes,20,4,ok
+Eritrea,Sorghum,20,4,ok
+Eritrea,Wheat,20,4,ok
+Estonia,Potatoes,21,4,ok
+Estonia,Wheat,21,4,ok
+Finland,Potatoes,23,4,ok
+Finland,Wheat,23,4,ok
+France,Maize,23,4,ok
+France,Potatoes,23,4,ok
+France,"Rice, paddy",23,4,ok
+France,Sorghum,23,4,ok
+France,Soybeans,23,4,ok
+France,Wheat,23,4,ok
+Germany,Maize,23,4,ok
+Germany,Potatoes,23,4,ok
+Germany,Wheat,23,4,ok
+Ghana,Cassava,23,4,ok
+Ghana,Maize,23,4,ok
+Ghana,Plantains and others,23,4,ok
+Ghana,"Rice, paddy",23,4,ok
+Ghana,Sorghum,23,4,ok
+Ghana,Sweet potatoes,17,4,ok
+Ghana,Yams,23,4,ok
+Greece,Maize,23,4,ok
+Greece,Potatoes,23,4,ok
+Greece,"Rice, paddy",23,4,ok
+Greece,Sorghum,23,4,ok
+Greece,Soybeans,23,4,ok
+Greece,Sweet potatoes,23,4,ok
+Greece,Wheat,23,4,ok
+Guatemala,Cassava,23,4,ok
+Guatemala,Maize,23,4,ok
+Guatemala,Plantains and others,23,4,ok
+Guatemala,Potatoes,23,4,ok
+Guatemala,"Rice, paddy",23,4,ok
+Guatemala,Sorghum,23,4,ok
+Guatemala,Soybeans,23,4,ok
+Guatemala,Sweet potatoes,20,4,ok
+Guatemala,Wheat,23,4,ok
+Guinea,Cassava,23,4,ok
+Guinea,Maize,23,4,ok
+Guinea,Plantains and others,23,4,ok
+Guinea,"Rice, paddy",23,4,ok
+Guinea,Sorghum,23,4,ok
+Guinea,Sweet potatoes,23,4,ok
+Guinea,Yams,23,4,ok
+Guyana,Cassava,23,4,ok
+Guyana,Maize,23,4,ok
+Guyana,Plantains and others,23,4,ok
+Guyana,"Rice, paddy",23,4,ok
+Guyana,Sweet potatoes,16,4,ok
+Guyana,Yams,16,4,ok
+Haiti,Cassava,23,4,ok
+Haiti,Maize,23,4,ok
+Haiti,Plantains and others,23,4,ok
+Haiti,Potatoes,23,4,ok
+Haiti,"Rice, paddy",23,4,ok
+Haiti,Sorghum,23,4,ok
+Haiti,Sweet potatoes,23,4,ok
+Haiti,Yams,23,4,ok
+Honduras,Cassava,23,4,ok
+Honduras,Maize,23,4,ok
+Honduras,Plantains and others,23,4,ok
+Honduras,Potatoes,23,4,ok
+Honduras,"Rice, paddy",23,4,ok
+Honduras,Sorghum,23,4,ok
+Honduras,Soybeans,20,4,ok
+Honduras,Sweet potatoes,23,4,ok
+Honduras,Wheat,23,4,ok
+Hungary,Maize,23,4,ok
+Hungary,Potatoes,23,4,ok
+Hungary,"Rice, paddy",23,4,ok
+Hungary,Sorghum,23,4,ok
+Hungary,Soybeans,23,4,ok
+Hungary,Wheat,23,4,ok
+India,Cassava,23,4,ok
+India,Maize,23,4,ok
+India,Potatoes,23,4,ok
+India,"Rice, paddy",23,4,ok
+India,Sorghum,23,4,ok
+India,Soybeans,23,4,ok
+India,Sweet potatoes,23,4,ok
+India,Wheat,23,4,ok
+Indonesia,Cassava,23,4,ok
+Indonesia,Maize,23,4,ok
+Indonesia,Potatoes,23,4,ok
+Indonesia,"Rice, paddy",23,4,ok
+Indonesia,Soybeans,23,4,ok
+Indonesia,Sweet potatoes,23,4,ok
+Iraq,Maize,23,4,ok
+Iraq,Potatoes,23,4,ok
+Iraq,"Rice, paddy",23,4,ok
+Iraq,Sorghum,23,4,ok
+Iraq,Soybeans,23,4,ok
+Iraq,Wheat,23,4,ok
+Ireland,Potatoes,23,4,ok
+Ireland,Wheat,23,4,ok
+Italy,Maize,23,4,ok
+Italy,Potatoes,23,4,ok
+Italy,"Rice, paddy",23,4,ok
+Italy,Sorghum,23,4,ok
+Italy,Soybeans,23,4,ok
+Italy,Sweet potatoes,23,4,ok
+Italy,Wheat,23,4,ok
+Jamaica,Cassava,23,4,ok
+Jamaica,Maize,23,4,ok
+Jamaica,Plantains and others,23,4,ok
+Jamaica,Potatoes,23,4,ok
+Jamaica,"Rice, paddy",23,4,ok
+Jamaica,Sweet potatoes,23,4,ok
+Jamaica,Yams,23,4,ok
+Japan,Maize,23,4,ok
+Japan,Potatoes,23,4,ok
+Japan,"Rice, paddy",23,4,ok
+Japan,Soybeans,23,4,ok
+Japan,Sweet potatoes,23,4,ok
+Japan,Wheat,23,4,ok
+Japan,Yams,23,4,ok
+Kazakhstan,Maize,21,4,ok
+Kazakhstan,Potatoes,21,4,ok
+Kazakhstan,"Rice, paddy",21,4,ok
+Kazakhstan,Sorghum,21,4,ok
+Kazakhstan,Soybeans,21,4,ok
+Kazakhstan,Wheat,21,4,ok
+Kenya,Cassava,23,4,ok
+Kenya,Maize,23,4,ok
+Kenya,Plantains and others,23,4,ok
+Kenya,Potatoes,23,4,ok
+Kenya,"Rice, paddy",23,4,ok
+Kenya,Sorghum,23,4,ok
+Kenya,Soybeans,23,4,ok
+Kenya,Sweet potatoes,23,4,ok
+Kenya,Wheat,23,4,ok
+Kenya,Yams,23,4,ok
+Latvia,Potatoes,21,4,ok
+Latvia,Wheat,21,4,ok
+Lebanon,Maize,23,4,ok
+Lebanon,Potatoes,23,4,ok
+Lebanon,Sorghum,23,4,ok
+Lebanon,Wheat,23,4,ok
+Lesotho,Maize,23,4,ok
+Lesotho,Potatoes,23,4,ok
+Lesotho,Sorghum,23,4,ok
+Lesotho,Wheat,23,4,ok
+Libya,Maize,23,4,ok
+Libya,Potatoes,23,4,ok
+Libya,Wheat,23,4,ok
+Lithuania,Maize,21,4,ok
+Lithuania,Potatoes,21,4,ok
+Lithuania,Wheat,21,4,ok
+Madagascar,Cassava,23,4,ok
+Madagascar,Maize,23,4,ok
+Madagascar,Potatoes,23,4,ok
+Madagascar,"Rice, paddy",23,4,ok
+Madagascar,Sorghum,23,4,ok
+Madagascar,Soybeans,23,4,ok
+Madagascar,Sweet potatoes,23,4,ok
+Madagascar,Wheat,23,4,ok
+Malawi,Cassava,23,4,ok
+Malawi,Maize,23,4,ok
+Malawi,Plantains and others,23,4,ok
+Malawi,Potatoes,23,4,ok
+Malawi,"Rice, paddy",23,4,ok
+Malawi,Sorghum,23,4,ok
+Malawi,Wheat,23,4,ok
+Malaysia,Cassava,23,4,ok
+Malaysia,Maize,23,4,ok
+Malaysia,"Rice, paddy",23,4,ok
+Malaysia,Sweet potatoes,23,4,ok
+Mali,Cassava,23,4,ok
+Mali,Maize,23,4,ok
+Mali,Potatoes,23,4,ok
+Mali,"Rice, paddy",23,4,ok
+Mali,Sorghum,23,4,ok
+Mali,Soybeans,23,4,ok
+Mali,Sweet potatoes,23,4,ok
+Mali,Wheat,23,4,ok
+Mali,Yams,23,4,ok
+Mauritania,Maize,23,4,ok
+Mauritania,Potatoes,23,4,ok
+Mauritania,"Rice, paddy",23,4,ok
+Mauritania,Sorghum,23,4,ok
+Mauritania,Sweet potatoes,23,4,ok
+Mauritania,Wheat,23,4,ok
+Mauritania,Yams,23,4,ok
+Mauritius,Cassava,23,4,ok
+Mauritius,Maize,23,4,ok
+Mauritius,Potatoes,23,4,ok
+Mauritius,Sweet potatoes,23,4,ok
+Mexico,Cassava,23,4,ok
+Mexico,Maize,23,4,ok
+Mexico,Potatoes,23,4,ok
+Mexico,"Rice, paddy",23,4,ok
+Mexico,Sorghum,23,4,ok
+Mexico,Soybeans,23,4,ok
+Mexico,Sweet potatoes,23,4,ok
+Mexico,Wheat,23,4,ok
+Morocco,Maize,23,4,ok
+Morocco,Potatoes,23,4,ok
+Morocco,"Rice, paddy",23,4,ok
+Morocco,Sorghum,23,4,ok
+Morocco,Soybeans,23,4,ok
+Morocco,Sweet potatoes,23,4,ok
+Morocco,Wheat,23,4,ok
+Mozambique,Cassava,23,4,ok
+Mozambique,Maize,23,4,ok
+Mozambique,Potatoes,23,4,ok
+Mozambique,"Rice, paddy",23,4,ok
+Mozambique,Sorghum,23,4,ok
+Mozambique,Sweet potatoes,23,4,ok
+Mozambique,Wheat,23,4,ok
+Namibia,Maize,23,4,ok
+Namibia,Potatoes,13,4,ok
+Namibia,Sorghum,23,4,ok
+Namibia,Wheat,23,4,ok
+Nepal,Maize,23,4,ok
+Nepal,Potatoes,23,4,ok
+Nepal,"Rice, paddy",23,4,ok
+Nepal,Soybeans,23,4,ok
+Nepal,Wheat,23,4,ok
+Netherlands,Maize,23,4,ok
+Netherlands,Potatoes,23,4,ok
+Netherlands,Wheat,23,4,ok
+New Zealand,Maize,23,4,ok
+New Zealand,Potatoes,23,4,ok
+New Zealand,Sweet potatoes,23,4,ok
+New Zealand,Wheat,23,4,ok
+Nicaragua,Cassava,23,4,ok
+Nicaragua,Maize,23,4,ok
+Nicaragua,Plantains and others,23,4,ok
+Nicaragua,Potatoes,23,4,ok
+Nicaragua,"Rice, paddy",23,4,ok
+Nicaragua,Sorghum,23,4,ok
+Nicaragua,Soybeans,23,4,ok
+Nicaragua,Yams,22,4,ok
+Niger,Cassava,23,4,ok
+Niger,Maize,23,4,ok
+Niger,Potatoes,23,4,ok
+Niger,"Rice, paddy",23,4,ok
+Niger,Sorghum,23,4,ok
+Niger,Sweet potatoes,23,4,ok
+Niger,Wheat,23,4,ok
+Norway,Potatoes,23,4,ok
+Norway,Wheat,23,4,ok
+Pakistan,Maize,23,4,ok
+Pakistan,Potatoes,23,4,ok
+Pakistan,"Rice, paddy",23,4,ok
+Pakistan,Sorghum,23,4,ok
+Pakistan,Soybeans,23,4,ok
+Pakistan,Sweet potatoes,23,4,ok
+Pakistan,Wheat,23,4,ok
+Papua New Guinea,Cassava,23,4,ok
+Papua New Guinea,Maize,23,4,ok
+Papua New Guinea,Potatoes,23,4,ok
+Papua New Guinea,"Rice, paddy",23,4,ok
+Papua New Guinea,Sorghum,23,4,ok
+Papua New Guinea,Sweet potatoes,23,4,ok
+Papua New Guinea,Yams,23,4,ok
+Peru,Cassava,23,4,ok
+Peru,Maize,23,4,ok
+Peru,Plantains and others,23,4,ok
+Peru,Potatoes,23,4,ok
+Peru,"Rice, paddy",23,4,ok
+Peru,Sorghum,23,4,ok
+Peru,Soybeans,23,4,ok
+Peru,Sweet potatoes,23,4,ok
+Peru,Wheat,23,4,ok
+Poland,Maize,23,4,ok
+Poland,Potatoes,23,4,ok
+Poland,Wheat,23,4,ok
+Portugal,Maize,23,4,ok
+Portugal,Potatoes,23,4,ok
+Portugal,"Rice, paddy",23,4,ok
+Portugal,Sweet potatoes,23,4,ok
+Portugal,Wheat,23,4,ok
+Portugal,Yams,23,4,ok
+Qatar,Maize,23,4,ok
+Qatar,Potatoes,23,4,ok
+Romania,Maize,23,4,ok
+Romania,Potatoes,23,4,ok
+Romania,"Rice, paddy",23,4,ok
+Romania,Sorghum,23,4,ok
+Romania,Soybeans,23,4,ok
+Romania,Wheat,23,4,ok
+Rwanda,Cassava,23,4,ok
+Rwanda,Maize,23,4,ok
+Rwanda,Potatoes,23,4,ok
+Rwanda,"Rice, paddy",23,4,ok
+Rwanda,Sorghum,23,4,ok
+Rwanda,Soybeans,23,4,ok
+Rwanda,Sweet potatoes,23,4,ok
+Rwanda,Wheat,23,4,ok
+Rwanda,Yams,23,4,ok
+Saudi Arabia,Maize,23,4,ok
+Saudi Arabia,Potatoes,23,4,ok
+Saudi Arabia,Sorghum,23,4,ok
+Saudi Arabia,Wheat,23,4,ok
+Senegal,Cassava,23,4,ok
+Senegal,Maize,23,4,ok
+Senegal,Potatoes,23,4,ok
+Senegal,"Rice, paddy",23,4,ok
+Senegal,Sorghum,23,4,ok
+Senegal,Sweet potatoes,23,4,ok
+Slovenia,Maize,21,4,ok
+Slovenia,Potatoes,21,4,ok
+Slovenia,Soybeans,21,4,ok
+Slovenia,Wheat,21,4,ok
+South Africa,Maize,23,4,ok
+South Africa,Potatoes,23,4,ok
+South Africa,"Rice, paddy",23,4,ok
+South Africa,Sorghum,23,4,ok
+South Africa,Soybeans,23,4,ok
+South Africa,Sweet potatoes,23,4,ok
+South Africa,Wheat,23,4,ok
+Spain,Maize,23,4,ok
+Spain,Potatoes,23,4,ok
+Spain,"Rice, paddy",23,4,ok
+Spain,Sorghum,23,4,ok
+Spain,Soybeans,23,4,ok
+Spain,Sweet potatoes,23,4,ok
+Spain,Wheat,23,4,ok
+Sri Lanka,Cassava,23,4,ok
+Sri Lanka,Maize,23,4,ok
+Sri Lanka,Plantains and others,23,4,ok
+Sri Lanka,Potatoes,23,4,ok
+Sri Lanka,"Rice, paddy",23,4,ok
+Sri Lanka,Sorghum,23,4,ok
+Sri Lanka,Soybeans,23,4,ok
+Sri Lanka,Sweet potatoes,23,4,ok
+Suriname,Cassava,23,4,ok
+Suriname,Maize,23,4,ok
+Suriname,Plantains and others,23,4,ok
+Suriname,"Rice, paddy",23,4,ok
+Suriname,Soybeans,23,4,ok
+Suriname,Sweet potatoes,23,4,ok
+Sweden,Potatoes,23,4,ok
+Sweden,Wheat,23,4,ok
+Switzerland,Maize,23,4,ok
+Switzerland,Potatoes,23,4,ok
+Switzerland,Soybeans,23,4,ok
+Switzerland,Wheat,23,4,ok
+Tajikistan,Maize,21,4,ok
+Tajikistan,Potatoes,21,4,ok
+Tajikistan,"Rice, paddy",21,4,ok
+Tajikistan,Sorghum,21,4,ok
+Tajikistan,Wheat,21,4,ok
+Thailand,Cassava,23,4,ok
+Thailand,Maize,23,4,ok
+Thailand,Potatoes,23,4,ok
+Thailand,"Rice, paddy",23,4,ok
+Thailand,Sorghum,23,4,ok
+Thailand,Soybeans,23,4,ok
+Thailand,Wheat,23,4,ok
+Tunisia,Potatoes,23,4,ok
+Tunisia,Sorghum,23,4,ok
+Tunisia,Wheat,23,4,ok
+Turkey,Maize,23,4,ok
+Turkey,Potatoes,23,4,ok
+Turkey,"Rice, paddy",23,4,ok
+Turkey,Soybeans,23,4,ok
+Turkey,Wheat,23,4,ok
+Uganda,Cassava,23,4,ok
+Uganda,Maize,23,4,ok
+Uganda,Plantains and others,23,4,ok
+Uganda,Potatoes,23,4,ok
+Uganda,"Rice, paddy",23,4,ok
+Uganda,Sorghum,23,4,ok
+Uganda,Soybeans,23,4,ok
+Uganda,Sweet potatoes,23,4,ok
+Uganda,Wheat,23,4,ok
+Ukraine,Maize,21,4,ok
+Ukraine,Potatoes,21,4,ok
+Ukraine,"Rice, paddy",21,4,ok
+Ukraine,Sorghum,21,4,ok
+Ukraine,Soybeans,21,4,ok
+Ukraine,Wheat,21,4,ok
+United Kingdom,Potatoes,23,4,ok
+United Kingdom,Wheat,23,4,ok
+Uruguay,Maize,23,4,ok
+Uruguay,Potatoes,23,4,ok
+Uruguay,"Rice, paddy",23,4,ok
+Uruguay,Sorghum,23,4,ok
+Uruguay,Soybeans,23,4,ok
+Uruguay,Sweet potatoes,23,4,ok
+Uruguay,Wheat,23,4,ok
+Zambia,Cassava,23,4,ok
+Zambia,Maize,23,4,ok
+Zambia,Potatoes,23,4,ok
+Zambia,"Rice, paddy",23,4,ok
+Zambia,Sorghum,23,4,ok
+Zambia,Soybeans,23,4,ok
+Zambia,Sweet potatoes,23,4,ok
+Zambia,Wheat,23,4,ok
+Zimbabwe,Cassava,23,4,ok
+Zimbabwe,Maize,23,4,ok
+Zimbabwe,Potatoes,23,4,ok
+Zimbabwe,"Rice, paddy",23,4,ok
+Zimbabwe,Sorghum,23,4,ok
+Zimbabwe,Soybeans,23,4,ok
+Zimbabwe,Sweet potatoes,23,4,ok
+Zimbabwe,Wheat,23,4,ok

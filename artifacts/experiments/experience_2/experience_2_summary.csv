@@ -1,0 +1,13 @@
+indicateur,valeur
+nb_lignes_panel,29367.0
+nb_colonnes_panel,7.0
+max_available_year,2016.0
+holdout_start_year,2013.0
+test_horizon,4.0
+min_train_points,12.0
+min_series_length,16.0
+nb_series_total,1168.0
+nb_series_eligibles,567.0
+nb_areas,212.0
+nb_crops,10.0
+part_nan_globale_pct,11.15

@@ -1,0 +1,7 @@
+indicateur,valeur
+train_min_year,1990
+train_max_year,2012
+test_min_year,2013
+test_max_year,2016
+eligible_series_count,567
+eligible_panel_rows,15126

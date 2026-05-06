@@ -1,0 +1,1169 @@
+area,crop,n_obs,start_year,end_year,unique_years,target_non_null,is_consecutive,ends_on_last_year,exog_missing_after_imputation,eligible_for_experience_2
+Afghanistan,Maize,27,1990,2016,27,27,True,True,27,False
+Afghanistan,Potatoes,27,1990,2016,27,27,True,True,27,False
+Afghanistan,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Afghanistan,Wheat,27,1990,2016,27,27,True,True,27,False
+Albania,Maize,27,1990,2016,27,27,True,True,0,True
+Albania,Potatoes,27,1990,2016,27,27,True,True,0,True
+Albania,"Rice, paddy",4,1990,1993,4,4,True,False,0,False
+Albania,Sorghum,3,1990,1992,3,3,True,False,0,False
+Albania,Soybeans,27,1990,2016,27,27,True,True,0,True
+Albania,Wheat,27,1990,2016,27,27,True,True,0,True
+Algeria,Maize,27,1990,2016,27,27,True,True,0,True
+Algeria,Potatoes,27,1990,2016,27,27,True,True,0,True
+Algeria,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Algeria,Sorghum,26,1990,2016,26,26,False,True,0,False
+Algeria,Wheat,27,1990,2016,27,27,True,True,0,True
+American Samoa,Cassava,27,1990,2016,27,27,True,True,81,False
+American Samoa,Yams,27,1990,2016,27,27,True,True,81,False
+Angola,Cassava,27,1990,2016,27,27,True,True,0,True
+Angola,Maize,27,1990,2016,27,27,True,True,0,True
+Angola,Potatoes,27,1990,2016,27,27,True,True,0,True
+Angola,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Angola,Sorghum,17,2000,2016,17,17,True,True,0,True
+Angola,Soybeans,17,2000,2016,17,17,True,True,0,True
+Angola,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Angola,Wheat,27,1990,2016,27,27,True,True,0,True
+Antigua and Barbuda,Cassava,27,1990,2016,27,27,True,True,27,False
+Antigua and Barbuda,Maize,27,1990,2016,27,27,True,True,27,False
+Antigua and Barbuda,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Antigua and Barbuda,Yams,27,1990,2016,27,27,True,True,27,False
+Argentina,Cassava,27,1990,2016,27,27,True,True,0,True
+Argentina,Maize,27,1990,2016,27,27,True,True,0,True
+Argentina,Potatoes,27,1990,2016,27,27,True,True,0,True
+Argentina,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Argentina,Sorghum,27,1990,2016,27,27,True,True,0,True
+Argentina,Soybeans,27,1990,2016,27,27,True,True,0,True
+Argentina,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Argentina,Wheat,27,1990,2016,27,27,True,True,0,True
+Armenia,Maize,25,1992,2016,25,25,True,True,0,True
+Armenia,Potatoes,25,1992,2016,25,25,True,True,0,True
+Armenia,Wheat,25,1992,2016,25,25,True,True,0,True
+Australia,Maize,27,1990,2016,27,27,True,True,0,True
+Australia,Potatoes,27,1990,2016,27,27,True,True,0,True
+Australia,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Australia,Sorghum,27,1990,2016,27,27,True,True,0,True
+Australia,Soybeans,27,1990,2016,27,27,True,True,0,True
+Australia,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Australia,Wheat,27,1990,2016,27,27,True,True,0,True
+Austria,Maize,27,1990,2016,27,27,True,True,0,True
+Austria,Potatoes,27,1990,2016,27,27,True,True,0,True
+Austria,Sorghum,7,2010,2016,7,7,True,True,0,False
+Austria,Soybeans,27,1990,2016,27,27,True,True,0,True
+Austria,Wheat,27,1990,2016,27,27,True,True,0,True
+Azerbaijan,Maize,25,1992,2016,25,25,True,True,0,True
+Azerbaijan,Potatoes,25,1992,2016,25,25,True,True,0,True
+Azerbaijan,"Rice, paddy",25,1992,2016,25,25,True,True,0,True
+Azerbaijan,Sorghum,15,1992,2016,15,15,False,True,0,False
+Azerbaijan,Soybeans,23,1992,2016,23,23,False,True,0,False
+Azerbaijan,Wheat,25,1992,2016,25,25,True,True,0,True
+Bahamas,Cassava,27,1990,2016,27,27,True,True,0,True
+Bahamas,Maize,27,1990,2016,27,27,True,True,0,True
+Bahamas,Plantains and others,7,2010,2016,7,7,True,True,0,False
+Bahamas,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Bahrain,Potatoes,27,1990,2016,27,27,True,True,0,True
+Bahrain,Sweet potatoes,6,1990,1995,6,6,True,False,0,False
+Bangladesh,Maize,27,1990,2016,27,27,True,True,0,True
+Bangladesh,Potatoes,27,1990,2016,27,27,True,True,0,True
+Bangladesh,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Bangladesh,Sorghum,27,1990,2016,27,27,True,True,0,True
+Bangladesh,Soybeans,12,2005,2016,12,12,True,True,0,False
+Bangladesh,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Bangladesh,Wheat,27,1990,2016,27,27,True,True,0,True
+Barbados,Cassava,27,1990,2016,27,27,True,True,27,False
+Barbados,Maize,27,1990,2016,27,27,True,True,27,False
+Barbados,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Barbados,Yams,27,1990,2016,27,27,True,True,27,False
+Belarus,Maize,25,1992,2016,25,25,True,True,0,True
+Belarus,Potatoes,25,1992,2016,25,25,True,True,0,True
+Belarus,Wheat,25,1992,2016,25,25,True,True,0,True
+Belgium,Maize,17,2000,2016,17,17,True,True,0,True
+Belgium,Potatoes,17,2000,2016,17,17,True,True,0,True
+Belgium,Wheat,17,2000,2016,17,17,True,True,0,True
+Belgium-Luxembourg,Maize,10,1990,1999,10,10,True,False,20,False
+Belgium-Luxembourg,Potatoes,10,1990,1999,10,10,True,False,20,False
+Belgium-Luxembourg,Wheat,10,1990,1999,10,10,True,False,20,False
+Belize,Cassava,27,1990,2016,27,27,True,True,27,False
+Belize,Maize,27,1990,2016,27,27,True,True,27,False
+Belize,Plantains and others,27,1990,2016,27,27,True,True,27,False
+Belize,Potatoes,27,1990,2016,27,27,True,True,27,False
+Belize,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Belize,Sorghum,27,1990,2016,27,27,True,True,27,False
+Belize,Soybeans,27,1990,2016,27,27,True,True,27,False
+Belize,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Belize,Yams,27,1990,2016,27,27,True,True,27,False
+Benin,Cassava,27,1990,2016,27,27,True,True,55,False
+Benin,Maize,27,1990,2016,27,27,True,True,55,False
+Benin,Potatoes,20,1995,2016,20,20,False,True,41,False
+Benin,"Rice, paddy",27,1990,2016,27,27,True,True,55,False
+Benin,Sorghum,27,1990,2016,27,27,True,True,55,False
+Benin,Soybeans,27,1990,2016,27,27,True,True,55,False
+Benin,Sweet potatoes,27,1990,2016,27,27,True,True,55,False
+Benin,Yams,27,1990,2016,27,27,True,True,55,False
+Bermuda,Potatoes,27,1990,2016,27,27,True,True,54,False
+Bermuda,Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+Bhutan,Maize,27,1990,2016,27,27,True,True,27,False
+Bhutan,Potatoes,27,1990,2016,27,27,True,True,27,False
+Bhutan,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Bhutan,Soybeans,27,1990,2016,27,27,True,True,27,False
+Bhutan,Sweet potatoes,8,2009,2016,8,8,True,True,8,False
+Bhutan,Wheat,27,1990,2016,27,27,True,True,27,False
+Bolivia (Plurinational State of),Cassava,27,1990,2016,27,27,True,True,54,False
+Bolivia (Plurinational State of),Maize,27,1990,2016,27,27,True,True,54,False
+Bolivia (Plurinational State of),Plantains and others,27,1990,2016,27,27,True,True,54,False
+Bolivia (Plurinational State of),Potatoes,27,1990,2016,27,27,True,True,54,False
+Bolivia (Plurinational State of),"Rice, paddy",27,1990,2016,27,27,True,True,54,False
+Bolivia (Plurinational State of),Sorghum,27,1990,2016,27,27,True,True,54,False
+Bolivia (Plurinational State of),Soybeans,27,1990,2016,27,27,True,True,54,False
+Bolivia (Plurinational State of),Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+Bolivia (Plurinational State of),Wheat,27,1990,2016,27,27,True,True,54,False
+Bosnia and Herzegovina,Maize,25,1992,2016,25,25,True,True,51,False
+Bosnia and Herzegovina,Potatoes,25,1992,2016,25,25,True,True,51,False
+Bosnia and Herzegovina,Soybeans,25,1992,2016,25,25,True,True,51,False
+Bosnia and Herzegovina,Wheat,25,1992,2016,25,25,True,True,51,False
+Botswana,Maize,27,1990,2016,27,27,True,True,0,True
+Botswana,Sorghum,27,1990,2016,27,27,True,True,0,True
+Botswana,Wheat,19,1990,2008,19,19,True,False,0,False
+Brazil,Cassava,27,1990,2016,27,27,True,True,0,True
+Brazil,Maize,27,1990,2016,27,27,True,True,0,True
+Brazil,Potatoes,27,1990,2016,27,27,True,True,0,True
+Brazil,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Brazil,Sorghum,27,1990,2016,27,27,True,True,0,True
+Brazil,Soybeans,27,1990,2016,27,27,True,True,0,True
+Brazil,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Brazil,Wheat,27,1990,2016,27,27,True,True,0,True
+Brazil,Yams,27,1990,2016,27,27,True,True,0,True
+Brunei Darussalam,Cassava,27,1990,2016,27,27,True,True,27,False
+Brunei Darussalam,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Brunei Darussalam,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Bulgaria,Maize,27,1990,2016,27,27,True,True,0,True
+Bulgaria,Potatoes,27,1990,2016,27,27,True,True,0,True
+Bulgaria,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Bulgaria,Sorghum,27,1990,2016,27,27,True,True,0,True
+Bulgaria,Soybeans,27,1990,2016,27,27,True,True,0,True
+Bulgaria,Wheat,27,1990,2016,27,27,True,True,0,True
+Burkina Faso,Cassava,27,1990,2016,27,27,True,True,0,True
+Burkina Faso,Maize,27,1990,2016,27,27,True,True,0,True
+Burkina Faso,Potatoes,27,1990,2016,27,27,True,True,0,True
+Burkina Faso,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Burkina Faso,Sorghum,27,1990,2016,27,27,True,True,0,True
+Burkina Faso,Soybeans,27,1990,2016,27,27,True,True,0,True
+Burkina Faso,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Burkina Faso,Yams,27,1990,2016,27,27,True,True,0,True
+Burundi,Cassava,27,1990,2016,27,27,True,True,0,True
+Burundi,Maize,27,1990,2016,27,27,True,True,0,True
+Burundi,Potatoes,27,1990,2016,27,27,True,True,0,True
+Burundi,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Burundi,Sorghum,27,1990,2016,27,27,True,True,0,True
+Burundi,Soybeans,27,1990,2016,27,27,True,True,0,True
+Burundi,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Burundi,Wheat,27,1990,2016,27,27,True,True,0,True
+Burundi,Yams,27,1990,2016,27,27,True,True,0,True
+Cabo Verde,Cassava,27,1990,2016,27,27,True,True,27,False
+Cabo Verde,Maize,27,1990,2016,27,27,True,True,27,False
+Cabo Verde,Potatoes,27,1990,2016,27,27,True,True,27,False
+Cabo Verde,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Cambodia,Cassava,27,1990,2016,27,27,True,True,55,False
+Cambodia,Maize,27,1990,2016,27,27,True,True,55,False
+Cambodia,"Rice, paddy",27,1990,2016,27,27,True,True,55,False
+Cambodia,Soybeans,27,1990,2016,27,27,True,True,55,False
+Cambodia,Sweet potatoes,27,1990,2016,27,27,True,True,55,False
+Cameroon,Cassava,27,1990,2016,27,27,True,True,0,True
+Cameroon,Maize,27,1990,2016,27,27,True,True,0,True
+Cameroon,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Cameroon,Potatoes,27,1990,2016,27,27,True,True,0,True
+Cameroon,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Cameroon,Sorghum,27,1990,2016,27,27,True,True,0,True
+Cameroon,Soybeans,27,1990,2016,27,27,True,True,0,True
+Cameroon,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Cameroon,Wheat,27,1990,2016,27,27,True,True,0,True
+Cameroon,Yams,27,1990,2016,27,27,True,True,0,True
+Canada,Maize,27,1990,2016,27,27,True,True,0,True
+Canada,Potatoes,27,1990,2016,27,27,True,True,0,True
+Canada,Soybeans,27,1990,2016,27,27,True,True,0,True
+Canada,Wheat,27,1990,2016,27,27,True,True,0,True
+Cayman Islands,Cassava,27,1990,2016,27,27,True,True,81,False
+Cayman Islands,Sweet potatoes,27,1990,2016,27,27,True,True,81,False
+Cayman Islands,Yams,27,1990,2016,27,27,True,True,81,False
+Central African Republic,Cassava,27,1990,2016,27,27,True,True,0,True
+Central African Republic,Maize,27,1990,2016,27,27,True,True,0,True
+Central African Republic,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Central African Republic,Potatoes,27,1990,2016,27,27,True,True,0,True
+Central African Republic,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Central African Republic,Sorghum,27,1990,2016,27,27,True,True,0,True
+Central African Republic,Yams,27,1990,2016,27,27,True,True,0,True
+Chad,Cassava,27,1990,2016,27,27,True,True,27,False
+Chad,Maize,27,1990,2016,27,27,True,True,27,False
+Chad,Potatoes,27,1990,2016,27,27,True,True,27,False
+Chad,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Chad,Sorghum,27,1990,2016,27,27,True,True,27,False
+Chad,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Chad,Wheat,26,1990,2016,26,26,False,True,26,False
+Chad,Yams,27,1990,2016,27,27,True,True,27,False
+Chile,Maize,27,1990,2016,27,27,True,True,0,True
+Chile,Potatoes,27,1990,2016,27,27,True,True,0,True
+Chile,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Chile,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Chile,Wheat,27,1990,2016,27,27,True,True,0,True
+China,Cassava,27,1990,2016,27,27,True,True,27,False
+China,Maize,27,1990,2016,27,27,True,True,27,False
+China,Potatoes,27,1990,2016,27,27,True,True,27,False
+China,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+China,Sorghum,27,1990,2016,27,27,True,True,27,False
+China,Soybeans,27,1990,2016,27,27,True,True,27,False
+China,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+China,Wheat,27,1990,2016,27,27,True,True,27,False
+"China, Hong Kong SAR","Rice, paddy",20,1990,2016,20,20,False,True,40,False
+"China, Hong Kong SAR",Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+"China, Taiwan Province of",Cassava,27,1990,2016,27,27,True,True,54,False
+"China, Taiwan Province of",Maize,27,1990,2016,27,27,True,True,54,False
+"China, Taiwan Province of",Potatoes,27,1990,2016,27,27,True,True,54,False
+"China, Taiwan Province of","Rice, paddy",27,1990,2016,27,27,True,True,54,False
+"China, Taiwan Province of",Sorghum,27,1990,2016,27,27,True,True,54,False
+"China, Taiwan Province of",Soybeans,27,1990,2016,27,27,True,True,54,False
+"China, Taiwan Province of",Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+"China, Taiwan Province of",Wheat,27,1990,2016,27,27,True,True,54,False
+"China, mainland",Cassava,27,1990,2016,27,27,True,True,54,False
+"China, mainland",Maize,27,1990,2016,27,27,True,True,54,False
+"China, mainland",Potatoes,27,1990,2016,27,27,True,True,54,False
+"China, mainland","Rice, paddy",27,1990,2016,27,27,True,True,54,False
+"China, mainland",Sorghum,27,1990,2016,27,27,True,True,54,False
+"China, mainland",Soybeans,27,1990,2016,27,27,True,True,54,False
+"China, mainland",Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+"China, mainland",Wheat,27,1990,2016,27,27,True,True,54,False
+Colombia,Cassava,27,1990,2016,27,27,True,True,0,True
+Colombia,Maize,27,1990,2016,27,27,True,True,0,True
+Colombia,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Colombia,Potatoes,27,1990,2016,27,27,True,True,0,True
+Colombia,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Colombia,Sorghum,27,1990,2016,27,27,True,True,0,True
+Colombia,Soybeans,27,1990,2016,27,27,True,True,0,True
+Colombia,Wheat,27,1990,2016,27,27,True,True,0,True
+Colombia,Yams,27,1990,2016,27,27,True,True,0,True
+Comoros,Cassava,27,1990,2016,27,27,True,True,27,False
+Comoros,Maize,27,1990,2016,27,27,True,True,27,False
+Comoros,Potatoes,27,1990,2016,27,27,True,True,27,False
+Comoros,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Comoros,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Comoros,Yams,27,1990,2016,27,27,True,True,27,False
+Congo,Cassava,27,1990,2016,27,27,True,True,27,False
+Congo,Maize,27,1990,2016,27,27,True,True,27,False
+Congo,Plantains and others,27,1990,2016,27,27,True,True,27,False
+Congo,Potatoes,27,1990,2016,27,27,True,True,27,False
+Congo,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Congo,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Congo,Yams,27,1990,2016,27,27,True,True,27,False
+Cook Islands,Cassava,27,1990,2016,27,27,True,True,54,False
+Cook Islands,Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+Costa Rica,Cassava,27,1990,2016,27,27,True,True,27,False
+Costa Rica,Maize,27,1990,2016,27,27,True,True,27,False
+Costa Rica,Plantains and others,27,1990,2016,27,27,True,True,27,False
+Costa Rica,Potatoes,27,1990,2016,27,27,True,True,27,False
+Costa Rica,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Costa Rica,Sorghum,2,1990,1991,2,2,True,False,2,False
+Costa Rica,Soybeans,3,1990,1992,3,3,True,False,3,False
+Costa Rica,Sweet potatoes,23,1994,2016,23,23,True,True,23,False
+Costa Rica,Yams,27,1990,2016,27,27,True,True,27,False
+Croatia,Maize,25,1992,2016,25,25,True,True,0,True
+Croatia,Potatoes,25,1992,2016,25,25,True,True,0,True
+Croatia,Sorghum,24,1992,2016,24,24,False,True,0,False
+Croatia,Soybeans,25,1992,2016,25,25,True,True,0,True
+Croatia,Wheat,25,1992,2016,25,25,True,True,0,True
+Cuba,Cassava,27,1990,2016,27,27,True,True,55,False
+Cuba,Maize,27,1990,2016,27,27,True,True,55,False
+Cuba,Plantains and others,27,1990,2016,27,27,True,True,55,False
+Cuba,Potatoes,27,1990,2016,27,27,True,True,55,False
+Cuba,"Rice, paddy",27,1990,2016,27,27,True,True,55,False
+Cuba,Sorghum,27,1990,2016,27,27,True,True,55,False
+Cuba,Sweet potatoes,27,1990,2016,27,27,True,True,55,False
+Cuba,Yams,25,1992,2016,25,25,True,True,51,False
+Cyprus,Potatoes,27,1990,2016,27,27,True,True,27,False
+Cyprus,Wheat,27,1990,2016,27,27,True,True,27,False
+Czechia,Maize,24,1993,2016,24,24,True,True,48,False
+Czechia,Potatoes,24,1993,2016,24,24,True,True,48,False
+Czechia,Soybeans,24,1993,2016,24,24,True,True,48,False
+Czechia,Wheat,24,1993,2016,24,24,True,True,48,False
+Czechoslovakia,Maize,3,1990,1992,3,3,True,False,9,False
+Czechoslovakia,Potatoes,3,1990,1992,3,3,True,False,9,False
+Czechoslovakia,Sorghum,3,1990,1992,3,3,True,False,9,False
+Czechoslovakia,Soybeans,3,1990,1992,3,3,True,False,9,False
+Czechoslovakia,Wheat,3,1990,1992,3,3,True,False,9,False
+Côte d'Ivoire,Cassava,27,1990,2016,27,27,True,True,54,False
+Côte d'Ivoire,Maize,27,1990,2016,27,27,True,True,54,False
+Côte d'Ivoire,Plantains and others,27,1990,2016,27,27,True,True,54,False
+Côte d'Ivoire,"Rice, paddy",27,1990,2016,27,27,True,True,54,False
+Côte d'Ivoire,Sorghum,27,1990,2016,27,27,True,True,54,False
+Côte d'Ivoire,Soybeans,27,1990,2016,27,27,True,True,54,False
+Côte d'Ivoire,Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+Côte d'Ivoire,Yams,27,1990,2016,27,27,True,True,54,False
+Democratic People's Republic of Korea,Maize,27,1990,2016,27,27,True,True,81,False
+Democratic People's Republic of Korea,Potatoes,27,1990,2016,27,27,True,True,81,False
+Democratic People's Republic of Korea,"Rice, paddy",27,1990,2016,27,27,True,True,81,False
+Democratic People's Republic of Korea,Sorghum,27,1990,2016,27,27,True,True,81,False
+Democratic People's Republic of Korea,Soybeans,27,1990,2016,27,27,True,True,81,False
+Democratic People's Republic of Korea,Sweet potatoes,27,1990,2016,27,27,True,True,81,False
+Democratic People's Republic of Korea,Wheat,27,1990,2016,27,27,True,True,81,False
+Democratic Republic of the Congo,Cassava,27,1990,2016,27,27,True,True,81,False
+Democratic Republic of the Congo,Maize,27,1990,2016,27,27,True,True,81,False
+Democratic Republic of the Congo,Plantains and others,27,1990,2016,27,27,True,True,81,False
+Democratic Republic of the Congo,Potatoes,27,1990,2016,27,27,True,True,81,False
+Democratic Republic of the Congo,"Rice, paddy",27,1990,2016,27,27,True,True,81,False
+Democratic Republic of the Congo,Sorghum,27,1990,2016,27,27,True,True,81,False
+Democratic Republic of the Congo,Soybeans,27,1990,2016,27,27,True,True,81,False
+Democratic Republic of the Congo,Sweet potatoes,27,1990,2016,27,27,True,True,81,False
+Democratic Republic of the Congo,Wheat,27,1990,2016,27,27,True,True,81,False
+Democratic Republic of the Congo,Yams,27,1990,2016,27,27,True,True,81,False
+Denmark,Maize,7,2010,2016,7,7,True,True,0,False
+Denmark,Potatoes,27,1990,2016,27,27,True,True,0,True
+Denmark,Wheat,27,1990,2016,27,27,True,True,0,True
+Djibouti,Maize,27,1990,2016,27,27,True,True,55,False
+Dominica,Cassava,27,1990,2016,27,27,True,True,55,False
+Dominica,Maize,27,1990,2016,27,27,True,True,55,False
+Dominica,Plantains and others,27,1990,2016,27,27,True,True,55,False
+Dominica,Potatoes,27,1990,2016,27,27,True,True,55,False
+Dominica,Sweet potatoes,27,1990,2016,27,27,True,True,55,False
+Dominica,Yams,27,1990,2016,27,27,True,True,55,False
+Dominican Republic,Cassava,27,1990,2016,27,27,True,True,0,True
+Dominican Republic,Maize,27,1990,2016,27,27,True,True,0,True
+Dominican Republic,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Dominican Republic,Potatoes,27,1990,2016,27,27,True,True,0,True
+Dominican Republic,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Dominican Republic,Sorghum,27,1990,2016,27,27,True,True,0,True
+Dominican Republic,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Dominican Republic,Yams,27,1990,2016,27,27,True,True,0,True
+Ecuador,Cassava,27,1990,2016,27,27,True,True,0,True
+Ecuador,Maize,27,1990,2016,27,27,True,True,0,True
+Ecuador,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Ecuador,Potatoes,27,1990,2016,27,27,True,True,0,True
+Ecuador,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Ecuador,Sorghum,27,1990,2016,27,27,True,True,0,True
+Ecuador,Soybeans,27,1990,2016,27,27,True,True,0,True
+Ecuador,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Ecuador,Wheat,27,1990,2016,27,27,True,True,0,True
+Egypt,Maize,27,1990,2016,27,27,True,True,0,True
+Egypt,Potatoes,27,1990,2016,27,27,True,True,0,True
+Egypt,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Egypt,Sorghum,27,1990,2016,27,27,True,True,0,True
+Egypt,Soybeans,27,1990,2016,27,27,True,True,0,True
+Egypt,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Egypt,Wheat,27,1990,2016,27,27,True,True,0,True
+El Salvador,Cassava,27,1990,2016,27,27,True,True,0,True
+El Salvador,Maize,27,1990,2016,27,27,True,True,0,True
+El Salvador,Plantains and others,27,1990,2016,27,27,True,True,0,True
+El Salvador,Potatoes,27,1990,2016,27,27,True,True,0,True
+El Salvador,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+El Salvador,Sorghum,27,1990,2016,27,27,True,True,0,True
+El Salvador,Soybeans,27,1990,2016,27,27,True,True,0,True
+El Salvador,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Equatorial Guinea,Cassava,27,1990,2016,27,27,True,True,27,False
+Equatorial Guinea,Plantains and others,26,1991,2016,26,26,True,True,26,False
+Equatorial Guinea,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Eritrea,Maize,24,1993,2016,24,24,True,True,0,True
+Eritrea,Potatoes,24,1993,2016,24,24,True,True,0,True
+Eritrea,Sorghum,24,1993,2016,24,24,True,True,0,True
+Eritrea,Wheat,24,1993,2016,24,24,True,True,0,True
+Estonia,Potatoes,25,1992,2016,25,25,True,True,0,True
+Estonia,Wheat,25,1992,2016,25,25,True,True,0,True
+Eswatini,Maize,27,1990,2016,27,27,True,True,55,False
+Eswatini,Potatoes,27,1990,2016,27,27,True,True,55,False
+Eswatini,"Rice, paddy",27,1990,2016,27,27,True,True,55,False
+Eswatini,Sorghum,27,1990,2016,27,27,True,True,55,False
+Eswatini,Sweet potatoes,27,1990,2016,27,27,True,True,55,False
+Eswatini,Wheat,27,1990,2016,27,27,True,True,55,False
+Ethiopia,Maize,24,1993,2016,24,24,True,True,24,False
+Ethiopia,Potatoes,24,1993,2016,24,24,True,True,24,False
+Ethiopia,"Rice, paddy",24,1993,2016,24,24,True,True,24,False
+Ethiopia,Sorghum,24,1993,2016,24,24,True,True,24,False
+Ethiopia,Soybeans,24,1993,2016,24,24,True,True,24,False
+Ethiopia,Sweet potatoes,24,1993,2016,24,24,True,True,24,False
+Ethiopia,Wheat,24,1993,2016,24,24,True,True,24,False
+Ethiopia,Yams,24,1993,2016,24,24,True,True,24,False
+Ethiopia PDR,Maize,3,1990,1992,3,3,True,False,9,False
+Ethiopia PDR,Potatoes,3,1990,1992,3,3,True,False,9,False
+Ethiopia PDR,Sorghum,3,1990,1992,3,3,True,False,9,False
+Ethiopia PDR,Soybeans,3,1990,1992,3,3,True,False,9,False
+Ethiopia PDR,Sweet potatoes,3,1990,1992,3,3,True,False,9,False
+Ethiopia PDR,Wheat,3,1990,1992,3,3,True,False,9,False
+Ethiopia PDR,Yams,3,1990,1992,3,3,True,False,9,False
+Faroe Islands,Potatoes,27,1990,2016,27,27,True,True,81,False
+Fiji,Cassava,27,1990,2016,27,27,True,True,27,False
+Fiji,Maize,27,1990,2016,27,27,True,True,27,False
+Fiji,Potatoes,27,1990,2016,27,27,True,True,27,False
+Fiji,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Fiji,Sorghum,27,1990,2016,27,27,True,True,27,False
+Fiji,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Fiji,Yams,27,1990,2016,27,27,True,True,27,False
+Finland,Potatoes,27,1990,2016,27,27,True,True,0,True
+Finland,Wheat,27,1990,2016,27,27,True,True,0,True
+France,Maize,27,1990,2016,27,27,True,True,0,True
+France,Potatoes,27,1990,2016,27,27,True,True,0,True
+France,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+France,Sorghum,27,1990,2016,27,27,True,True,0,True
+France,Soybeans,27,1990,2016,27,27,True,True,0,True
+France,Wheat,27,1990,2016,27,27,True,True,0,True
+French Guiana,Cassava,27,1990,2016,27,27,True,True,81,False
+French Guiana,Maize,26,1991,2016,26,26,True,True,78,False
+French Guiana,Plantains and others,27,1990,2016,27,27,True,True,81,False
+French Guiana,"Rice, paddy",27,1990,2016,27,27,True,True,81,False
+French Polynesia,Cassava,27,1990,2016,27,27,True,True,54,False
+French Polynesia,Potatoes,27,1990,2016,27,27,True,True,54,False
+Gabon,Cassava,27,1990,2016,27,27,True,True,27,False
+Gabon,Maize,27,1990,2016,27,27,True,True,27,False
+Gabon,Plantains and others,27,1990,2016,27,27,True,True,27,False
+Gabon,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Gabon,Soybeans,27,1990,2016,27,27,True,True,27,False
+Gabon,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Gabon,Yams,27,1990,2016,27,27,True,True,27,False
+Gambia,Cassava,27,1990,2016,27,27,True,True,27,False
+Gambia,Maize,27,1990,2016,27,27,True,True,27,False
+Gambia,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Gambia,Sorghum,27,1990,2016,27,27,True,True,27,False
+Georgia,Maize,25,1992,2016,25,25,True,True,25,False
+Georgia,Potatoes,25,1992,2016,25,25,True,True,25,False
+Georgia,Soybeans,25,1992,2016,25,25,True,True,25,False
+Georgia,Wheat,25,1992,2016,25,25,True,True,25,False
+Germany,Maize,27,1990,2016,27,27,True,True,0,True
+Germany,Potatoes,27,1990,2016,27,27,True,True,0,True
+Germany,Soybeans,24,1990,2016,24,24,False,True,0,False
+Germany,Wheat,27,1990,2016,27,27,True,True,0,True
+Ghana,Cassava,27,1990,2016,27,27,True,True,0,True
+Ghana,Maize,27,1990,2016,27,27,True,True,0,True
+Ghana,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Ghana,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Ghana,Sorghum,27,1990,2016,27,27,True,True,0,True
+Ghana,Sweet potatoes,21,1996,2016,21,21,True,True,0,True
+Ghana,Yams,27,1990,2016,27,27,True,True,0,True
+Greece,Maize,27,1990,2016,27,27,True,True,0,True
+Greece,Potatoes,27,1990,2016,27,27,True,True,0,True
+Greece,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Greece,Sorghum,27,1990,2016,27,27,True,True,0,True
+Greece,Soybeans,27,1990,2016,27,27,True,True,0,True
+Greece,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Greece,Wheat,27,1990,2016,27,27,True,True,0,True
+Grenada,Cassava,27,1990,2016,27,27,True,True,55,False
+Grenada,Maize,27,1990,2016,27,27,True,True,55,False
+Grenada,Plantains and others,27,1990,2016,27,27,True,True,55,False
+Grenada,Sweet potatoes,27,1990,2016,27,27,True,True,55,False
+Grenada,Yams,27,1990,2016,27,27,True,True,55,False
+Guadeloupe,Cassava,27,1990,2016,27,27,True,True,81,False
+Guadeloupe,Plantains and others,27,1990,2016,27,27,True,True,81,False
+Guadeloupe,Sweet potatoes,27,1990,2016,27,27,True,True,81,False
+Guadeloupe,Yams,27,1990,2016,27,27,True,True,81,False
+Guam,Maize,27,1990,2016,27,27,True,True,81,False
+Guam,Sweet potatoes,27,1990,2016,27,27,True,True,81,False
+Guatemala,Cassava,27,1990,2016,27,27,True,True,0,True
+Guatemala,Maize,27,1990,2016,27,27,True,True,0,True
+Guatemala,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Guatemala,Potatoes,27,1990,2016,27,27,True,True,0,True
+Guatemala,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Guatemala,Sorghum,27,1990,2016,27,27,True,True,0,True
+Guatemala,Soybeans,27,1990,2016,27,27,True,True,0,True
+Guatemala,Sweet potatoes,24,1993,2016,24,24,True,True,0,True
+Guatemala,Wheat,27,1990,2016,27,27,True,True,0,True
+Guinea,Cassava,27,1990,2016,27,27,True,True,0,True
+Guinea,Maize,27,1990,2016,27,27,True,True,0,True
+Guinea,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Guinea,Potatoes,14,2003,2016,14,14,True,True,0,False
+Guinea,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Guinea,Sorghum,27,1990,2016,27,27,True,True,0,True
+Guinea,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Guinea,Yams,27,1990,2016,27,27,True,True,0,True
+Guinea-Bissau,Cassava,27,1990,2016,27,27,True,True,27,False
+Guinea-Bissau,Maize,27,1990,2016,27,27,True,True,27,False
+Guinea-Bissau,Plantains and others,27,1990,2016,27,27,True,True,27,False
+Guinea-Bissau,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Guinea-Bissau,Sorghum,27,1990,2016,27,27,True,True,27,False
+Guyana,Cassava,27,1990,2016,27,27,True,True,0,True
+Guyana,Maize,27,1990,2016,27,27,True,True,0,True
+Guyana,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Guyana,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Guyana,Sweet potatoes,20,1997,2016,20,20,True,True,0,True
+Guyana,Yams,20,1997,2016,20,20,True,True,0,True
+Haiti,Cassava,27,1990,2016,27,27,True,True,0,True
+Haiti,Maize,27,1990,2016,27,27,True,True,0,True
+Haiti,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Haiti,Potatoes,27,1990,2016,27,27,True,True,0,True
+Haiti,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Haiti,Sorghum,27,1990,2016,27,27,True,True,0,True
+Haiti,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Haiti,Yams,27,1990,2016,27,27,True,True,0,True
+Honduras,Cassava,27,1990,2016,27,27,True,True,0,True
+Honduras,Maize,27,1990,2016,27,27,True,True,0,True
+Honduras,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Honduras,Potatoes,27,1990,2016,27,27,True,True,0,True
+Honduras,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Honduras,Sorghum,27,1990,2016,27,27,True,True,0,True
+Honduras,Soybeans,24,1993,2016,24,24,True,True,0,True
+Honduras,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Honduras,Wheat,27,1990,2016,27,27,True,True,0,True
+Hungary,Maize,27,1990,2016,27,27,True,True,0,True
+Hungary,Potatoes,27,1990,2016,27,27,True,True,0,True
+Hungary,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Hungary,Sorghum,27,1990,2016,27,27,True,True,0,True
+Hungary,Soybeans,27,1990,2016,27,27,True,True,0,True
+Hungary,Wheat,27,1990,2016,27,27,True,True,0,True
+Iceland,Potatoes,27,1990,2016,27,27,True,True,27,False
+India,Cassava,27,1990,2016,27,27,True,True,0,True
+India,Maize,27,1990,2016,27,27,True,True,0,True
+India,Potatoes,27,1990,2016,27,27,True,True,0,True
+India,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+India,Sorghum,27,1990,2016,27,27,True,True,0,True
+India,Soybeans,27,1990,2016,27,27,True,True,0,True
+India,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+India,Wheat,27,1990,2016,27,27,True,True,0,True
+Indonesia,Cassava,27,1990,2016,27,27,True,True,0,True
+Indonesia,Maize,27,1990,2016,27,27,True,True,0,True
+Indonesia,Potatoes,27,1990,2016,27,27,True,True,0,True
+Indonesia,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Indonesia,Soybeans,27,1990,2016,27,27,True,True,0,True
+Indonesia,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Iran (Islamic Republic of),Maize,27,1990,2016,27,27,True,True,54,False
+Iran (Islamic Republic of),Potatoes,27,1990,2016,27,27,True,True,54,False
+Iran (Islamic Republic of),"Rice, paddy",27,1990,2016,27,27,True,True,54,False
+Iran (Islamic Republic of),Soybeans,27,1990,2016,27,27,True,True,54,False
+Iran (Islamic Republic of),Wheat,27,1990,2016,27,27,True,True,54,False
+Iraq,Maize,27,1990,2016,27,27,True,True,0,True
+Iraq,Potatoes,27,1990,2016,27,27,True,True,0,True
+Iraq,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Iraq,Sorghum,27,1990,2016,27,27,True,True,0,True
+Iraq,Soybeans,27,1990,2016,27,27,True,True,0,True
+Iraq,Wheat,27,1990,2016,27,27,True,True,0,True
+Ireland,Potatoes,27,1990,2016,27,27,True,True,0,True
+Ireland,Wheat,27,1990,2016,27,27,True,True,0,True
+Israel,Maize,27,1990,2016,27,27,True,True,27,False
+Israel,Potatoes,27,1990,2016,27,27,True,True,27,False
+Israel,Sorghum,27,1990,2016,27,27,True,True,27,False
+Israel,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Israel,Wheat,27,1990,2016,27,27,True,True,27,False
+Italy,Maize,27,1990,2016,27,27,True,True,0,True
+Italy,Potatoes,27,1990,2016,27,27,True,True,0,True
+Italy,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Italy,Sorghum,27,1990,2016,27,27,True,True,0,True
+Italy,Soybeans,27,1990,2016,27,27,True,True,0,True
+Italy,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Italy,Wheat,27,1990,2016,27,27,True,True,0,True
+Jamaica,Cassava,27,1990,2016,27,27,True,True,0,True
+Jamaica,Maize,27,1990,2016,27,27,True,True,0,True
+Jamaica,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Jamaica,Potatoes,27,1990,2016,27,27,True,True,0,True
+Jamaica,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Jamaica,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Jamaica,Yams,27,1990,2016,27,27,True,True,0,True
+Japan,Maize,27,1990,2016,27,27,True,True,0,True
+Japan,Potatoes,27,1990,2016,27,27,True,True,0,True
+Japan,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Japan,Soybeans,27,1990,2016,27,27,True,True,0,True
+Japan,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Japan,Wheat,27,1990,2016,27,27,True,True,0,True
+Japan,Yams,27,1990,2016,27,27,True,True,0,True
+Jordan,Maize,27,1990,2016,27,27,True,True,27,False
+Jordan,Potatoes,27,1990,2016,27,27,True,True,27,False
+Jordan,Sorghum,23,1994,2016,23,23,True,True,23,False
+Jordan,Wheat,27,1990,2016,27,27,True,True,27,False
+Kazakhstan,Maize,25,1992,2016,25,25,True,True,0,True
+Kazakhstan,Potatoes,25,1992,2016,25,25,True,True,0,True
+Kazakhstan,"Rice, paddy",25,1992,2016,25,25,True,True,0,True
+Kazakhstan,Sorghum,25,1992,2016,25,25,True,True,0,True
+Kazakhstan,Soybeans,25,1992,2016,25,25,True,True,0,True
+Kazakhstan,Wheat,25,1992,2016,25,25,True,True,0,True
+Kenya,Cassava,27,1990,2016,27,27,True,True,0,True
+Kenya,Maize,27,1990,2016,27,27,True,True,0,True
+Kenya,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Kenya,Potatoes,27,1990,2016,27,27,True,True,0,True
+Kenya,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Kenya,Sorghum,27,1990,2016,27,27,True,True,0,True
+Kenya,Soybeans,27,1990,2016,27,27,True,True,0,True
+Kenya,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Kenya,Wheat,27,1990,2016,27,27,True,True,0,True
+Kenya,Yams,27,1990,2016,27,27,True,True,0,True
+Kuwait,Maize,27,1990,2016,27,27,True,True,27,False
+Kuwait,Potatoes,27,1990,2016,27,27,True,True,27,False
+Kuwait,Wheat,27,1990,2016,27,27,True,True,27,False
+Kyrgyzstan,Maize,25,1992,2016,25,25,True,True,50,False
+Kyrgyzstan,Potatoes,25,1992,2016,25,25,True,True,50,False
+Kyrgyzstan,"Rice, paddy",25,1992,2016,25,25,True,True,50,False
+Kyrgyzstan,Sorghum,25,1992,2016,25,25,True,True,50,False
+Kyrgyzstan,Soybeans,25,1992,2016,25,25,True,True,50,False
+Kyrgyzstan,Wheat,25,1992,2016,25,25,True,True,50,False
+Lao People's Democratic Republic,Cassava,27,1990,2016,27,27,True,True,54,False
+Lao People's Democratic Republic,Maize,27,1990,2016,27,27,True,True,54,False
+Lao People's Democratic Republic,Potatoes,27,1990,2016,27,27,True,True,54,False
+Lao People's Democratic Republic,"Rice, paddy",27,1990,2016,27,27,True,True,54,False
+Lao People's Democratic Republic,Soybeans,27,1990,2016,27,27,True,True,54,False
+Lao People's Democratic Republic,Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+Latvia,Potatoes,25,1992,2016,25,25,True,True,0,True
+Latvia,Wheat,25,1992,2016,25,25,True,True,0,True
+Lebanon,Maize,27,1990,2016,27,27,True,True,0,True
+Lebanon,Potatoes,27,1990,2016,27,27,True,True,0,True
+Lebanon,Sorghum,27,1990,2016,27,27,True,True,0,True
+Lebanon,Wheat,27,1990,2016,27,27,True,True,0,True
+Lesotho,Maize,27,1990,2016,27,27,True,True,0,True
+Lesotho,Potatoes,27,1990,2016,27,27,True,True,0,True
+Lesotho,Sorghum,27,1990,2016,27,27,True,True,0,True
+Lesotho,Wheat,27,1990,2016,27,27,True,True,0,True
+Liberia,Cassava,27,1990,2016,27,27,True,True,27,False
+Liberia,Plantains and others,27,1990,2016,27,27,True,True,27,False
+Liberia,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Liberia,Soybeans,27,1990,2016,27,27,True,True,27,False
+Liberia,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Liberia,Yams,27,1990,2016,27,27,True,True,27,False
+Libya,Maize,27,1990,2016,27,27,True,True,0,True
+Libya,Potatoes,27,1990,2016,27,27,True,True,0,True
+Libya,Wheat,27,1990,2016,27,27,True,True,0,True
+Lithuania,Maize,25,1992,2016,25,25,True,True,0,True
+Lithuania,Potatoes,25,1992,2016,25,25,True,True,0,True
+Lithuania,Wheat,25,1992,2016,25,25,True,True,0,True
+Luxembourg,Maize,17,2000,2016,17,17,True,True,17,False
+Luxembourg,Potatoes,17,2000,2016,17,17,True,True,17,False
+Luxembourg,Wheat,17,2000,2016,17,17,True,True,17,False
+Madagascar,Cassava,27,1990,2016,27,27,True,True,0,True
+Madagascar,Maize,27,1990,2016,27,27,True,True,0,True
+Madagascar,Potatoes,27,1990,2016,27,27,True,True,0,True
+Madagascar,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Madagascar,Sorghum,27,1990,2016,27,27,True,True,0,True
+Madagascar,Soybeans,27,1990,2016,27,27,True,True,0,True
+Madagascar,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Madagascar,Wheat,27,1990,2016,27,27,True,True,0,True
+Malawi,Cassava,27,1990,2016,27,27,True,True,0,True
+Malawi,Maize,27,1990,2016,27,27,True,True,0,True
+Malawi,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Malawi,Potatoes,27,1990,2016,27,27,True,True,0,True
+Malawi,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Malawi,Sorghum,27,1990,2016,27,27,True,True,0,True
+Malawi,Soybeans,14,2003,2016,14,14,True,True,0,False
+Malawi,Wheat,27,1990,2016,27,27,True,True,0,True
+Malaysia,Cassava,27,1990,2016,27,27,True,True,0,True
+Malaysia,Maize,27,1990,2016,27,27,True,True,0,True
+Malaysia,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Malaysia,Soybeans,1,1990,1990,1,1,True,False,0,False
+Malaysia,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Maldives,Cassava,27,1990,2016,27,27,True,True,27,False
+Maldives,Maize,26,1990,2016,26,26,False,True,26,False
+Maldives,Sorghum,26,1990,2016,26,26,False,True,26,False
+Maldives,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Mali,Cassava,27,1990,2016,27,27,True,True,0,True
+Mali,Maize,27,1990,2016,27,27,True,True,0,True
+Mali,Potatoes,27,1990,2016,27,27,True,True,0,True
+Mali,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Mali,Sorghum,27,1990,2016,27,27,True,True,0,True
+Mali,Soybeans,27,1990,2016,27,27,True,True,0,True
+Mali,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Mali,Wheat,27,1990,2016,27,27,True,True,0,True
+Mali,Yams,27,1990,2016,27,27,True,True,0,True
+Malta,Potatoes,27,1990,2016,27,27,True,True,27,False
+Malta,Wheat,27,1990,2016,27,27,True,True,27,False
+Martinique,Cassava,24,1993,2016,24,24,True,True,72,False
+Martinique,Plantains and others,27,1990,2016,27,27,True,True,81,False
+Martinique,Sweet potatoes,27,1990,2016,27,27,True,True,81,False
+Martinique,Yams,27,1990,2016,27,27,True,True,81,False
+Mauritania,Maize,27,1990,2016,27,27,True,True,0,True
+Mauritania,Potatoes,27,1990,2016,27,27,True,True,0,True
+Mauritania,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Mauritania,Sorghum,27,1990,2016,27,27,True,True,0,True
+Mauritania,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Mauritania,Wheat,27,1990,2016,27,27,True,True,0,True
+Mauritania,Yams,27,1990,2016,27,27,True,True,0,True
+Mauritius,Cassava,27,1990,2016,27,27,True,True,0,True
+Mauritius,Maize,27,1990,2016,27,27,True,True,0,True
+Mauritius,Potatoes,27,1990,2016,27,27,True,True,0,True
+Mauritius,"Rice, paddy",12,1990,2016,12,12,False,True,0,False
+Mauritius,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Mexico,Cassava,27,1990,2016,27,27,True,True,0,True
+Mexico,Maize,27,1990,2016,27,27,True,True,0,True
+Mexico,Potatoes,27,1990,2016,27,27,True,True,0,True
+Mexico,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Mexico,Sorghum,27,1990,2016,27,27,True,True,0,True
+Mexico,Soybeans,27,1990,2016,27,27,True,True,0,True
+Mexico,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Mexico,Wheat,27,1990,2016,27,27,True,True,0,True
+Micronesia (Federated States of),Cassava,22,1995,2016,22,22,True,True,66,False
+Micronesia (Federated States of),Maize,26,1991,2016,26,26,True,True,78,False
+Micronesia (Federated States of),Plantains and others,22,1995,2016,22,22,True,True,66,False
+Micronesia (Federated States of),"Rice, paddy",22,1995,2016,22,22,True,True,66,False
+Micronesia (Federated States of),Sorghum,22,1995,2016,22,22,True,True,66,False
+Micronesia (Federated States of),Sweet potatoes,22,1995,2016,22,22,True,True,66,False
+Mongolia,Potatoes,27,1990,2016,27,27,True,True,27,False
+Mongolia,Wheat,27,1990,2016,27,27,True,True,27,False
+Montenegro,Maize,11,2006,2016,11,11,True,True,0,False
+Montenegro,Potatoes,11,2006,2016,11,11,True,True,0,False
+Montenegro,Wheat,11,2006,2016,11,11,True,True,0,False
+Montserrat,Maize,27,1990,2016,27,27,True,True,81,False
+Montserrat,Potatoes,27,1990,2016,27,27,True,True,81,False
+Montserrat,Sweet potatoes,27,1990,2016,27,27,True,True,81,False
+Morocco,Maize,27,1990,2016,27,27,True,True,0,True
+Morocco,Potatoes,27,1990,2016,27,27,True,True,0,True
+Morocco,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Morocco,Sorghum,27,1990,2016,27,27,True,True,0,True
+Morocco,Soybeans,27,1990,2016,27,27,True,True,0,True
+Morocco,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Morocco,Wheat,27,1990,2016,27,27,True,True,0,True
+Mozambique,Cassava,27,1990,2016,27,27,True,True,0,True
+Mozambique,Maize,27,1990,2016,27,27,True,True,0,True
+Mozambique,Potatoes,27,1990,2016,27,27,True,True,0,True
+Mozambique,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Mozambique,Sorghum,27,1990,2016,27,27,True,True,0,True
+Mozambique,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Mozambique,Wheat,27,1990,2016,27,27,True,True,0,True
+Myanmar,Cassava,27,1990,2016,27,27,True,True,27,False
+Myanmar,Maize,27,1990,2016,27,27,True,True,27,False
+Myanmar,Plantains and others,27,1990,2016,27,27,True,True,27,False
+Myanmar,Potatoes,27,1990,2016,27,27,True,True,27,False
+Myanmar,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Myanmar,Sorghum,20,1997,2016,20,20,True,True,20,False
+Myanmar,Soybeans,27,1990,2016,27,27,True,True,27,False
+Myanmar,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Myanmar,Wheat,27,1990,2016,27,27,True,True,27,False
+Namibia,Maize,27,1990,2016,27,27,True,True,0,True
+Namibia,Potatoes,17,2000,2016,17,17,True,True,0,True
+Namibia,Sorghum,27,1990,2016,27,27,True,True,0,True
+Namibia,Wheat,27,1990,2016,27,27,True,True,0,True
+Nepal,Maize,27,1990,2016,27,27,True,True,0,True
+Nepal,Potatoes,27,1990,2016,27,27,True,True,0,True
+Nepal,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Nepal,Soybeans,27,1990,2016,27,27,True,True,0,True
+Nepal,Wheat,27,1990,2016,27,27,True,True,0,True
+Netherlands,Maize,27,1990,2016,27,27,True,True,0,True
+Netherlands,Potatoes,27,1990,2016,27,27,True,True,0,True
+Netherlands,Wheat,27,1990,2016,27,27,True,True,0,True
+New Caledonia,Cassava,27,1990,2016,27,27,True,True,54,False
+New Caledonia,Maize,27,1990,2016,27,27,True,True,54,False
+New Caledonia,Plantains and others,27,1990,2016,27,27,True,True,54,False
+New Caledonia,Potatoes,27,1990,2016,27,27,True,True,54,False
+New Caledonia,Sorghum,15,1990,2016,15,15,False,True,30,False
+New Caledonia,Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+New Caledonia,Wheat,23,1990,2016,23,23,False,True,46,False
+New Caledonia,Yams,27,1990,2016,27,27,True,True,54,False
+New Zealand,Maize,27,1990,2016,27,27,True,True,0,True
+New Zealand,Potatoes,27,1990,2016,27,27,True,True,0,True
+New Zealand,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+New Zealand,Wheat,27,1990,2016,27,27,True,True,0,True
+Nicaragua,Cassava,27,1990,2016,27,27,True,True,0,True
+Nicaragua,Maize,27,1990,2016,27,27,True,True,0,True
+Nicaragua,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Nicaragua,Potatoes,27,1990,2016,27,27,True,True,0,True
+Nicaragua,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Nicaragua,Sorghum,27,1990,2016,27,27,True,True,0,True
+Nicaragua,Soybeans,27,1990,2016,27,27,True,True,0,True
+Nicaragua,Yams,26,1991,2016,26,26,True,True,0,True
+Niger,Cassava,27,1990,2016,27,27,True,True,0,True
+Niger,Maize,27,1990,2016,27,27,True,True,0,True
+Niger,Potatoes,27,1990,2016,27,27,True,True,0,True
+Niger,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Niger,Sorghum,27,1990,2016,27,27,True,True,0,True
+Niger,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Niger,Wheat,27,1990,2016,27,27,True,True,0,True
+Nigeria,Cassava,27,1990,2016,27,27,True,True,27,False
+Nigeria,Maize,27,1990,2016,27,27,True,True,27,False
+Nigeria,Plantains and others,27,1990,2016,27,27,True,True,27,False
+Nigeria,Potatoes,27,1990,2016,27,27,True,True,27,False
+Nigeria,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Nigeria,Sorghum,27,1990,2016,27,27,True,True,27,False
+Nigeria,Soybeans,27,1990,2016,27,27,True,True,27,False
+Nigeria,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Nigeria,Wheat,27,1990,2016,27,27,True,True,27,False
+Nigeria,Yams,27,1990,2016,27,27,True,True,27,False
+Niue,Cassava,27,1990,2016,27,27,True,True,81,False
+Niue,Sweet potatoes,27,1990,2016,27,27,True,True,81,False
+Niue,Yams,27,1990,2016,27,27,True,True,81,False
+Norway,Potatoes,27,1990,2016,27,27,True,True,0,True
+Norway,Wheat,27,1990,2016,27,27,True,True,0,True
+Occupied Palestinian Territory,Potatoes,23,1994,2016,23,23,True,True,46,False
+Occupied Palestinian Territory,Sorghum,23,1994,2016,23,23,True,True,46,False
+Occupied Palestinian Territory,Sweet potatoes,22,1994,2016,22,22,False,True,44,False
+Occupied Palestinian Territory,Wheat,23,1994,2016,23,23,True,True,46,False
+Oman,Maize,26,1991,2016,26,26,True,True,26,False
+Oman,Potatoes,27,1990,2016,27,27,True,True,27,False
+Oman,Sorghum,19,1990,2008,19,19,True,False,19,False
+Oman,Wheat,27,1990,2016,27,27,True,True,27,False
+Pacific Islands Trust Territory,Cassava,1,1990,1990,1,1,True,False,3,False
+Pacific Islands Trust Territory,Maize,1,1990,1990,1,1,True,False,3,False
+Pacific Islands Trust Territory,Plantains and others,1,1990,1990,1,1,True,False,3,False
+Pacific Islands Trust Territory,"Rice, paddy",1,1990,1990,1,1,True,False,3,False
+Pacific Islands Trust Territory,Sorghum,1,1990,1990,1,1,True,False,3,False
+Pacific Islands Trust Territory,Sweet potatoes,1,1990,1990,1,1,True,False,3,False
+Pakistan,Maize,27,1990,2016,27,27,True,True,0,True
+Pakistan,Potatoes,27,1990,2016,27,27,True,True,0,True
+Pakistan,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Pakistan,Sorghum,27,1990,2016,27,27,True,True,0,True
+Pakistan,Soybeans,27,1990,2016,27,27,True,True,0,True
+Pakistan,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Pakistan,Wheat,27,1990,2016,27,27,True,True,0,True
+Panama,Cassava,27,1990,2016,27,27,True,True,27,False
+Panama,Maize,27,1990,2016,27,27,True,True,27,False
+Panama,Plantains and others,27,1990,2016,27,27,True,True,27,False
+Panama,Potatoes,27,1990,2016,27,27,True,True,27,False
+Panama,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Panama,Sorghum,27,1990,2016,27,27,True,True,27,False
+Panama,Soybeans,26,1991,2016,26,26,True,True,26,False
+Panama,Yams,27,1990,2016,27,27,True,True,27,False
+Papua New Guinea,Cassava,27,1990,2016,27,27,True,True,0,True
+Papua New Guinea,Maize,27,1990,2016,27,27,True,True,0,True
+Papua New Guinea,Potatoes,27,1990,2016,27,27,True,True,0,True
+Papua New Guinea,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Papua New Guinea,Sorghum,27,1990,2016,27,27,True,True,0,True
+Papua New Guinea,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Papua New Guinea,Yams,27,1990,2016,27,27,True,True,0,True
+Paraguay,Cassava,27,1990,2016,27,27,True,True,27,False
+Paraguay,Maize,27,1990,2016,27,27,True,True,27,False
+Paraguay,Potatoes,27,1990,2016,27,27,True,True,27,False
+Paraguay,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Paraguay,Sorghum,27,1990,2016,27,27,True,True,27,False
+Paraguay,Soybeans,27,1990,2016,27,27,True,True,27,False
+Paraguay,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Paraguay,Wheat,27,1990,2016,27,27,True,True,27,False
+Peru,Cassava,27,1990,2016,27,27,True,True,0,True
+Peru,Maize,27,1990,2016,27,27,True,True,0,True
+Peru,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Peru,Potatoes,27,1990,2016,27,27,True,True,0,True
+Peru,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Peru,Sorghum,27,1990,2016,27,27,True,True,0,True
+Peru,Soybeans,27,1990,2016,27,27,True,True,0,True
+Peru,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Peru,Wheat,27,1990,2016,27,27,True,True,0,True
+Philippines,Cassava,27,1990,2016,27,27,True,True,27,False
+Philippines,Maize,27,1990,2016,27,27,True,True,27,False
+Philippines,Plantains and others,26,1991,2016,26,26,True,True,26,False
+Philippines,Potatoes,27,1990,2016,27,27,True,True,27,False
+Philippines,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Philippines,Sorghum,27,1990,2016,27,27,True,True,27,False
+Philippines,Soybeans,27,1990,2016,27,27,True,True,27,False
+Philippines,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Philippines,Yams,27,1990,2016,27,27,True,True,27,False
+Poland,Maize,27,1990,2016,27,27,True,True,0,True
+Poland,Potatoes,27,1990,2016,27,27,True,True,0,True
+Poland,Soybeans,11,2003,2016,11,11,False,True,0,False
+Poland,Wheat,27,1990,2016,27,27,True,True,0,True
+Portugal,Maize,27,1990,2016,27,27,True,True,0,True
+Portugal,Potatoes,27,1990,2016,27,27,True,True,0,True
+Portugal,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Portugal,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Portugal,Wheat,27,1990,2016,27,27,True,True,0,True
+Portugal,Yams,27,1990,2016,27,27,True,True,0,True
+Puerto Rico,Cassava,27,1990,2016,27,27,True,True,55,False
+Puerto Rico,Maize,27,1990,2016,27,27,True,True,55,False
+Puerto Rico,Plantains and others,27,1990,2016,27,27,True,True,55,False
+Puerto Rico,"Rice, paddy",16,1998,2016,16,16,False,True,33,False
+Puerto Rico,Sweet potatoes,27,1990,2016,27,27,True,True,55,False
+Puerto Rico,Yams,27,1990,2016,27,27,True,True,55,False
+Qatar,Maize,27,1990,2016,27,27,True,True,0,True
+Qatar,Potatoes,27,1990,2016,27,27,True,True,0,True
+Qatar,Wheat,26,1990,2016,26,26,False,True,0,False
+Republic of Korea,Maize,27,1990,2016,27,27,True,True,54,False
+Republic of Korea,Potatoes,27,1990,2016,27,27,True,True,54,False
+Republic of Korea,"Rice, paddy",27,1990,2016,27,27,True,True,54,False
+Republic of Korea,Sorghum,27,1990,2016,27,27,True,True,54,False
+Republic of Korea,Soybeans,27,1990,2016,27,27,True,True,54,False
+Republic of Korea,Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+Republic of Korea,Wheat,27,1990,2016,27,27,True,True,54,False
+Republic of Moldova,Maize,25,1992,2016,25,25,True,True,50,False
+Republic of Moldova,Potatoes,25,1992,2016,25,25,True,True,50,False
+Republic of Moldova,Sorghum,25,1992,2016,25,25,True,True,50,False
+Republic of Moldova,Soybeans,25,1992,2016,25,25,True,True,50,False
+Republic of Moldova,Wheat,25,1992,2016,25,25,True,True,50,False
+Romania,Maize,27,1990,2016,27,27,True,True,0,True
+Romania,Potatoes,27,1990,2016,27,27,True,True,0,True
+Romania,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Romania,Sorghum,27,1990,2016,27,27,True,True,0,True
+Romania,Soybeans,27,1990,2016,27,27,True,True,0,True
+Romania,Wheat,27,1990,2016,27,27,True,True,0,True
+Russian Federation,Maize,25,1992,2016,25,25,True,True,50,False
+Russian Federation,Potatoes,25,1992,2016,25,25,True,True,50,False
+Russian Federation,"Rice, paddy",25,1992,2016,25,25,True,True,50,False
+Russian Federation,Sorghum,25,1992,2016,25,25,True,True,50,False
+Russian Federation,Soybeans,25,1992,2016,25,25,True,True,50,False
+Russian Federation,Wheat,25,1992,2016,25,25,True,True,50,False
+Rwanda,Cassava,27,1990,2016,27,27,True,True,0,True
+Rwanda,Maize,27,1990,2016,27,27,True,True,0,True
+Rwanda,Potatoes,27,1990,2016,27,27,True,True,0,True
+Rwanda,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Rwanda,Sorghum,27,1990,2016,27,27,True,True,0,True
+Rwanda,Soybeans,27,1990,2016,27,27,True,True,0,True
+Rwanda,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Rwanda,Wheat,27,1990,2016,27,27,True,True,0,True
+Rwanda,Yams,27,1990,2016,27,27,True,True,0,True
+Réunion,Cassava,27,1990,2016,27,27,True,True,81,False
+Réunion,Maize,27,1990,2016,27,27,True,True,81,False
+Réunion,Potatoes,27,1990,2016,27,27,True,True,81,False
+Réunion,"Rice, paddy",27,1990,2016,27,27,True,True,81,False
+Réunion,Sweet potatoes,27,1990,2016,27,27,True,True,81,False
+Saint Kitts and Nevis,Potatoes,26,1990,2016,26,26,False,True,52,False
+Saint Kitts and Nevis,Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+Saint Kitts and Nevis,Yams,27,1990,2016,27,27,True,True,54,False
+Saint Lucia,Cassava,27,1990,2016,27,27,True,True,54,False
+Saint Lucia,Plantains and others,27,1990,2016,27,27,True,True,54,False
+Saint Lucia,Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+Saint Lucia,Yams,27,1990,2016,27,27,True,True,54,False
+Saint Vincent and the Grenadines,Cassava,27,1990,2016,27,27,True,True,81,False
+Saint Vincent and the Grenadines,Maize,27,1990,2016,27,27,True,True,81,False
+Saint Vincent and the Grenadines,Plantains and others,27,1990,2016,27,27,True,True,81,False
+Saint Vincent and the Grenadines,"Rice, paddy",1,1990,1990,1,1,True,False,3,False
+Saint Vincent and the Grenadines,Sweet potatoes,27,1990,2016,27,27,True,True,81,False
+Saint Vincent and the Grenadines,Yams,27,1990,2016,27,27,True,True,81,False
+Samoa,Cassava,27,1990,2016,27,27,True,True,27,False
+Samoa,Yams,27,1990,2016,27,27,True,True,27,False
+Sao Tome and Principe,Cassava,27,1990,2016,27,27,True,True,55,False
+Sao Tome and Principe,Maize,27,1990,2016,27,27,True,True,55,False
+Sao Tome and Principe,Yams,27,1990,2016,27,27,True,True,55,False
+Saudi Arabia,Maize,27,1990,2016,27,27,True,True,0,True
+Saudi Arabia,Potatoes,27,1990,2016,27,27,True,True,0,True
+Saudi Arabia,Sorghum,27,1990,2016,27,27,True,True,0,True
+Saudi Arabia,Wheat,27,1990,2016,27,27,True,True,0,True
+Senegal,Cassava,27,1990,2016,27,27,True,True,0,True
+Senegal,Maize,27,1990,2016,27,27,True,True,0,True
+Senegal,Potatoes,27,1990,2016,27,27,True,True,0,True
+Senegal,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Senegal,Sorghum,27,1990,2016,27,27,True,True,0,True
+Senegal,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Serbia,Maize,11,2006,2016,11,11,True,True,11,False
+Serbia,Potatoes,11,2006,2016,11,11,True,True,11,False
+Serbia,Sorghum,11,2006,2016,11,11,True,True,11,False
+Serbia,Soybeans,11,2006,2016,11,11,True,True,11,False
+Serbia,Wheat,11,2006,2016,11,11,True,True,11,False
+Serbia and Montenegro,Maize,14,1992,2005,14,14,True,False,28,False
+Serbia and Montenegro,Potatoes,14,1992,2005,14,14,True,False,28,False
+Serbia and Montenegro,Sorghum,14,1992,2005,14,14,True,False,28,False
+Serbia and Montenegro,Soybeans,14,1992,2005,14,14,True,False,28,False
+Serbia and Montenegro,Wheat,14,1992,2005,14,14,True,False,28,False
+Seychelles,Cassava,27,1990,2016,27,27,True,True,27,False
+Sierra Leone,Cassava,27,1990,2016,27,27,True,True,27,False
+Sierra Leone,Maize,27,1990,2016,27,27,True,True,27,False
+Sierra Leone,Plantains and others,27,1990,2016,27,27,True,True,27,False
+Sierra Leone,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Sierra Leone,Sorghum,27,1990,2016,27,27,True,True,27,False
+Sierra Leone,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Singapore,Cassava,24,1990,2016,24,24,False,True,24,False
+Singapore,Sweet potatoes,21,1990,2013,21,21,False,False,21,False
+Slovakia,Maize,24,1993,2016,24,24,True,True,24,False
+Slovakia,Potatoes,24,1993,2016,24,24,True,True,24,False
+Slovakia,Sorghum,24,1993,2016,24,24,True,True,24,False
+Slovakia,Soybeans,24,1993,2016,24,24,True,True,24,False
+Slovakia,Wheat,24,1993,2016,24,24,True,True,24,False
+Slovenia,Maize,25,1992,2016,25,25,True,True,0,True
+Slovenia,Potatoes,25,1992,2016,25,25,True,True,0,True
+Slovenia,Soybeans,25,1992,2016,25,25,True,True,0,True
+Slovenia,Wheat,25,1992,2016,25,25,True,True,0,True
+Solomon Islands,Cassava,27,1990,2016,27,27,True,True,55,False
+Solomon Islands,"Rice, paddy",27,1990,2016,27,27,True,True,55,False
+Solomon Islands,Sweet potatoes,27,1990,2016,27,27,True,True,55,False
+Solomon Islands,Yams,27,1990,2016,27,27,True,True,55,False
+Somalia,Cassava,27,1990,2016,27,27,True,True,27,False
+Somalia,Maize,27,1990,2016,27,27,True,True,27,False
+Somalia,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Somalia,Sorghum,27,1990,2016,27,27,True,True,27,False
+Somalia,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Somalia,Wheat,27,1990,2016,27,27,True,True,27,False
+South Africa,Maize,27,1990,2016,27,27,True,True,0,True
+South Africa,Potatoes,27,1990,2016,27,27,True,True,0,True
+South Africa,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+South Africa,Sorghum,27,1990,2016,27,27,True,True,0,True
+South Africa,Soybeans,27,1990,2016,27,27,True,True,0,True
+South Africa,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+South Africa,Wheat,27,1990,2016,27,27,True,True,0,True
+South Sudan,Cassava,5,2012,2016,5,5,True,True,10,False
+South Sudan,Maize,5,2012,2016,5,5,True,True,10,False
+South Sudan,Sorghum,5,2012,2016,5,5,True,True,10,False
+South Sudan,Yams,5,2012,2016,5,5,True,True,10,False
+Spain,Maize,27,1990,2016,27,27,True,True,0,True
+Spain,Potatoes,27,1990,2016,27,27,True,True,0,True
+Spain,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Spain,Sorghum,27,1990,2016,27,27,True,True,0,True
+Spain,Soybeans,27,1990,2016,27,27,True,True,0,True
+Spain,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Spain,Wheat,27,1990,2016,27,27,True,True,0,True
+Sri Lanka,Cassava,27,1990,2016,27,27,True,True,0,True
+Sri Lanka,Maize,27,1990,2016,27,27,True,True,0,True
+Sri Lanka,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Sri Lanka,Potatoes,27,1990,2016,27,27,True,True,0,True
+Sri Lanka,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Sri Lanka,Sorghum,27,1990,2016,27,27,True,True,0,True
+Sri Lanka,Soybeans,27,1990,2016,27,27,True,True,0,True
+Sri Lanka,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Sudan,Maize,5,2012,2016,5,5,True,True,0,False
+Sudan,Potatoes,5,2012,2016,5,5,True,True,0,False
+Sudan,"Rice, paddy",5,2012,2016,5,5,True,True,0,False
+Sudan,Sorghum,5,2012,2016,5,5,True,True,0,False
+Sudan,Sweet potatoes,5,2012,2016,5,5,True,True,0,False
+Sudan,Wheat,5,2012,2016,5,5,True,True,0,False
+Sudan,Yams,5,2012,2016,5,5,True,True,0,False
+Sudan (former),Cassava,22,1990,2011,22,22,True,False,44,False
+Sudan (former),Maize,22,1990,2011,22,22,True,False,44,False
+Sudan (former),Potatoes,22,1990,2011,22,22,True,False,44,False
+Sudan (former),"Rice, paddy",22,1990,2011,22,22,True,False,44,False
+Sudan (former),Sorghum,22,1990,2011,22,22,True,False,44,False
+Sudan (former),Sweet potatoes,22,1990,2011,22,22,True,False,44,False
+Sudan (former),Wheat,22,1990,2011,22,22,True,False,44,False
+Sudan (former),Yams,22,1990,2011,22,22,True,False,44,False
+Suriname,Cassava,27,1990,2016,27,27,True,True,0,True
+Suriname,Maize,27,1990,2016,27,27,True,True,0,True
+Suriname,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Suriname,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Suriname,Soybeans,27,1990,2016,27,27,True,True,0,True
+Suriname,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Sweden,Potatoes,27,1990,2016,27,27,True,True,0,True
+Sweden,Wheat,27,1990,2016,27,27,True,True,0,True
+Switzerland,Maize,27,1990,2016,27,27,True,True,0,True
+Switzerland,Potatoes,27,1990,2016,27,27,True,True,0,True
+Switzerland,Soybeans,27,1990,2016,27,27,True,True,0,True
+Switzerland,Wheat,27,1990,2016,27,27,True,True,0,True
+Syrian Arab Republic,Maize,27,1990,2016,27,27,True,True,54,False
+Syrian Arab Republic,Potatoes,27,1990,2016,27,27,True,True,54,False
+Syrian Arab Republic,"Rice, paddy",7,1990,1996,7,7,True,False,14,False
+Syrian Arab Republic,Sorghum,27,1990,2016,27,27,True,True,54,False
+Syrian Arab Republic,Soybeans,27,1990,2016,27,27,True,True,54,False
+Syrian Arab Republic,Wheat,27,1990,2016,27,27,True,True,54,False
+Tajikistan,Maize,25,1992,2016,25,25,True,True,0,True
+Tajikistan,Potatoes,25,1992,2016,25,25,True,True,0,True
+Tajikistan,"Rice, paddy",25,1992,2016,25,25,True,True,0,True
+Tajikistan,Sorghum,25,1992,2016,25,25,True,True,0,True
+Tajikistan,Soybeans,24,1992,2016,24,24,False,True,0,False
+Tajikistan,Wheat,25,1992,2016,25,25,True,True,0,True
+Thailand,Cassava,27,1990,2016,27,27,True,True,0,True
+Thailand,Maize,27,1990,2016,27,27,True,True,0,True
+Thailand,Potatoes,27,1990,2016,27,27,True,True,0,True
+Thailand,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Thailand,Sorghum,27,1990,2016,27,27,True,True,0,True
+Thailand,Soybeans,27,1990,2016,27,27,True,True,0,True
+Thailand,Wheat,27,1990,2016,27,27,True,True,0,True
+The former Yugoslav Republic of Macedonia,Maize,25,1992,2016,25,25,True,True,50,False
+The former Yugoslav Republic of Macedonia,Potatoes,25,1992,2016,25,25,True,True,50,False
+The former Yugoslav Republic of Macedonia,"Rice, paddy",25,1992,2016,25,25,True,True,50,False
+The former Yugoslav Republic of Macedonia,Sorghum,15,1992,2016,15,15,False,True,30,False
+The former Yugoslav Republic of Macedonia,Soybeans,14,2001,2016,14,14,False,True,28,False
+The former Yugoslav Republic of Macedonia,Wheat,25,1992,2016,25,25,True,True,50,False
+Timor-Leste,Cassava,27,1990,2016,27,27,True,True,27,False
+Timor-Leste,Maize,27,1990,2016,27,27,True,True,27,False
+Timor-Leste,Potatoes,27,1990,2016,27,27,True,True,27,False
+Timor-Leste,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Timor-Leste,Soybeans,27,1990,2016,27,27,True,True,27,False
+Timor-Leste,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Togo,Cassava,27,1990,2016,27,27,True,True,27,False
+Togo,Maize,27,1990,2016,27,27,True,True,27,False
+Togo,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Togo,Sorghum,27,1990,2016,27,27,True,True,27,False
+Togo,Soybeans,13,2004,2016,13,13,True,True,13,False
+Togo,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Togo,Yams,27,1990,2016,27,27,True,True,27,False
+Tonga,Cassava,27,1990,2016,27,27,True,True,54,False
+Tonga,Plantains and others,27,1990,2016,27,27,True,True,54,False
+Tonga,Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+Tonga,Yams,27,1990,2016,27,27,True,True,54,False
+Trinidad and Tobago,Cassava,27,1990,2016,27,27,True,True,27,False
+Trinidad and Tobago,Maize,27,1990,2016,27,27,True,True,27,False
+Trinidad and Tobago,Plantains and others,27,1990,2016,27,27,True,True,27,False
+Trinidad and Tobago,"Rice, paddy",27,1990,2016,27,27,True,True,27,False
+Trinidad and Tobago,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Trinidad and Tobago,Yams,27,1990,2016,27,27,True,True,27,False
+Tunisia,Potatoes,27,1990,2016,27,27,True,True,0,True
+Tunisia,Sorghum,27,1990,2016,27,27,True,True,0,True
+Tunisia,Wheat,27,1990,2016,27,27,True,True,0,True
+Turkey,Maize,27,1990,2016,27,27,True,True,0,True
+Turkey,Potatoes,27,1990,2016,27,27,True,True,0,True
+Turkey,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Turkey,Sorghum,13,2004,2016,13,13,True,True,0,False
+Turkey,Soybeans,27,1990,2016,27,27,True,True,0,True
+Turkey,Wheat,27,1990,2016,27,27,True,True,0,True
+Turkmenistan,Maize,25,1992,2016,25,25,True,True,25,False
+Turkmenistan,Potatoes,25,1992,2016,25,25,True,True,25,False
+Turkmenistan,"Rice, paddy",25,1992,2016,25,25,True,True,25,False
+Turkmenistan,Wheat,25,1992,2016,25,25,True,True,25,False
+USSR,Maize,2,1990,1991,2,2,True,False,4,False
+USSR,Potatoes,2,1990,1991,2,2,True,False,4,False
+USSR,"Rice, paddy",2,1990,1991,2,2,True,False,4,False
+USSR,Sorghum,2,1990,1991,2,2,True,False,4,False
+USSR,Soybeans,2,1990,1991,2,2,True,False,4,False
+USSR,Wheat,2,1990,1991,2,2,True,False,4,False
+Uganda,Cassava,27,1990,2016,27,27,True,True,0,True
+Uganda,Maize,27,1990,2016,27,27,True,True,0,True
+Uganda,Plantains and others,27,1990,2016,27,27,True,True,0,True
+Uganda,Potatoes,27,1990,2016,27,27,True,True,0,True
+Uganda,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Uganda,Sorghum,27,1990,2016,27,27,True,True,0,True
+Uganda,Soybeans,27,1990,2016,27,27,True,True,0,True
+Uganda,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Uganda,Wheat,27,1990,2016,27,27,True,True,0,True
+Ukraine,Maize,25,1992,2016,25,25,True,True,0,True
+Ukraine,Potatoes,25,1992,2016,25,25,True,True,0,True
+Ukraine,"Rice, paddy",25,1992,2016,25,25,True,True,0,True
+Ukraine,Sorghum,25,1992,2016,25,25,True,True,0,True
+Ukraine,Soybeans,25,1992,2016,25,25,True,True,0,True
+Ukraine,Wheat,25,1992,2016,25,25,True,True,0,True
+United Arab Emirates,Maize,26,1991,2016,26,26,True,True,26,False
+United Arab Emirates,Potatoes,27,1990,2016,27,27,True,True,27,False
+United Arab Emirates,Wheat,27,1990,2016,27,27,True,True,27,False
+United Kingdom,Potatoes,27,1990,2016,27,27,True,True,0,True
+United Kingdom,Wheat,27,1990,2016,27,27,True,True,0,True
+United Republic of Tanzania,Cassava,27,1990,2016,27,27,True,True,54,False
+United Republic of Tanzania,Maize,27,1990,2016,27,27,True,True,54,False
+United Republic of Tanzania,Plantains and others,27,1990,2016,27,27,True,True,54,False
+United Republic of Tanzania,Potatoes,27,1990,2016,27,27,True,True,54,False
+United Republic of Tanzania,"Rice, paddy",27,1990,2016,27,27,True,True,54,False
+United Republic of Tanzania,Sorghum,27,1990,2016,27,27,True,True,54,False
+United Republic of Tanzania,Soybeans,27,1990,2016,27,27,True,True,54,False
+United Republic of Tanzania,Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+United Republic of Tanzania,Wheat,27,1990,2016,27,27,True,True,54,False
+United Republic of Tanzania,Yams,27,1990,2016,27,27,True,True,54,False
+United States of America,Maize,27,1990,2016,27,27,True,True,54,False
+United States of America,Potatoes,27,1990,2016,27,27,True,True,54,False
+United States of America,"Rice, paddy",27,1990,2016,27,27,True,True,54,False
+United States of America,Sorghum,27,1990,2016,27,27,True,True,54,False
+United States of America,Soybeans,27,1990,2016,27,27,True,True,54,False
+United States of America,Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+United States of America,Wheat,27,1990,2016,27,27,True,True,54,False
+Uruguay,Maize,27,1990,2016,27,27,True,True,0,True
+Uruguay,Potatoes,27,1990,2016,27,27,True,True,0,True
+Uruguay,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Uruguay,Sorghum,27,1990,2016,27,27,True,True,0,True
+Uruguay,Soybeans,27,1990,2016,27,27,True,True,0,True
+Uruguay,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Uruguay,Wheat,27,1990,2016,27,27,True,True,0,True
+Uzbekistan,Maize,25,1992,2016,25,25,True,True,25,False
+Uzbekistan,Potatoes,25,1992,2016,25,25,True,True,25,False
+Uzbekistan,"Rice, paddy",25,1992,2016,25,25,True,True,25,False
+Uzbekistan,Sorghum,25,1992,2016,25,25,True,True,25,False
+Uzbekistan,Wheat,25,1992,2016,25,25,True,True,25,False
+Vanuatu,Maize,27,1990,2016,27,27,True,True,27,False
+Venezuela (Bolivarian Republic of),Cassava,27,1990,2016,27,27,True,True,54,False
+Venezuela (Bolivarian Republic of),Maize,27,1990,2016,27,27,True,True,54,False
+Venezuela (Bolivarian Republic of),Plantains and others,27,1990,2016,27,27,True,True,54,False
+Venezuela (Bolivarian Republic of),Potatoes,27,1990,2016,27,27,True,True,54,False
+Venezuela (Bolivarian Republic of),"Rice, paddy",27,1990,2016,27,27,True,True,54,False
+Venezuela (Bolivarian Republic of),Sorghum,27,1990,2016,27,27,True,True,54,False
+Venezuela (Bolivarian Republic of),Soybeans,27,1990,2016,27,27,True,True,54,False
+Venezuela (Bolivarian Republic of),Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+Venezuela (Bolivarian Republic of),Wheat,27,1990,2016,27,27,True,True,54,False
+Venezuela (Bolivarian Republic of),Yams,27,1990,2016,27,27,True,True,54,False
+Viet Nam,Cassava,27,1990,2016,27,27,True,True,54,False
+Viet Nam,Maize,27,1990,2016,27,27,True,True,54,False
+Viet Nam,Potatoes,27,1990,2016,27,27,True,True,54,False
+Viet Nam,"Rice, paddy",27,1990,2016,27,27,True,True,54,False
+Viet Nam,Soybeans,27,1990,2016,27,27,True,True,54,False
+Viet Nam,Sweet potatoes,27,1990,2016,27,27,True,True,54,False
+Wallis and Futuna Islands,Cassava,27,1990,2016,27,27,True,True,81,False
+Wallis and Futuna Islands,Yams,27,1990,2016,27,27,True,True,81,False
+Yemen,Maize,27,1990,2016,27,27,True,True,27,False
+Yemen,Potatoes,27,1990,2016,27,27,True,True,27,False
+Yemen,Sorghum,27,1990,2016,27,27,True,True,27,False
+Yemen,Sweet potatoes,27,1990,2016,27,27,True,True,27,False
+Yemen,Wheat,27,1990,2016,27,27,True,True,27,False
+Yugoslav SFR,Maize,2,1990,1991,2,2,True,False,4,False
+Yugoslav SFR,Potatoes,2,1990,1991,2,2,True,False,4,False
+Yugoslav SFR,"Rice, paddy",2,1990,1991,2,2,True,False,4,False
+Yugoslav SFR,Sorghum,2,1990,1991,2,2,True,False,4,False
+Yugoslav SFR,Soybeans,2,1990,1991,2,2,True,False,4,False
+Yugoslav SFR,Wheat,2,1990,1991,2,2,True,False,4,False
+Zambia,Cassava,27,1990,2016,27,27,True,True,0,True
+Zambia,Maize,27,1990,2016,27,27,True,True,0,True
+Zambia,Potatoes,27,1990,2016,27,27,True,True,0,True
+Zambia,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Zambia,Sorghum,27,1990,2016,27,27,True,True,0,True
+Zambia,Soybeans,27,1990,2016,27,27,True,True,0,True
+Zambia,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Zambia,Wheat,27,1990,2016,27,27,True,True,0,True
+Zimbabwe,Cassava,27,1990,2016,27,27,True,True,0,True
+Zimbabwe,Maize,27,1990,2016,27,27,True,True,0,True
+Zimbabwe,Potatoes,27,1990,2016,27,27,True,True,0,True
+Zimbabwe,"Rice, paddy",27,1990,2016,27,27,True,True,0,True
+Zimbabwe,Sorghum,27,1990,2016,27,27,True,True,0,True
+Zimbabwe,Soybeans,27,1990,2016,27,27,True,True,0,True
+Zimbabwe,Sweet potatoes,27,1990,2016,27,27,True,True,0,True
+Zimbabwe,Wheat,27,1990,2016,27,27,True,True,0,True

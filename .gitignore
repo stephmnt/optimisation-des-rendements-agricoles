@@ -4,7 +4,9 @@
 *.pdf
 .vscode
 ressources/
-artifacts/
+artifacts/*
+!artifacts/models/
+!artifacts/experiments/
 .hf_space_build/
 hf_space_build/
 images/ 

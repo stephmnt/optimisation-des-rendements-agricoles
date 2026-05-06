@@ -1,0 +1,26 @@
+{
+  "model_name": "linear_regression",
+  "trained_at_utc": "2026-05-01T12:51:17.775655+00:00",
+  "dataset_source": "data/simulation/crop_yield.csv",
+  "feature_columns": [
+    "region",
+    "soil_type",
+    "rainfall_mm",
+    "temperature_celsius",
+    "fertilizer_used",
+    "irrigation_used",
+    "weather_condition",
+    "days_to_harvest"
+  ],
+  "sample_size": 200000,
+  "metrics": {
+    "train_rmse": 0.4998781947765297,
+    "train_mae": 0.3988944248509967,
+    "train_r2": 0.9130634145187704,
+    "test_rmse": 0.4966893326694818,
+    "test_mae": 0.3960649705568734,
+    "test_r2": 0.9139501848982343
+  },
+  "strategy": "2_models_3_predictions_combined",
+  "role": "local_adjustment_model_for_P2_and_P3"
+}
