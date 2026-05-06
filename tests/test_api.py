@@ -1,227 +1,234 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 import pandas as pd
 from fastapi.testclient import TestClient
 
 import main
-from main import PredictRequest, PredictionService, RecommendRequest, RecommendationItem
 
 
-class FakePredictionService:
-    model_source = "unit-test"
+class FakeAdjustedYieldService:
     available_areas = ["France", "Kenya"]
-    available_crops = ["Wheat", "Maize", "Rice, paddy"]
+    available_crops = ["Maize", "Rice, paddy", "Wheat"]
+    crops_by_area = {
+        "France": ["Maize", "Wheat"],
+        "Kenya": ["Maize", "Rice, paddy"],
+    }
+    target_year = 2016
+    historical_metadata = {"model_name": "random_forest_search_01"}
+    simulation_metadata = {"model_name": "linear_regression"}
+    simulation_global_reference = {
+        "region": "North",
+        "soil_type": "Sandy",
+        "rainfall_mm": 620.0,
+        "temperature_celsius": 21.0,
+        "fertilizer_used": True,
+        "irrigation_used": False,
+        "weather_condition": "Sunny",
+        "days_to_harvest": 110.0,
+    }
+    simulation_options = {
+        "regions": ["North", "South"],
+        "soil_types": ["Clay", "Sandy"],
+        "weather_conditions": ["Cloudy", "Sunny"],
+    }
 
-    def default_context(self, area: str | None = None) -> dict[str, float]:
-        if area == "France":
-            return {
-                "average_rain_fall_mm_per_year": 720.0,
-                "pesticides_tonnes": 15.0,
-                "avg_temp": 14.0,
-            }
+    def get_baseline(self, area: str, crop: str, *, reference_overrides=None) -> dict[str, object]:
+        assert area
+        assert crop
         return {
-            "average_rain_fall_mm_per_year": 600.0,
-            "pesticides_tonnes": 12.0,
-            "avg_temp": 18.0,
+            "country": area,
+            "crop": crop,
+            "target_year": 2016,
+            "p1_historical_prediction": 5.25,
+            "reference_profile": {
+                **self.simulation_global_reference,
+                **(reference_overrides or {}),
+            },
+            "rainfall_reference_source": "row_latest_history",
+            "temperature_reference_source": "crop_median",
         }
 
-    def predict(self, payload: PredictRequest) -> float:
-        assert payload.crop
-        return 7.6543
+    def predict_adjusted_yield(self, area: str, crop: str, user_conditions: dict[str, object], *, reference_overrides=None) -> dict[str, object]:
+        assert area
+        assert crop
+        assert "rainfall_mm" in user_conditions
+        reference_profile = {
+            **self.simulation_global_reference,
+            **(reference_overrides or {}),
+        }
+        return {
+            "country": area,
+            "crop": crop,
+            "p1_historical_prediction": 5.25,
+            "p2_reference_simulation": 6.00,
+            "p3_user_simulation": 6.85,
+            "local_adjustment": 0.85,
+            "gap_vs_historical_pct": 16.19,
+            "final_prediction": 6.10,
+            "reference_profile": reference_profile,
+            "user_profile": {
+                **reference_profile,
+                **user_conditions,
+            },
+            "explanation": {
+                "historical_shap": {
+                    "available": True,
+                    "status": "ok",
+                    "message": None,
+                    "model_prediction": 5.25,
+                    "base_value": 4.20,
+                    "prediction_from_shap": 5.25,
+                    "top_contributions": [
+                        {
+                            "feature": "target_yield_t_ha_2015",
+                            "raw_value": 5.4,
+                            "contribution": 0.7,
+                            "abs_contribution": 0.7,
+                        }
+                    ],
+                },
+                "local_adjustment": {
+                    "method": "exact_linear_delta_decomposition",
+                    "reference_prediction": 6.00,
+                    "user_prediction": 6.85,
+                    "total_adjustment": 0.85,
+                    "top_contributions": [
+                        {
+                            "feature": "rainfall_mm",
+                            "reference_value": 620.0,
+                            "user_value": 540.0,
+                            "contribution_delta": -0.25,
+                            "abs_contribution_delta": 0.25,
+                        }
+                    ],
+                },
+            },
+            "rainfall_reference_source": "row_latest_history",
+            "temperature_reference_source": "crop_median",
+        }
 
-    def recommend(self, payload: RecommendRequest) -> list[RecommendationItem]:
-        return [
-            RecommendationItem(crop="Wheat", predicted_yield_t_ha=8.2),
-            RecommendationItem(crop="Maize", predicted_yield_t_ha=7.4),
-            RecommendationItem(crop="Rice, paddy", predicted_yield_t_ha=6.1),
+    def recommend_crops(
+        self,
+        area: str,
+        user_conditions: dict[str, object],
+        candidate_crops: list[str] | None = None,
+        *,
+        reference_overrides=None,
+    ) -> pd.DataFrame:
+        del user_conditions
+        del reference_overrides
+        crops = candidate_crops or self.crops_by_area[area]
+        rows = [
+            {
+                "country": area,
+                "crop": crop,
+                "p1_historical_prediction": 5.0 + index,
+                "p2_reference_simulation": 6.0,
+                "p3_user_simulation": 6.5 + index * 0.1,
+                "local_adjustment": 0.5 + index * 0.1,
+                "gap_vs_historical_pct": 10.0 + index,
+                "final_prediction": 6.2 + (len(crops) - index),
+                "recommendation_rank": index + 1,
+                "rainfall_reference_source": "row_latest_history",
+                "temperature_reference_source": "crop_median",
+            }
+            for index, crop in enumerate(crops)
         ]
+        return pd.DataFrame(rows).sort_values("final_prediction", ascending=False).reset_index(drop=True)
 
 
-def _sample_dataset() -> pd.DataFrame:
-    return pd.DataFrame(
-        [
-            {
-                "area": "France",
-                "crop": "Wheat",
-                "year": 2022,
-                "average_rain_fall_mm_per_year": 700.0,
-                "pesticides_tonnes": 20.0,
-                "avg_temp": 13.0,
-                "target_yield_t_ha": 5.4,
-            },
-            {
-                "area": "France",
-                "crop": "Maize",
-                "year": 2022,
-                "average_rain_fall_mm_per_year": 680.0,
-                "pesticides_tonnes": 18.0,
-                "avg_temp": 15.0,
-                "target_yield_t_ha": 6.2,
-            },
-            {
-                "area": "Kenya",
-                "crop": "Maize",
-                "year": 2022,
-                "average_rain_fall_mm_per_year": 900.0,
-                "pesticides_tonnes": 6.0,
-                "avg_temp": 22.0,
-                "target_yield_t_ha": 4.7,
-            },
-            {
-                "area": "Kenya",
-                "crop": "Rice, paddy",
-                "year": 2022,
-                "average_rain_fall_mm_per_year": 980.0,
-                "pesticides_tonnes": 8.0,
-                "avg_temp": 24.0,
-                "target_yield_t_ha": 5.8,
-            },
-        ]
-    )
-
-
-def test_prediction_service_trains_fallback_model_when_artifact_is_missing(tmp_path: Path) -> None:
-    dataset_path = tmp_path / "dataset.csv"
-    _sample_dataset().to_csv(dataset_path, index=False)
-
-    service = PredictionService(
-        dataset_path=dataset_path,
-        model_path=tmp_path / "missing_model.joblib",
-    )
-
-    prediction = service.predict(
-        PredictRequest(
-            area="France",
-            crop="Wheat",
-            year=2026,
-            average_rain_fall_mm_per_year=710.0,
-            pesticides_tonnes=16.0,
-            avg_temp=14.0,
-        )
-    )
-
-    assert service.model_source == "fallback-trained"
-    assert prediction >= 0.0
-    assert service.available_crops == ["Maize", "Rice, paddy", "Wheat"]
-
-
-def test_default_context_falls_back_to_global_median_when_area_values_are_missing(tmp_path: Path) -> None:
-    dataset = pd.DataFrame(
-        [
-            {
-                "area": "Area A",
-                "crop": "Wheat",
-                "year": 2022,
-                "average_rain_fall_mm_per_year": 700.0,
-                "pesticides_tonnes": None,
-                "avg_temp": 13.0,
-                "target_yield_t_ha": 5.4,
-            },
-            {
-                "area": "Area A",
-                "crop": "Maize",
-                "year": 2022,
-                "average_rain_fall_mm_per_year": 720.0,
-                "pesticides_tonnes": None,
-                "avg_temp": 14.0,
-                "target_yield_t_ha": 6.2,
-            },
-            {
-                "area": "Area B",
-                "crop": "Maize",
-                "year": 2022,
-                "average_rain_fall_mm_per_year": 900.0,
-                "pesticides_tonnes": 8.0,
-                "avg_temp": 22.0,
-                "target_yield_t_ha": 4.7,
-            },
-        ]
-    )
-    dataset_path = tmp_path / "dataset.csv"
-    dataset.to_csv(dataset_path, index=False)
-
-    service = PredictionService(
-        dataset_path=dataset_path,
-        model_path=tmp_path / "missing_model.joblib",
-    )
-
-    defaults = service.default_context("Area A")
-
-    assert defaults["average_rain_fall_mm_per_year"] == 710.0
-    assert defaults["pesticides_tonnes"] == 8.0
-    assert defaults["avg_temp"] == 13.5
-
-
-def test_health_endpoint_reports_runtime_state(monkeypatch) -> None:
-    monkeypatch.setattr(main, "get_prediction_service", lambda: FakePredictionService())
+def test_v2_health_endpoint_reports_strategy(monkeypatch) -> None:
+    monkeypatch.setattr(main, "get_adjusted_yield_service", lambda: FakeAdjustedYieldService())
     client = TestClient(main.app)
 
     response = client.get("/health")
 
     assert response.status_code == 200
-    assert response.json() == {"status": "ok", "model_source": "unit-test"}
-
-
-def test_metadata_endpoint_returns_catalog_and_area_defaults(monkeypatch) -> None:
-    monkeypatch.setattr(main, "get_prediction_service", lambda: FakePredictionService())
-    client = TestClient(main.app)
-
-    response = client.get("/metadata", params={"area": "France"})
-
-    assert response.status_code == 200
-    payload = response.json()
-    assert payload["areas"] == ["France", "Kenya"]
-    assert payload["crops"] == ["Wheat", "Maize", "Rice, paddy"]
-    assert payload["default_context"] == {
-        "average_rain_fall_mm_per_year": 720.0,
-        "pesticides_tonnes": 15.0,
-        "avg_temp": 14.0,
+    assert response.json() == {
+        "status": "ok",
+        "strategy": "2_models_3_predictions_combined",
+        "historical_model_name": "random_forest_search_01",
+        "simulation_model_name": "linear_regression",
     }
 
 
-def test_predict_endpoint_returns_prediction(monkeypatch) -> None:
-    monkeypatch.setattr(main, "get_prediction_service", lambda: FakePredictionService())
+def test_v2_metadata_endpoint_returns_country_specific_catalog(monkeypatch) -> None:
+    monkeypatch.setattr(main, "get_adjusted_yield_service", lambda: FakeAdjustedYieldService())
+    client = TestClient(main.app)
+
+    response = client.get("/metadata", params={"country": "France"})
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["countries"] == ["France", "Kenya"]
+    assert payload["available_crops"] == ["Maize", "Wheat"]
+    assert payload["target_year"] == 2016
+    assert payload["global_reference_profile"]["region"] == "North"
+    assert payload["inferred_region"] == "North"
+
+
+def test_v2_baseline_endpoint_returns_p1_and_reference_profile(monkeypatch) -> None:
+    monkeypatch.setattr(main, "get_adjusted_yield_service", lambda: FakeAdjustedYieldService())
+    client = TestClient(main.app)
+
+    response = client.post("/baseline", json={"country": "France", "crop": "Wheat"})
+
+    assert response.status_code == 200
+    assert response.json()["p1_historical_prediction"] == 5.25
+    assert response.json()["reference_profile"]["rainfall_mm"] == 620.0
+
+
+def test_v2_predict_endpoint_returns_adjusted_breakdown(monkeypatch) -> None:
+    monkeypatch.setattr(main, "get_adjusted_yield_service", lambda: FakeAdjustedYieldService())
     client = TestClient(main.app)
 
     response = client.post(
         "/predict",
         json={
-            "area": "France",
+            "country": "France",
             "crop": "Wheat",
-            "year": 2026,
-            "average_rain_fall_mm_per_year": 700.0,
-            "pesticides_tonnes": 12.0,
-            "avg_temp": 14.0,
+            "user_conditions": {
+                "region": "South",
+                "soil_type": "Clay",
+                "rainfall_mm": 540.0,
+                "temperature_celsius": 24.0,
+                "fertilizer_used": True,
+                "irrigation_used": True,
+                "weather_condition": "Sunny",
+                "days_to_harvest": 95.0,
+            },
         },
     )
 
     assert response.status_code == 200
-    assert response.json() == {"predicted_yield_t_ha": 7.6543}
+    payload = response.json()
+    assert payload["final_prediction"] == 6.1
+    assert payload["local_adjustment"] == 0.85
+    assert payload["user_profile"]["region"] == "South"
+    assert payload["explanation"]["historical_shap"]["available"] is True
+    assert payload["explanation"]["local_adjustment"]["total_adjustment"] == 0.85
 
 
-def test_recommend_endpoint_returns_ranked_predictions(monkeypatch) -> None:
-    monkeypatch.setattr(main, "get_prediction_service", lambda: FakePredictionService())
+def test_v2_recommend_endpoint_returns_ranked_table(monkeypatch) -> None:
+    monkeypatch.setattr(main, "get_adjusted_yield_service", lambda: FakeAdjustedYieldService())
     client = TestClient(main.app)
 
     response = client.post(
         "/recommend",
         json={
-            "area": "Kenya",
-            "year": 2026,
-            "average_rain_fall_mm_per_year": 850.0,
-            "pesticides_tonnes": 7.0,
-            "avg_temp": 23.0,
-            "candidate_crops": ["Wheat", "Maize", "Rice, paddy"],
+            "country": "Kenya",
+            "user_conditions": {
+                "rainfall_mm": 580.0,
+                "temperature_celsius": 23.0,
+            },
+            "candidate_crops": ["Rice, paddy", "Maize"],
+            "top_n": 2,
         },
     )
 
     assert response.status_code == 200
-    assert response.json() == {
-        "recommendations": [
-            {"crop": "Wheat", "predicted_yield_t_ha": 8.2},
-            {"crop": "Maize", "predicted_yield_t_ha": 7.4},
-            {"crop": "Rice, paddy", "predicted_yield_t_ha": 6.1},
-        ]
-    }
+    payload = response.json()
+    assert payload["country"] == "Kenya"
+    assert payload["best_crop"] == payload["recommendations"][0]["crop"]
+    assert len(payload["recommendations"]) == 2
+    assert payload["recommendations"][0]["final_prediction"] >= payload["recommendations"][1]["final_prediction"]

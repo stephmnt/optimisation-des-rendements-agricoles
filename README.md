@@ -1,6 +1,6 @@
 # Optimisation des rendements agricoles
 
-[![Deploy Hugging Face Space](https://github.com/stephmnt/optimisation-des-rendements-agricoles/actions/workflows/deploy_hf_space.yml/badge.svg)](https://github.com/stephmnt/optimisation-des-rendements-agricoles/actions/workflows/deploy_hf_space.yml)
+[![Deploiement](https://github.com/stephmnt/optimisation-des-rendements-agricoles/actions/workflows/deploy_hf_space.yml/badge.svg)](https://github.com/stephmnt/optimisation-des-rendements-agricoles/actions/workflows/deploy_hf_space.yml)
 [![GitHub Release Date](https://img.shields.io/github/release-date/stephmnt/optimisation-des-rendements-agricoles?display_date=published_at&style=flat-square)](https://github.com/stephmnt/optimisation-des-rendements-agricoles/releases)
 [![project_license](https://img.shields.io/github/license/stephmnt/optimisation-des-rendements-agricoles.svg)](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/LICENSE)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-stephanemanet-0A66C2?logo=linkedin&logoColor=white)](https://linkedin.com/in/stephanemanet)
@@ -11,6 +11,7 @@ Le dépôt embarque maintenant une architecture unique pour la démo et le dépl
 
 - Space : `stephmnt/rendement_agricole`
 - API FastAPI : [main.py](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/main.py)
+- ancienne API conservée : [main_old.py](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/main_old.py)
 - interface Streamlit : [streamlit_app.py](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/streamlit/src/streamlit_app.py)
 - dépendances UI/runtime : [streamlit/requirements.txt](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/streamlit/requirements.txt)
 - environnement projet complet : [requirements.txt](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/requirements.txt)
@@ -19,7 +20,8 @@ Le conteneur Docker lance :
 
 - FastAPI en interne sur `127.0.0.1:8000` ;
 - Streamlit sur `8501` ;
-- Streamlit qui interroge FastAPI au lieu de recalculer un modèle côté front.
+- Streamlit qui interroge l'API finale `main.py` au lieu de recalculer un modèle côté front ;
+- la logique finale `2 modèles / 3 prédictions combinées`, issue de l'ancienne `main_v2.py`.
 
 Le démarrage du conteneur est défini directement dans le [Dockerfile](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/Dockerfile), et la construction du payload Hugging Face est définie directement dans [.github/workflows/deploy_hf_space.yml](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/.github/workflows/deploy_hf_space.yml).
 
@@ -33,7 +35,7 @@ uvicorn main:app --host 127.0.0.1 --port 8000
 Dans un second terminal :
 
 ```bash
-API_BASE_URL=http://127.0.0.1:8000 streamlit run streamlit/src/streamlit_app.py --server.address 0.0.0.0 --server.port 8501
+API_V2_BASE_URL=http://127.0.0.1:8000 streamlit run streamlit/src/streamlit_app.py --server.address 0.0.0.0 --server.port 8501
 ```
 
 ### Tester en Docker local
@@ -53,7 +55,7 @@ Le workflow [deploy_hf_space.yml](https://github.com/stephmnt/optimisation-des-r
 
 1. installe les dépendances applicatives ;
 2. exécute `pytest` sur l'API et le client Streamlit ;
-3. assemble un payload Docker minimal dans `.hf_space_build/` ;
+3. assemble un payload Docker minimal dans `.hf_space_build/`, avec `main.py`, `scripts/`, les artefacts `P1` / `P23` et le dataset d'entrée de `experience_1` ;
 4. construit l'image Docker du Space ;
 5. synchronise ce payload vers `stephmnt/rendement_agricole`.
 
@@ -89,9 +91,9 @@ Le tableau ci-dessous résume la nature de chaque fichier dans le projet.
 | [temp.csv](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/data/historique/temp.csv) | Données historiques climatiques annuelles de température | `area + year` après agrégation des doublons | Enrichissement climatique du dataset consolidé |
 | [pesticides.csv](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/data/historique/pesticides.csv) | Données historiques annuelles d'intrants | `area + year` | Enrichissement agronomique du dataset consolidé |
 | [yield_df.csv](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/data/historique/yield_df.csv) | Données historiques annuelles déjà enrichies | `area + crop + year` | Fichier d'audit et de validation du scénario de fusion, pas table de base |
-| [dataset_consolide.csv](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/data/historique/dataset_consolide.csv) | Données consolidées produites par le projet | `area + crop + year` | Source de vérité pour la modélisation et l'API |
+| [dataset_consolide.csv](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/data/dataset_consolide.csv) | Données consolidées produites par le projet | `area + crop + year` | Source de vérité pour la modélisation et l'API |
 
-Les chemins de ces fichiers sont centralisés dans [project_paths.yaml](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/data/historique/). Les notebooks et scripts du projet doivent s'appuyer sur cette configuration plutôt que sur des chemins codés en dur.
+Les chemins de ces fichiers sont centralisés dans [project_paths.yaml](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/config/project_paths.yaml). Les notebooks et scripts du projet doivent s'appuyer sur cette configuration plutôt que sur des chemins codés en dur.
 
 ## Générer le rapport
 
@@ -142,7 +144,8 @@ MLflow est stocké dans une base SQLite :
 - tracking DB : `artifacts/mlflow.db`
 - artefacts MLflow : `artifacts/mlruns/` ; chaque run candidat contient aussi un artefact `model/` avec le pipeline entraîné
 - modèles sauvegardés : `artifacts/models/`
-- tableau de comparaison : `artifacts/model_comparison.csv`
+- tableau de comparaison historique : `artifacts/model_comparison.csv`
+- export local optionnel du registered model sélectionné : `artifacts/models/best_pipeline.joblib`
 
 ### Comment lancer l'interface
 
@@ -156,13 +159,33 @@ Par défaut, l'UI sera disponible sur `http://127.0.0.1:5000`.
 
 Important :
 
-- il n'est pas nécessaire de laisser l'interface ouverte pendant l'exécution du notebook ;
-- `notebooks/modelisation.ipynb` écrit directement dans `artifacts/mlflow.db` ;
+- il n'est pas nécessaire de laisser l'interface ouverte pendant l'exécution des notebooks ;
+- les notebooks `notebooks/experience_1.ipynb` et `notebooks/experience_2.ipynb` écrivent directement dans `artifacts/mlflow.db` ;
 - les artefacts des runs sont stockés dans `artifacts/mlruns/` ;
-- l'UI peut donc être ouverte avant ou après l'exécution du notebook.
+- l'UI peut donc être ouverte avant ou après l'exécution des notebooks.
+- la piste historique `notebooks/modelisation.ipynb` est abandonnée ; le dépôt conserve seulement ses artefacts utiles pour archive.
 - `mlflow/mlflow.py` lance maintenant `python -m mlflow` avec l'interpréteur actif, ce qui évite d'utiliser par erreur un `mlflow` système d'une autre version.
 - `mlflow/mlflow.py` lance `mlflow server` et fixe explicitement `artifacts/mlruns/` comme racine d'artefacts.
 - si tu vois une erreur Alembic du type `Can't locate revision identified by ...`, la cause probable est un décalage de version entre le MLflow qui a créé `artifacts/mlflow.db` et celui qui essaie de l'ouvrir.
+
+### Exporter un registered model
+
+Le script [scripts/promote_registered_model.py](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/scripts/promote_registered_model.py) applique une règle volontairement stricte :
+
+- s'il y a exactement un registered model dans MLflow, il est exporté en `artifacts/models/best_pipeline.joblib` ;
+- s'il n'y a aucun registered model, le script échoue ;
+- s'il y a plusieurs registered models, le script échoue aussi et demande de préciser `--registered-model`.
+
+Exemples :
+
+```bash
+python3 scripts/promote_registered_model.py
+python3 scripts/promote_registered_model.py --registered-model "xgboost_random_forest"
+```
+
+Le script écrit aussi `artifacts/models/best_pipeline_metadata.json` pour tracer le registered model exporté, sa version, son `run_id` et l'URI MLflow source.
+
+Important : `best_pipeline.joblib` correspond à un export local simple basé sur un registered model MLflow. L'API finale [main.py](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/main.py) continue, elle, à utiliser les artefacts `p1_historical_*` et `p23_simulation_*`.
 
 ### Comment repartir d'un tracking propre
 
@@ -172,7 +195,7 @@ Pour repartir d'un historique MLflow vide, arrêter d'abord l'interface MLflow e
 rm -f artifacts/mlflow.db
 ```
 
-Au prochain lancement de `notebooks/modelisation.ipynb` ou de `python3 mlflow/mlflow.py`, la base sera recréée automatiquement.
+Au prochain lancement de `notebooks/experience_1.ipynb`, de `notebooks/experience_2.ipynb` ou de `python3 mlflow/mlflow.py`, la base sera recréée automatiquement.
 
 Si tu veux aussi nettoyer les anciens artefacts du backend fichier abandonné, tu peux supprimer en plus :
 

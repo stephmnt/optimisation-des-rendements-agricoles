@@ -7,6 +7,9 @@ ressources/
 artifacts/
 .hf_space_build/
 hf_space_build/
+images/ 
+*.pptx
+*.keynote
 
 # vim
 *.swp

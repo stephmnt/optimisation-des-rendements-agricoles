@@ -9,7 +9,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     STREAMLIT_HOST=127.0.0.1 \
     STREAMLIT_PORT=8502 \
     PUBLIC_PORT=8501 \
-    API_BASE_URL=http://127.0.0.1:8000
+    API_BASE_URL=http://127.0.0.1:8000 \
+    API_V2_BASE_URL=http://127.0.0.1:8000 \
+    API_BASE_URL_V2=http://127.0.0.1:8000
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
@@ -19,8 +21,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY streamlit/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY config/nginx.conf /etc/nginx/nginx.conf
 COPY main.py ./main.py
+COPY scripts ./scripts
 COPY streamlit ./streamlit
 COPY data ./data
 COPY artifacts ./artifacts

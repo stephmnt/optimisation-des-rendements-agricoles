@@ -12,8 +12,15 @@ hf_space_build
 
 artifacts/*
 !artifacts/models/
+!artifacts/experiments/
 artifacts/models/*
-!artifacts/models/best_pipeline.joblib
+!artifacts/models/p1_historical_pipeline.joblib
+!artifacts/models/p1_historical_metadata.json
+!artifacts/models/p23_simulation_pipeline.joblib
+!artifacts/models/p23_simulation_metadata.json
+!artifacts/experiments/experience_1/
+artifacts/experiments/*
+!artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv
 notebooks
 ressources
 mlflow

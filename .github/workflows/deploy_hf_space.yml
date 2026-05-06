@@ -8,10 +8,18 @@ on:
       - ".github/workflows/deploy_hf_space.yml"
       - ".dockerignore"
       - "Dockerfile"
+      - "config/**"
       - "main.py"
+      - "scripts/**"
       - "streamlit/**"
       - "tests/**"
       - "data/dataset_consolide.csv"
+      - "data/simulation/crop_yield.csv"
+      - "artifacts/models/p1_historical_pipeline.joblib"
+      - "artifacts/models/p1_historical_metadata.json"
+      - "artifacts/models/p23_simulation_pipeline.joblib"
+      - "artifacts/models/p23_simulation_metadata.json"
+      - "artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv"
       - "agriculture.png"
       - "!notebooks/**"
   workflow_dispatch:
@@ -29,10 +37,15 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r streamlit/requirements.txt pytest
+          python -m pip install -r streamlit/requirements.txt mlflow==3.10.1 pytest
 
       - name: Run pytest
-        run: python -m pytest -q tests
+        run: >
+          python -m pytest -q
+          tests/test_api.py
+          tests/test_streamlit.py
+          tests/test_mlflow_logging.py
+          tests/test_promote_registered_model.py
 
   build:
     needs: test
@@ -44,18 +57,22 @@ jobs:
         run: |
           rm -rf .hf_space_build
           mkdir -p \
+            .hf_space_build/config \
+            .hf_space_build/scripts \
             .hf_space_build/streamlit/src \
             .hf_space_build/streamlit/icones \
-            .hf_space_build/data \
-            .hf_space_build/artifacts/models
+            .hf_space_build/data/simulation \
+            .hf_space_build/artifacts/models \
+            .hf_space_build/artifacts/experiments/experience_1
           cp Dockerfile .hf_space_build/Dockerfile
-          cp nginx.conf .hf_space_build/nginx.conf
+          cp config/nginx.conf .hf_space_build/config/nginx.conf
+          cp -R scripts/. .hf_space_build/scripts/
           cp streamlit/requirements.txt .hf_space_build/streamlit/requirements.txt
           cp -R streamlit/src/. .hf_space_build/streamlit/src/
           cp -R streamlit/icones/. .hf_space_build/streamlit/icones/
           cp data/dataset_consolide.csv .hf_space_build/data/dataset_consolide.csv
+          cp data/simulation/crop_yield.csv .hf_space_build/data/simulation/crop_yield.csv
           cp main.py .hf_space_build/main.py
-          touch .hf_space_build/artifacts/models/.keep
           cat <<'EOF' > .hf_space_build/README.md
           ---
           title: Rendement Agricole
@@ -78,11 +95,13 @@ jobs:
           
           - UI Streamlit : port public `8501`
           - API FastAPI : port interne `127.0.0.1:8000`
-          - modèle servi : artefact entraîné si disponible, sinon fallback Ridge entraîné depuis `data/dataset_consolide.csv`
+          - logique servie : API finale `main.py` basee sur 2 modeles et 3 predictions combinees
           EOF
-          if [ -f artifacts/models/best_pipeline.joblib ]; then
-            cp artifacts/models/best_pipeline.joblib .hf_space_build/artifacts/models/best_pipeline.joblib
-          fi
+          cp artifacts/models/p1_historical_pipeline.joblib .hf_space_build/artifacts/models/p1_historical_pipeline.joblib
+          cp artifacts/models/p1_historical_metadata.json .hf_space_build/artifacts/models/p1_historical_metadata.json
+          cp artifacts/models/p23_simulation_pipeline.joblib .hf_space_build/artifacts/models/p23_simulation_pipeline.joblib
+          cp artifacts/models/p23_simulation_metadata.json .hf_space_build/artifacts/models/p23_simulation_metadata.json
+          cp artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv .hf_space_build/artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv
           if [ -f agriculture.png ]; then
             cp agriculture.png .hf_space_build/agriculture.png
           fi
@@ -117,18 +136,22 @@ jobs:
         run: |
           rm -rf .hf_space_build
           mkdir -p \
+            .hf_space_build/config \
+            .hf_space_build/scripts \
             .hf_space_build/streamlit/src \
             .hf_space_build/streamlit/icones \
-            .hf_space_build/data \
-            .hf_space_build/artifacts/models
+            .hf_space_build/data/simulation \
+            .hf_space_build/artifacts/models \
+            .hf_space_build/artifacts/experiments/experience_1
           cp Dockerfile .hf_space_build/Dockerfile
-          cp nginx.conf .hf_space_build/nginx.conf
+          cp config/nginx.conf .hf_space_build/config/nginx.conf
+          cp -R scripts/. .hf_space_build/scripts/
           cp streamlit/requirements.txt .hf_space_build/streamlit/requirements.txt
           cp -R streamlit/src/. .hf_space_build/streamlit/src/
           cp -R streamlit/icones/. .hf_space_build/streamlit/icones/
           cp data/dataset_consolide.csv .hf_space_build/data/dataset_consolide.csv
+          cp data/simulation/crop_yield.csv .hf_space_build/data/simulation/crop_yield.csv
           cp main.py .hf_space_build/main.py
-          touch .hf_space_build/artifacts/models/.keep
           cat <<'EOF' > .hf_space_build/README.md
           ---
           title: Rendement Agricole
@@ -151,11 +174,13 @@ jobs:
           
           - UI Streamlit : port public `8501`
           - API FastAPI : port interne `127.0.0.1:8000`
-          - modèle servi : artefact entraîné si disponible, sinon fallback Ridge entraîné depuis `data/dataset_consolide.csv`
+          - logique servie : API finale `main.py` basee sur 2 modeles et 3 predictions combinees
           EOF
-          if [ -f artifacts/models/best_pipeline.joblib ]; then
-            cp artifacts/models/best_pipeline.joblib .hf_space_build/artifacts/models/best_pipeline.joblib
-          fi
+          cp artifacts/models/p1_historical_pipeline.joblib .hf_space_build/artifacts/models/p1_historical_pipeline.joblib
+          cp artifacts/models/p1_historical_metadata.json .hf_space_build/artifacts/models/p1_historical_metadata.json
+          cp artifacts/models/p23_simulation_pipeline.joblib .hf_space_build/artifacts/models/p23_simulation_pipeline.joblib
+          cp artifacts/models/p23_simulation_metadata.json .hf_space_build/artifacts/models/p23_simulation_metadata.json
+          cp artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv .hf_space_build/artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv
           if [ -f agriculture.png ]; then
             cp agriculture.png .hf_space_build/agriculture.png
           fi
