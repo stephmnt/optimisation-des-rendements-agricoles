@@ -10,14 +10,18 @@ import argparse
 from pathlib import Path
 import shutil
 
+from scripts.runtime_model_specs import (
+    HISTORICAL_RUNTIME_MODEL_SPEC,
+    SIMULATION_RUNTIME_MODEL_SPEC,
+)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 DEPLOYMENT_REQUIRED_ARTIFACTS = [
-    Path("artifacts/models/p1_historical_pipeline.joblib"),
-    Path("artifacts/models/p1_historical_metadata.json"),
-    Path("artifacts/models/p23_simulation_pipeline.joblib"),
-    Path("artifacts/models/p23_simulation_metadata.json"),
+    HISTORICAL_RUNTIME_MODEL_SPEC.output_model_path.relative_to(PROJECT_ROOT),
+    HISTORICAL_RUNTIME_MODEL_SPEC.output_metadata_path.relative_to(PROJECT_ROOT),
+    SIMULATION_RUNTIME_MODEL_SPEC.output_model_path.relative_to(PROJECT_ROOT),
+    SIMULATION_RUNTIME_MODEL_SPEC.output_metadata_path.relative_to(PROJECT_ROOT),
     Path("artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv"),
 ]
 
@@ -44,10 +48,22 @@ PAYLOAD_FILE_SPECS = [
     (Path("data/dataset_consolide.csv"), Path("data/dataset_consolide.csv")),
     (Path("data/simulation/crop_yield.csv"), Path("data/simulation/crop_yield.csv")),
     (Path("main.py"), Path("main.py")),
-    (Path("artifacts/models/p1_historical_pipeline.joblib"), Path("artifacts/models/p1_historical_pipeline.joblib")),
-    (Path("artifacts/models/p1_historical_metadata.json"), Path("artifacts/models/p1_historical_metadata.json")),
-    (Path("artifacts/models/p23_simulation_pipeline.joblib"), Path("artifacts/models/p23_simulation_pipeline.joblib")),
-    (Path("artifacts/models/p23_simulation_metadata.json"), Path("artifacts/models/p23_simulation_metadata.json")),
+    (
+        HISTORICAL_RUNTIME_MODEL_SPEC.output_model_path.relative_to(PROJECT_ROOT),
+        HISTORICAL_RUNTIME_MODEL_SPEC.output_model_path.relative_to(PROJECT_ROOT),
+    ),
+    (
+        HISTORICAL_RUNTIME_MODEL_SPEC.output_metadata_path.relative_to(PROJECT_ROOT),
+        HISTORICAL_RUNTIME_MODEL_SPEC.output_metadata_path.relative_to(PROJECT_ROOT),
+    ),
+    (
+        SIMULATION_RUNTIME_MODEL_SPEC.output_model_path.relative_to(PROJECT_ROOT),
+        SIMULATION_RUNTIME_MODEL_SPEC.output_model_path.relative_to(PROJECT_ROOT),
+    ),
+    (
+        SIMULATION_RUNTIME_MODEL_SPEC.output_metadata_path.relative_to(PROJECT_ROOT),
+        SIMULATION_RUNTIME_MODEL_SPEC.output_metadata_path.relative_to(PROJECT_ROOT),
+    ),
     (
         Path("artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv"),
         Path("artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv"),

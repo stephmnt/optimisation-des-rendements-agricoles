@@ -1,6 +1,6 @@
 {
   "model_name": "linear_regression",
-  "trained_at_utc": "2026-05-08T13:57:01.647971+00:00",
+  "trained_at_utc": "2026-05-08T15:21:57.448600+00:00",
   "dataset_source": "data/simulation/crop_yield.csv",
   "feature_columns": [
     "region",
@@ -22,5 +22,36 @@
     "test_r2": 0.9139501848982343
   },
   "strategy": "2_models_3_predictions_combined",
-  "role": "local_adjustment_model_for_P2_and_P3"
+  "role": "simulation",
+  "runtime_model_role": "simulation",
+  "registered_model_name": "p23_simulation_pipeline",
+  "registered_model_version": "1",
+  "registered_model_run_id": "52afdbb887b14a1e85d27cd99a3a2aa5",
+  "model_uri": "models:/p23_simulation_pipeline/1",
+  "registered_model_stage": "None",
+  "registered_model_source": "models:/m-0f2b048942754b70864bc8c48be7df42",
+  "tracking_uri": "sqlite:////private/tmp/ocr12_mlflow_check.db",
+  "exported_at_utc": "2026-05-08T15:22:00.711743+00:00",
+  "artifact_path": "artifacts/models/p23_simulation_pipeline.joblib",
+  "metadata_path": "artifacts/models/p23_simulation_metadata.json",
+  "output_path": "artifacts/models/p23_simulation_pipeline.joblib",
+  "output_metadata_path": "artifacts/models/p23_simulation_metadata.json",
+  "source_run_name": "simulation_runtime__runtime_model",
+  "source_experiment_id": "2",
+  "source_run_metrics": {
+    "train_rmse": 0.49987819477652967,
+    "train_mae": 0.39889442485099674,
+    "train_r2": 0.9130634145187704,
+    "test_rmse": 0.49668933266948173,
+    "test_mae": 0.39606497055687334,
+    "test_r2": 0.9139501848982343
+  },
+  "source_run_params": {
+    "runtime_model_role": "simulation",
+    "registered_model_name": "p23_simulation_pipeline",
+    "training_entrypoint": "scripts/train_simulation_model.py",
+    "model_name": "linear_regression",
+    "dataset_source": "data/simulation/crop_yield.csv",
+    "sample_size": "200000"
+  }
 }

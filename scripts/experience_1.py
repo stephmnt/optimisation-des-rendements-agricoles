@@ -44,8 +44,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from scripts.mlflow_logging import log_named_sklearn_model
+from scripts.mlflow_logging import log_and_register_sklearn_model, log_named_sklearn_model
 from scripts.project_config import DEFAULT_CONFIG_PATH, load_preparation_config
+from scripts.runtime_model_specs import HISTORICAL_RUNTIME_MODEL_SPEC
 
 
 SEED = 42
@@ -1246,6 +1247,7 @@ def export_p1_artifact(
 
     p1_metadata = {
         "artifact_role": "P1_historical_prediction_model",
+        "runtime_model_role": HISTORICAL_RUNTIME_MODEL_SPEC.role,
         "training_notebook": "notebooks/experience_1.ipynb",
         "training_script": "scripts/experience_1.py",
         "training_entrypoint": "scripts/experience_1.py",
@@ -1276,6 +1278,41 @@ def export_p1_artifact(
         },
         "mlflow_run_id": str(results_df.loc[0, "run_id"]) if "run_id" in results_df.columns else None,
     }
+
+    with mlflow.start_run(run_name=f"{MLFLOW_EXPERIMENT_NAME}__runtime_historical") as runtime_run:
+        mlflow.log_param("experience_name", MLFLOW_EXPERIMENT_NAME)
+        mlflow.log_param("runtime_model_role", HISTORICAL_RUNTIME_MODEL_SPEC.role)
+        mlflow.log_param("registered_model_name", HISTORICAL_RUNTIME_MODEL_SPEC.registered_model_name)
+        mlflow.log_param("training_entrypoint", "scripts/experience_1.py")
+        mlflow.log_param("target_year", context.target_year)
+        mlflow.log_param("best_candidate_model_name", best_model_name)
+        mlflow.log_metric("test_rmse", p1_metadata["metrics"]["test_rmse"])
+        mlflow.log_metric("test_mae", p1_metadata["metrics"]["test_mae"])
+        mlflow.log_metric("test_r2", p1_metadata["metrics"]["test_r2"])
+        mlflow.log_metric("cv_val_rmse_mean", p1_metadata["metrics"]["cv_val_rmse_mean"])
+        mlflow.log_metric("cv_val_mae_mean", p1_metadata["metrics"]["cv_val_mae_mean"])
+        mlflow.log_metric("cv_val_r2_mean", p1_metadata["metrics"]["cv_val_r2_mean"])
+        mlflow.log_artifact(str(paths.dataset_path))
+        mlflow.log_artifact(str(paths.model_results_path))
+        runtime_registration = log_and_register_sklearn_model(
+            p1_pipeline,
+            artifact_name=HISTORICAL_RUNTIME_MODEL_SPEC.registered_model_name,
+            registered_model_name=HISTORICAL_RUNTIME_MODEL_SPEC.registered_model_name,
+            model_metadata={
+                "runtime_model_role": HISTORICAL_RUNTIME_MODEL_SPEC.role,
+                "training_entrypoint": "scripts/experience_1.py",
+            },
+        )
+
+    p1_metadata.update(
+        {
+            "registered_model_name": runtime_registration["registered_model_name"],
+            "registered_model_version": runtime_registration["registered_model_version"],
+            "registered_model_run_id": runtime_registration["run_id"],
+            "model_uri": runtime_registration["model_uri"],
+            "registry_source_run_id": runtime_run.info.run_id,
+        }
+    )
 
     joblib.dump(p1_pipeline, paths.p1_model_path)
     paths.p1_metadata_path.write_text(
@@ -1362,6 +1399,10 @@ def run_experience_1(
         "best_test_rmse": float(results_df.loc[0, "test_rmse"]),
         "best_test_r2": float(results_df.loc[0, "test_r2"]),
         "tracked_models": list(results_df["model"]),
+        "registered_model_name": p1_metadata.get("registered_model_name"),
+        "registered_model_version": p1_metadata.get("registered_model_version"),
+        "registered_model_run_id": p1_metadata.get("registered_model_run_id"),
+        "model_uri": p1_metadata.get("model_uri"),
         "p1_metadata": p1_metadata,
     }
 

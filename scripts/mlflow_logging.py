@@ -10,6 +10,7 @@ import mlflow
 import mlflow.pyfunc
 import mlflow.sklearn
 import pandas as pd
+from mlflow.tracking import MlflowClient
 
 
 def sanitize_logged_model_name(raw_name: str) -> str:
@@ -51,6 +52,89 @@ def log_named_sklearn_model(estimator: Any, *, model_name: str) -> str:
     logged_model_name = sanitize_logged_model_name(model_name)
     mlflow.sklearn.log_model(estimator, name=logged_model_name)
     return logged_model_name
+
+
+def _registered_model_version_sort_key(version: Any) -> tuple[int, str]:
+    """Produit une cle de tri robuste pour les versions du registry MLflow."""
+    raw_version = str(getattr(version, "version", version))
+    return (int(raw_version), raw_version) if raw_version.isdigit() else (-1, raw_version)
+
+
+def resolve_registered_model_version_for_run(
+    *,
+    registered_model_name: str,
+    run_id: str,
+    tracking_uri: str | None = None,
+) -> Any:
+    """Recupere la version du registry associee a un run MLflow donne.
+
+    Args:
+        registered_model_name: Nom du registered model a inspecter.
+        run_id: Identifiant du run source.
+        tracking_uri: Tracking URI MLflow optionnel.
+
+    Returns:
+        Any: Objet version retourne par le client MLflow.
+    """
+    client = MlflowClient(tracking_uri=tracking_uri)
+    versions = [
+        version
+        for version in client.search_model_versions(f"name = '{registered_model_name}'")
+        if str(getattr(version, "run_id", "")) == str(run_id)
+    ]
+    if not versions:
+        raise RuntimeError(
+            "Registered model version could not be resolved for "
+            f"model={registered_model_name!r} and run_id={run_id!r}."
+        )
+    return max(versions, key=_registered_model_version_sort_key)
+
+
+def log_and_register_sklearn_model(
+    estimator: Any,
+    *,
+    artifact_name: str,
+    registered_model_name: str,
+    model_metadata: dict[str, Any] | None = None,
+    await_registration_for: int = 300,
+) -> dict[str, str]:
+    """Journalise un estimateur et l'enregistre comme registered model MLflow.
+
+    Args:
+        estimator: Estimateur scikit-learn a enregistrer.
+        artifact_name: Nom de l'artefact de run.
+        registered_model_name: Nom du registered model cible.
+        model_metadata: Metadonnees MLflow optionnelles.
+        await_registration_for: Duree d'attente maximale de l'enregistrement.
+
+    Returns:
+        dict[str, str]: Contexte de registry resolu apres l'enregistrement.
+    """
+    active_run = mlflow.active_run()
+    if active_run is None:
+        raise RuntimeError("An active MLflow run is required before registering a model.")
+
+    logged_model_name = sanitize_logged_model_name(artifact_name)
+    model_info = mlflow.sklearn.log_model(
+        estimator,
+        name=logged_model_name,
+        registered_model_name=registered_model_name,
+        metadata=model_metadata,
+        await_registration_for=await_registration_for,
+    )
+    resolved_version = resolve_registered_model_version_for_run(
+        registered_model_name=registered_model_name,
+        run_id=active_run.info.run_id,
+        tracking_uri=mlflow.get_tracking_uri(),
+    )
+    return {
+        "logged_model_name": logged_model_name,
+        "registered_model_name": registered_model_name,
+        "registered_model_version": str(resolved_version.version),
+        "model_uri": f"models:/{registered_model_name}/{resolved_version.version}",
+        "run_id": active_run.info.run_id,
+        "logged_model_uri": str(getattr(model_info, "model_uri", "")),
+    }
 
 
 class EvaluationPredictionLookupModel(mlflow.pyfunc.PythonModel):

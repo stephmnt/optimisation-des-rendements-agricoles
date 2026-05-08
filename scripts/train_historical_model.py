@@ -14,16 +14,17 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from scripts.experience_1 import run_experience_1
 from scripts.pipeline_utils import ensure_paths_exist, relative_to_project
+from scripts.runtime_model_specs import HISTORICAL_RUNTIME_MODEL_SPEC
 
 
 EXPERIENCE_1_SCRIPT_PATH = Path("scripts/experience_1.py")
 HISTORICAL_OUTPUTS = [
     Path("artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv"),
     Path("artifacts/experiments/experience_1/model_results.csv"),
-    Path("artifacts/models/p1_historical_pipeline.joblib"),
-    Path("artifacts/models/p1_historical_metadata.json"),
+    HISTORICAL_RUNTIME_MODEL_SPEC.output_model_path.relative_to(PROJECT_ROOT),
+    HISTORICAL_RUNTIME_MODEL_SPEC.output_metadata_path.relative_to(PROJECT_ROOT),
 ]
-HISTORICAL_METADATA_PATH = Path("artifacts/models/p1_historical_metadata.json")
+HISTORICAL_METADATA_PATH = HISTORICAL_RUNTIME_MODEL_SPEC.output_metadata_path.relative_to(PROJECT_ROOT)
 
 
 def parse_args() -> argparse.Namespace:
@@ -68,10 +69,15 @@ def train_historical_model(
     )
     return {
         "script": relative_to_project(EXPERIENCE_1_SCRIPT_PATH),
+        "artifact_source": "retrained",
         "training_notebook_reference": metadata.get("training_notebook"),
         "outputs": [relative_to_project(path) for path in resolved_outputs],
         "model_name": metadata.get("model_name"),
         "target_year": metadata.get("target_year"),
+        "registered_model_name": metadata.get("registered_model_name"),
+        "registered_model_version": metadata.get("registered_model_version"),
+        "registered_model_run_id": metadata.get("registered_model_run_id"),
+        "model_uri": metadata.get("model_uri"),
         "metrics": metrics,
     }
 

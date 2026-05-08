@@ -24,15 +24,19 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 
+from scripts.runtime_model_specs import (
+    HISTORICAL_RUNTIME_MODEL_SPEC,
+    SIMULATION_RUNTIME_MODEL_SPEC,
+)
 from scripts.simulation_dataset import load_normalized_simulation_dataset
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 HISTORICAL_WIDE_DATASET_PATH = PROJECT_ROOT / "artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv"
-HISTORICAL_MODEL_PATH = PROJECT_ROOT / "artifacts/models/p1_historical_pipeline.joblib"
-HISTORICAL_METADATA_PATH = PROJECT_ROOT / "artifacts/models/p1_historical_metadata.json"
+HISTORICAL_MODEL_PATH = HISTORICAL_RUNTIME_MODEL_SPEC.output_model_path
+HISTORICAL_METADATA_PATH = HISTORICAL_RUNTIME_MODEL_SPEC.output_metadata_path
 SIMULATION_DATASET_PATH = PROJECT_ROOT / "data/simulation/crop_yield.csv"
-SIMULATION_MODEL_PATH = PROJECT_ROOT / "artifacts/models/p23_simulation_pipeline.joblib"
-SIMULATION_METADATA_PATH = PROJECT_ROOT / "artifacts/models/p23_simulation_metadata.json"
+SIMULATION_MODEL_PATH = SIMULATION_RUNTIME_MODEL_SPEC.output_model_path
+SIMULATION_METADATA_PATH = SIMULATION_RUNTIME_MODEL_SPEC.output_metadata_path
 
 SEED = 42
 SIMULATION_SAMPLE_SIZE = 200_000

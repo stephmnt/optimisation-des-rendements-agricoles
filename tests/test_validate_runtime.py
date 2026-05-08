@@ -4,7 +4,11 @@ from __future__ import annotations
 
 import pytest
 
-from scripts.validate_runtime import build_smoke_user_conditions, pick_area_and_crop
+from scripts.validate_runtime import (
+    RUNTIME_REQUIRED_ARTIFACTS,
+    build_smoke_user_conditions,
+    pick_area_and_crop,
+)
 
 
 class _FakeService:
@@ -58,3 +62,7 @@ def test_build_smoke_user_conditions_switches_values_when_alternatives_exist() -
     assert conditions["fertilizer_used"] is False
     assert conditions["irrigation_used"] is True
     assert conditions["days_to_harvest"] == 127.0
+
+
+def test_runtime_validation_artifacts_do_not_reference_best_pipeline() -> None:
+    assert all("best_pipeline" not in str(path) for path in RUNTIME_REQUIRED_ARTIFACTS)

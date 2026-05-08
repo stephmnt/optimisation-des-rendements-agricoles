@@ -4,10 +4,16 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pandas as pd
+import pytest
 
-from scripts.mlflow_logging import EvaluationPredictionLookupModel, sanitize_logged_model_name
+from scripts.mlflow_logging import (
+    EvaluationPredictionLookupModel,
+    log_and_register_sklearn_model,
+    sanitize_logged_model_name,
+)
 
 
 class _FakeContext:
@@ -70,3 +76,34 @@ def test_evaluation_prediction_lookup_model_returns_matching_rows(tmp_path: Path
     assert result.loc[0, "prediction"] == 6.1
     assert result.loc[0, "actual"] == 6.4
     assert pd.isna(result.loc[1, "prediction"])
+
+
+def test_log_and_register_sklearn_model_returns_registry_context(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        "scripts.mlflow_logging.mlflow.active_run",
+        lambda: SimpleNamespace(info=SimpleNamespace(run_id="run-123")),
+    )
+    monkeypatch.setattr("scripts.mlflow_logging.mlflow.get_tracking_uri", lambda: "sqlite:////tmp/mlflow.db")
+    monkeypatch.setattr(
+        "scripts.mlflow_logging.mlflow.sklearn.log_model",
+        lambda estimator, **kwargs: SimpleNamespace(model_uri=f"runs:/run-123/{kwargs['name']}"),
+    )
+    monkeypatch.setattr(
+        "scripts.mlflow_logging.resolve_registered_model_version_for_run",
+        lambda **kwargs: SimpleNamespace(version="5"),
+    )
+
+    summary = log_and_register_sklearn_model(
+        estimator={"model": "fake"},
+        artifact_name="runtime::historical",
+        registered_model_name="p1_historical_pipeline",
+        model_metadata={"runtime_model_role": "historical"},
+    )
+
+    assert summary["logged_model_name"] == "historical"
+    assert summary["registered_model_name"] == "p1_historical_pipeline"
+    assert summary["registered_model_version"] == "5"
+    assert summary["run_id"] == "run-123"
+    assert summary["model_uri"] == "models:/p1_historical_pipeline/5"

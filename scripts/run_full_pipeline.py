@@ -13,7 +13,9 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.pipeline_utils import ensure_paths_exist, execute_notebook, relative_to_project
+from scripts.promote_registered_model import promote_registered_models
 from scripts.run_preparation import run_preparation
+from scripts.runtime_model_specs import DEFAULT_MLFLOW_TRACKING_URI
 from scripts.train_historical_model import train_historical_model
 from scripts.train_simulation_model import train_simulation_model
 from scripts.validate_runtime import validate_runtime
@@ -76,6 +78,11 @@ def parse_args() -> argparse.Namespace:
         help="Jupyter kernel used to execute notebook-backed stages.",
     )
     parser.add_argument(
+        "--tracking-uri",
+        default=DEFAULT_MLFLOW_TRACKING_URI,
+        help="Tracking URI MLflow partage entre entrainement et promotion.",
+    )
+    parser.add_argument(
         "--json",
         action="store_true",
         help="Print the pipeline summary as JSON.",
@@ -93,6 +100,7 @@ def run_full_pipeline(
     simulation_sample_size: int = 200_000,
     notebook_timeout_seconds: int = 7200,
     kernel_name: str = "python3",
+    tracking_uri: str = DEFAULT_MLFLOW_TRACKING_URI,
 ) -> dict[str, object]:
     """Execute les principales etapes de regeneration des artefacts.
 
@@ -105,6 +113,7 @@ def run_full_pipeline(
         simulation_sample_size: Taille d'echantillon pour le modele local.
         notebook_timeout_seconds: Timeout applique a chaque notebook execute.
         kernel_name: Kernel Jupyter a utiliser.
+        tracking_uri: Tracking URI MLflow utilise pour l'entrainement et la promotion.
 
     Returns:
         dict[str, object]: Resume des etapes executees et des artefacts verifies.
@@ -116,8 +125,11 @@ def run_full_pipeline(
             timeout_seconds=notebook_timeout_seconds,
             kernel_name=kernel_name,
         )
+    else:
+        results["preparation"] = {"skipped": True}
 
     results["historical_model"] = train_historical_model(
+        tracking_uri=tracking_uri,
         cv_splits=4,
     )
 
@@ -139,6 +151,10 @@ def run_full_pipeline(
         force_retrain=not reuse_simulation_artifact,
         save_artifact=True,
         sample_size=simulation_sample_size,
+        tracking_uri=tracking_uri,
+    )
+    results["registered_model_promotion"] = promote_registered_models(
+        tracking_uri=tracking_uri,
     )
 
     if run_experience_3:
@@ -154,6 +170,8 @@ def run_full_pipeline(
 
     if not skip_runtime_validation:
         results["runtime_validation"] = validate_runtime()
+    else:
+        results["runtime_validation"] = {"skipped": True}
 
     return results
 
@@ -170,6 +188,7 @@ def main() -> None:
         simulation_sample_size=args.simulation_sample_size,
         notebook_timeout_seconds=args.notebook_timeout_seconds,
         kernel_name=args.kernel_name,
+        tracking_uri=args.tracking_uri,
     )
     if args.json:
         print(json.dumps(summary, indent=2, ensure_ascii=True))
