@@ -147,3 +147,5 @@ def test_build_candidate_models_registers_expected_search_space() -> None:
     assert "random_forest_search_01" in candidate_models
     assert "xgboost_regularized" in candidate_models
     assert "xgboost_random_forest_search_04" in candidate_models
+    assert {spec["search_method"] for spec in candidate_models.values()} == {"parameter_grid"}
+    assert all(int(spec["parameter_grid_index"]) >= 1 for spec in candidate_models.values())

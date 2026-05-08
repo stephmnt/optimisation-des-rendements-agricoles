@@ -32,6 +32,10 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.project_config import load_preparation_config
+from scripts.simulation_dataset import (
+    SIMULATION_ACP_NUMERIC_COLUMNS,
+    load_normalized_simulation_dataset,
+)
 
 SEED = 42
 PREPARATION_CONFIG = load_preparation_config(ensure_dirs=True)
@@ -49,31 +53,8 @@ def load_clean_dataset() -> tuple[pd.DataFrame, list[str]]:
     if not DATA_PATH.exists():
         raise FileNotFoundError(f"Fichier introuvable : {DATA_PATH}")
 
-    df = pd.read_csv(DATA_PATH).rename(
-        columns={
-            "Region": "region",
-            "Soil_Type": "soil_type",
-            "Crop": "crop",
-            "Rainfall_mm": "rainfall_mm",
-            "Temperature_Celsius": "temperature_celsius",
-            "Fertilizer_Used": "fertilizer_used",
-            "Irrigation_Used": "irrigation_used",
-            "Weather_Condition": "weather_condition",
-            "Days_to_Harvest": "days_to_harvest",
-            "Yield_tons_per_hectare": "yield_tons_per_hectare",
-        }
-    )
-
-    categorical_cols = ["region", "soil_type", "crop", "weather_condition"]
-    numeric_cols = ["rainfall_mm", "temperature_celsius", "days_to_harvest"]
-
-    df[categorical_cols] = df[categorical_cols].apply(lambda col: col.astype(str).str.strip())
-    df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors="coerce")
-    df["fertilizer_used"] = df["fertilizer_used"].astype("boolean")
-    df["irrigation_used"] = df["irrigation_used"].astype("boolean")
-
-    df = df.loc[df["yield_tons_per_hectare"] >= 0].reset_index(drop=True)
-    return df, numeric_cols
+    df = load_normalized_simulation_dataset(DATA_PATH, boolean_dtype="boolean")
+    return df, SIMULATION_ACP_NUMERIC_COLUMNS
 
 
 def save_correlation_projection(pca_input: pd.DataFrame, pca_model: PCA, pca_scores: pd.DataFrame) -> None:

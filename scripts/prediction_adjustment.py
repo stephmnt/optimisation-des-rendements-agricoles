@@ -24,6 +24,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 
+from scripts.simulation_dataset import load_normalized_simulation_dataset
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 HISTORICAL_WIDE_DATASET_PATH = PROJECT_ROOT / "artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv"
@@ -192,30 +193,10 @@ def load_and_prepare_simulation_dataset(
     simulation_path: str | Path = SIMULATION_DATASET_PATH,
 ) -> pd.DataFrame:
     """Charge et normalise le dataset de simulation locale."""
-    simulation_df = pd.read_csv(_resolve_path(simulation_path)).rename(
-        columns={
-            "Region": "region",
-            "Soil_Type": "soil_type",
-            "Crop": "crop",
-            "Rainfall_mm": "rainfall_mm",
-            "Temperature_Celsius": "temperature_celsius",
-            "Fertilizer_Used": "fertilizer_used",
-            "Irrigation_Used": "irrigation_used",
-            "Weather_Condition": "weather_condition",
-            "Days_to_Harvest": "days_to_harvest",
-            "Yield_tons_per_hectare": "yield_tons_per_hectare",
-        }
+    return load_normalized_simulation_dataset(
+        _resolve_path(simulation_path),
+        boolean_dtype="bool",
     )
-
-    simulation_df = simulation_df.loc[simulation_df["yield_tons_per_hectare"] >= 0].copy()
-
-    for column in ["region", "soil_type", "crop", "weather_condition"]:
-        simulation_df[column] = simulation_df[column].map(normalize_label)
-
-    for column in ["fertilizer_used", "irrigation_used"]:
-        simulation_df[column] = simulation_df[column].astype(bool)
-
-    return simulation_df
 
 
 def _fit_simulation_pipeline(

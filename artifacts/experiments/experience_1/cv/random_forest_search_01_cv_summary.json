@@ -1,14 +1,14 @@
 {
   "cv_n_splits": 4,
-  "cv_train_mae_mean": 0.4251514551051878,
-  "cv_train_rmse_mean": 1.1341373028453097,
-  "cv_train_r2_mean": 0.9807549235408959,
-  "cv_val_mae_mean": 0.6402693687442532,
-  "cv_val_mae_std": 0.038572909829796484,
-  "cv_val_rmse_mean": 1.5918897323750296,
-  "cv_val_rmse_std": 0.2482562882277984,
-  "cv_val_r2_mean": 0.9618082601070855,
-  "cv_val_r2_std": 0.008859828333108182,
-  "cv_overfit_gap_rmse_mean": 0.45775242952972,
-  "cv_overfit_ratio_rmse_mean": 1.4201632086897704
+  "cv_train_mae_mean": 0.43704325752183837,
+  "cv_train_rmse_mean": 1.1492043493605788,
+  "cv_train_r2_mean": 0.9802505584924684,
+  "cv_val_mae_mean": 0.6463164060176476,
+  "cv_val_mae_std": 0.03888596717854269,
+  "cv_val_rmse_mean": 1.5814357123886047,
+  "cv_val_rmse_std": 0.2611443062888871,
+  "cv_val_r2_mean": 0.9623090308612253,
+  "cv_val_r2_std": 0.009305699660632182,
+  "cv_overfit_gap_rmse_mean": 0.43223136302802584,
+  "cv_overfit_ratio_rmse_mean": 1.3926299414481904
 }

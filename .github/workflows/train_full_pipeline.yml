@@ -1,0 +1,76 @@
+name: Train Full Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_preparation:
+        description: "Reuse existing preparation outputs instead of rerunning preparation.ipynb"
+        required: false
+        default: false
+        type: boolean
+      run_experience_3:
+        description: "Also execute notebooks/experience_3.ipynb after the artifacts are rebuilt"
+        required: false
+        default: false
+        type: boolean
+      reuse_simulation_artifact:
+        description: "Reuse the existing local simulation artifact instead of forcing a retrain"
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install training dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt pytest
+
+      - name: Run full training pipeline
+        run: |
+          args=("--json")
+          if [ "${{ inputs.skip_preparation }}" = "true" ]; then
+            args+=("--skip-preparation")
+          fi
+          if [ "${{ inputs.run_experience_3 }}" = "true" ]; then
+            args+=("--run-experience-3")
+          fi
+          if [ "${{ inputs.reuse_simulation_artifact }}" = "true" ]; then
+            args+=("--reuse-simulation-artifact")
+          fi
+          python scripts/run_full_pipeline.py "${args[@]}" > artifacts/pipeline_summary.json
+          cat artifacts/pipeline_summary.json
+
+      - name: Run pipeline regression tests
+        run: >
+          python -m pytest -q
+          tests/test_api.py
+          tests/test_streamlit.py
+          tests/test_mlflow_logging.py
+          tests/test_promote_registered_model.py
+          tests/test_validate_runtime.py
+
+      - name: Upload regenerated artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: train-full-pipeline-artifacts
+          path: |
+            artifacts/pipeline_summary.json
+            data/dataset_consolide.csv
+            artifacts/pca/
+            artifacts/experiments/experience_1/
+            artifacts/models/p1_historical_pipeline.joblib
+            artifacts/models/p1_historical_metadata.json
+            artifacts/models/p23_simulation_pipeline.joblib
+            artifacts/models/p23_simulation_metadata.json

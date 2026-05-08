@@ -59,6 +59,7 @@ python3 scripts/run_full_pipeline.py
 Important :
 
 - la brique historique est maintenant script-native : `scripts/train_historical_model.py` execute `scripts/experience_1.py`, tandis que `notebooks/experience_1.ipynb` reste conserve comme trace experimentale ;
+- `scripts/experience_1.py` applique maintenant une recherche d'hyperparametres systematic via `ParameterGrid`, avec une definition unique de l'espace de recherche pour toutes les familles candidates ;
 - la preparation reste notebook-backed : `scripts/run_preparation.py` pilote encore `notebooks/preparation.ipynb` en mode headless ;
 - `scripts/run_full_pipeline.py` peut relancer `notebooks/experience_3.ipynb` et, sur demande explicite, `notebooks/experience_2.ipynb` qui est maintenant une piste abandonnee conservee dans le depot ;
 - cette orchestration industrialise la chaine locale du projet, sans changer le choix actuel de ne pas reentrainer les modeles dans le workflow de deploiement.
@@ -87,6 +88,13 @@ Le workflow [deploy_hf_space.yml](https://github.com/stephmnt/optimisation-des-r
 Le dossier [notebooks](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/notebooks) reste dans le dépôt GitHub, mais il n'est pas recopié dans le payload envoyé sur Hugging Face.
 
 Le Space Hugging Face utilise le [Dockerfile](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/Dockerfile) racine, recopié par le workflow dans `.hf_space_build/`.
+
+Le workflow [train_full_pipeline.yml](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/.github/workflows/train_full_pipeline.yml) complete maintenant cette CI/CD applicative par une orchestration GitHub dediee au pipeline d'entrainement :
+
+1. installation de l'environnement complet du projet ;
+2. execution de `scripts/run_full_pipeline.py` ;
+3. regression tests applicatifs ;
+4. publication des artefacts regeneres comme artefacts GitHub telechargeables.
 
 ### Secrets et Variables GitHub Actions
 

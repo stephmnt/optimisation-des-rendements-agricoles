@@ -54,73 +54,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Validate deployment artifacts
-        run: |
-          required_files=(
-            "artifacts/models/p1_historical_pipeline.joblib"
-            "artifacts/models/p1_historical_metadata.json"
-            "artifacts/models/p23_simulation_pipeline.joblib"
-            "artifacts/models/p23_simulation_metadata.json"
-            "artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv"
-          )
-          for path in "${required_files[@]}"; do
-            if [ ! -f "$path" ]; then
-              echo "::error file=$path::Missing deployment artifact in repository checkout. Commit this file or regenerate it before rerunning the workflow."
-              exit 1
-            fi
-          done
+        run: python3 scripts/deployment_payload.py validate
 
       - name: Build Space payload
-        run: |
-          rm -rf .hf_space_build
-          mkdir -p \
-            .hf_space_build/config \
-            .hf_space_build/scripts \
-            .hf_space_build/streamlit/src \
-            .hf_space_build/streamlit/icones \
-            .hf_space_build/data/simulation \
-            .hf_space_build/artifacts/models \
-            .hf_space_build/artifacts/experiments/experience_1
-          cp Dockerfile .hf_space_build/Dockerfile
-          cp config/nginx.conf .hf_space_build/config/nginx.conf
-          cp -R scripts/. .hf_space_build/scripts/
-          cp streamlit/requirements.txt .hf_space_build/streamlit/requirements.txt
-          cp -R streamlit/src/. .hf_space_build/streamlit/src/
-          cp -R streamlit/icones/. .hf_space_build/streamlit/icones/
-          cp data/dataset_consolide.csv .hf_space_build/data/dataset_consolide.csv
-          cp data/simulation/crop_yield.csv .hf_space_build/data/simulation/crop_yield.csv
-          cp main.py .hf_space_build/main.py
-          cat <<'EOF' > .hf_space_build/README.md
-          ---
-          title: Rendement Agricole
-          emoji: 🌾
-          colorFrom: green
-          colorTo: yellow
-          sdk: docker
-          app_port: 8501
-          tags:
-          - streamlit
-          - agriculture
-          pinned: false
-          short_description: Démo Streamlit + FastAPI de rendement agricole
-          license: mit
-          ---
-          
-          # Rendement Agricole
-          
-          Ce Space Docker expose une interface Streamlit connectée à une API FastAPI interne dans le même conteneur.
-          
-          - UI Streamlit : port public `8501`
-          - API FastAPI : port interne `127.0.0.1:8000`
-          - logique servie : API finale `main.py` basee sur 2 modeles et 3 predictions combinees
-          EOF
-          cp artifacts/models/p1_historical_pipeline.joblib .hf_space_build/artifacts/models/p1_historical_pipeline.joblib
-          cp artifacts/models/p1_historical_metadata.json .hf_space_build/artifacts/models/p1_historical_metadata.json
-          cp artifacts/models/p23_simulation_pipeline.joblib .hf_space_build/artifacts/models/p23_simulation_pipeline.joblib
-          cp artifacts/models/p23_simulation_metadata.json .hf_space_build/artifacts/models/p23_simulation_metadata.json
-          cp artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv .hf_space_build/artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv
-          if [ -f agriculture.png ]; then
-            cp agriculture.png .hf_space_build/agriculture.png
-          fi
+        run: python3 scripts/deployment_payload.py build --output-dir .hf_space_build
 
       - name: Build Docker image
         run: docker build -t rendement-agricole-space:ci .hf_space_build
@@ -133,20 +70,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Validate deployment artifacts
-        run: |
-          required_files=(
-            "artifacts/models/p1_historical_pipeline.joblib"
-            "artifacts/models/p1_historical_metadata.json"
-            "artifacts/models/p23_simulation_pipeline.joblib"
-            "artifacts/models/p23_simulation_metadata.json"
-            "artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv"
-          )
-          for path in "${required_files[@]}"; do
-            if [ ! -f "$path" ]; then
-              echo "::error file=$path::Missing deployment artifact in repository checkout. Commit this file or regenerate it before rerunning the workflow."
-              exit 1
-            fi
-          done
+        run: python3 scripts/deployment_payload.py validate
 
       - name: Validate Hugging Face token
         env:
@@ -165,57 +89,7 @@ jobs:
           esac
 
       - name: Build Space payload
-        run: |
-          rm -rf .hf_space_build
-          mkdir -p \
-            .hf_space_build/config \
-            .hf_space_build/scripts \
-            .hf_space_build/streamlit/src \
-            .hf_space_build/streamlit/icones \
-            .hf_space_build/data/simulation \
-            .hf_space_build/artifacts/models \
-            .hf_space_build/artifacts/experiments/experience_1
-          cp Dockerfile .hf_space_build/Dockerfile
-          cp config/nginx.conf .hf_space_build/config/nginx.conf
-          cp -R scripts/. .hf_space_build/scripts/
-          cp streamlit/requirements.txt .hf_space_build/streamlit/requirements.txt
-          cp -R streamlit/src/. .hf_space_build/streamlit/src/
-          cp -R streamlit/icones/. .hf_space_build/streamlit/icones/
-          cp data/dataset_consolide.csv .hf_space_build/data/dataset_consolide.csv
-          cp data/simulation/crop_yield.csv .hf_space_build/data/simulation/crop_yield.csv
-          cp main.py .hf_space_build/main.py
-          cat <<'EOF' > .hf_space_build/README.md
-          ---
-          title: Rendement Agricole
-          emoji: 🌾
-          colorFrom: green
-          colorTo: yellow
-          sdk: docker
-          app_port: 8501
-          tags:
-          - streamlit
-          - agriculture
-          pinned: false
-          short_description: Démo Streamlit + FastAPI de rendement agricole
-          license: mit
-          ---
-          
-          # Rendement Agricole
-          
-          Ce Space Docker expose une interface Streamlit connectée à une API FastAPI interne dans le même conteneur.
-          
-          - UI Streamlit : port public `8501`
-          - API FastAPI : port interne `127.0.0.1:8000`
-          - logique servie : API finale `main.py` basee sur 2 modeles et 3 predictions combinees
-          EOF
-          cp artifacts/models/p1_historical_pipeline.joblib .hf_space_build/artifacts/models/p1_historical_pipeline.joblib
-          cp artifacts/models/p1_historical_metadata.json .hf_space_build/artifacts/models/p1_historical_metadata.json
-          cp artifacts/models/p23_simulation_pipeline.joblib .hf_space_build/artifacts/models/p23_simulation_pipeline.joblib
-          cp artifacts/models/p23_simulation_metadata.json .hf_space_build/artifacts/models/p23_simulation_metadata.json
-          cp artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv .hf_space_build/artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv
-          if [ -f agriculture.png ]; then
-            cp agriculture.png .hf_space_build/agriculture.png
-          fi
+        run: python3 scripts/deployment_payload.py build --output-dir .hf_space_build
 
       - name: Sync to Hugging Face Space
         uses: huggingface/hub-sync@v0.1.0

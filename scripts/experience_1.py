@@ -26,7 +26,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-from sklearn.model_selection import GroupKFold, GroupShuffleSplit
+from sklearn.model_selection import GroupKFold, GroupShuffleSplit, ParameterGrid
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 
@@ -52,181 +52,141 @@ SEED = 42
 CV_N_SPLITS = 4
 MLFLOW_EXPERIMENT_NAME = "experience_1"
 SEARCH_SPACE_DEFINITION = {
-    "random_forest_focus": [
-        {
-            "model_name": "random_forest",
-            "tuning_stage": "baseline",
-            "params": {
-                "n_estimators": 300,
-                "max_depth": 12,
-                "min_samples_leaf": 2,
-                "min_samples_split": 2,
-                "max_features": 1.0,
-            },
+    "search_method": "parameter_grid",
+    "scope": "all_candidate_families",
+    "families": {
+        "random_forest_focus": {
+            "estimator_kind": "random_forest",
+            "model_family": "random_forest",
+            "blocks": [
+                {
+                    "model_name": "random_forest",
+                    "tuning_stage": "baseline_grid_point",
+                    "regularization_profile": "baseline_grid_point",
+                    "grid": {
+                        "n_estimators": [300],
+                        "max_depth": [12],
+                        "min_samples_leaf": [2],
+                        "min_samples_split": [2],
+                        "max_features": [1.0],
+                    },
+                },
+                {
+                    "model_name": "random_forest_regularized",
+                    "tuning_stage": "regularized_grid_point",
+                    "regularization_profile": "regularized_grid_point",
+                    "grid": {
+                        "n_estimators": [250],
+                        "max_depth": [8],
+                        "min_samples_leaf": [4],
+                        "min_samples_split": [8],
+                        "max_features": [0.6],
+                    },
+                },
+                {
+                    "model_name_pattern": "random_forest_search_{index:02d}",
+                    "tuning_stage": "systematic_grid_search",
+                    "regularization_profile": "parameter_grid_search",
+                    "grid": {
+                        "n_estimators": [300, 350, 420],
+                        "max_depth": [8],
+                        "min_samples_leaf": [4],
+                        "min_samples_split": [10],
+                        "max_features": [0.45],
+                    },
+                },
+            ],
         },
-        {
-            "model_name": "random_forest_regularized",
-            "tuning_stage": "seed_regularized",
-            "params": {
-                "n_estimators": 250,
-                "max_depth": 8,
-                "min_samples_leaf": 4,
-                "min_samples_split": 8,
-                "max_features": 0.6,
-            },
+        "xgboost_focus": {
+            "estimator_kind": "xgboost",
+            "model_family": "xgboost",
+            "blocks": [
+                {
+                    "model_name": "xgboost",
+                    "tuning_stage": "baseline_grid_point",
+                    "regularization_profile": "baseline_grid_point",
+                    "grid": {
+                        "n_estimators": [300],
+                        "max_depth": [6],
+                        "learning_rate": [0.05],
+                        "subsample": [0.8],
+                        "colsample_bytree": [0.8],
+                        "reg_lambda": [1.0],
+                        "min_child_weight": [1],
+                        "reg_alpha": [0.0],
+                        "gamma": [0.0],
+                    },
+                },
+                {
+                    "model_name": "xgboost_regularized",
+                    "tuning_stage": "regularized_grid_point",
+                    "regularization_profile": "regularized_grid_point",
+                    "grid": {
+                        "n_estimators": [220],
+                        "max_depth": [4],
+                        "learning_rate": [0.04],
+                        "subsample": [0.75],
+                        "colsample_bytree": [0.75],
+                        "reg_lambda": [3.0],
+                        "min_child_weight": [6],
+                        "reg_alpha": [0.3],
+                        "gamma": [0.1],
+                    },
+                },
+            ],
         },
-        {
-            "model_name": "random_forest_search_01",
-            "tuning_stage": "targeted_search",
-            "params": {
-                "n_estimators": 350,
-                "max_depth": 9,
-                "min_samples_leaf": 4,
-                "min_samples_split": 10,
-                "max_features": 0.5,
-            },
+        "xgboost_random_forest_focus": {
+            "estimator_kind": "xgboost_random_forest",
+            "model_family": "xgboost_random_forest",
+            "blocks": [
+                {
+                    "model_name": "xgboost_random_forest",
+                    "tuning_stage": "baseline_grid_point",
+                    "regularization_profile": "baseline_grid_point",
+                    "grid": {
+                        "n_estimators": [400],
+                        "max_depth": [8],
+                        "learning_rate": [1.0],
+                        "subsample": [0.8],
+                        "colsample_bynode": [0.8],
+                        "reg_lambda": [1.0],
+                        "min_child_weight": [1],
+                        "reg_alpha": [0.0],
+                    },
+                },
+                {
+                    "model_name": "xgboost_random_forest_regularized",
+                    "tuning_stage": "regularized_grid_point",
+                    "regularization_profile": "regularized_grid_point",
+                    "grid": {
+                        "n_estimators": [260],
+                        "max_depth": [5],
+                        "learning_rate": [1.0],
+                        "subsample": [0.7],
+                        "colsample_bynode": [0.7],
+                        "reg_lambda": [3.0],
+                        "min_child_weight": [6],
+                        "reg_alpha": [0.2],
+                    },
+                },
+                {
+                    "model_name_pattern": "xgboost_random_forest_search_{index:02d}",
+                    "tuning_stage": "systematic_grid_search",
+                    "regularization_profile": "parameter_grid_search",
+                    "grid": {
+                        "n_estimators": [220, 280, 300, 320],
+                        "max_depth": [5],
+                        "learning_rate": [1.0],
+                        "subsample": [0.72],
+                        "colsample_bynode": [0.68],
+                        "reg_lambda": [5.0],
+                        "min_child_weight": [7],
+                        "reg_alpha": [0.15],
+                    },
+                },
+            ],
         },
-        {
-            "model_name": "random_forest_search_02",
-            "tuning_stage": "targeted_search",
-            "params": {
-                "n_estimators": 300,
-                "max_depth": 7,
-                "min_samples_leaf": 6,
-                "min_samples_split": 12,
-                "max_features": 0.7,
-            },
-        },
-        {
-            "model_name": "random_forest_search_03",
-            "tuning_stage": "targeted_search",
-            "params": {
-                "n_estimators": 420,
-                "max_depth": 8,
-                "min_samples_leaf": 5,
-                "min_samples_split": 10,
-                "max_features": 0.45,
-            },
-        },
-    ],
-    "xgboost_focus": [
-        {
-            "model_name": "xgboost",
-            "tuning_stage": "baseline",
-            "params": {
-                "n_estimators": 300,
-                "max_depth": 6,
-                "learning_rate": 0.05,
-                "subsample": 0.8,
-                "colsample_bytree": 0.8,
-                "reg_lambda": 1.0,
-                "min_child_weight": 1,
-                "reg_alpha": 0.0,
-                "gamma": 0.0,
-            },
-        },
-        {
-            "model_name": "xgboost_regularized",
-            "tuning_stage": "seed_regularized",
-            "params": {
-                "n_estimators": 220,
-                "max_depth": 4,
-                "learning_rate": 0.04,
-                "subsample": 0.75,
-                "colsample_bytree": 0.75,
-                "reg_lambda": 3.0,
-                "min_child_weight": 6,
-                "reg_alpha": 0.3,
-                "gamma": 0.1,
-            },
-        },
-    ],
-    "xgboost_random_forest_focus": [
-        {
-            "model_name": "xgboost_random_forest",
-            "tuning_stage": "baseline",
-            "params": {
-                "n_estimators": 400,
-                "max_depth": 8,
-                "learning_rate": 1.0,
-                "subsample": 0.8,
-                "colsample_bynode": 0.8,
-                "reg_lambda": 1.0,
-                "min_child_weight": 1,
-                "reg_alpha": 0.0,
-            },
-        },
-        {
-            "model_name": "xgboost_random_forest_regularized",
-            "tuning_stage": "seed_regularized",
-            "params": {
-                "n_estimators": 260,
-                "max_depth": 5,
-                "learning_rate": 1.0,
-                "subsample": 0.7,
-                "colsample_bynode": 0.7,
-                "reg_lambda": 3.0,
-                "min_child_weight": 6,
-                "reg_alpha": 0.2,
-            },
-        },
-        {
-            "model_name": "xgboost_random_forest_search_01",
-            "tuning_stage": "targeted_search",
-            "params": {
-                "n_estimators": 320,
-                "max_depth": 6,
-                "learning_rate": 1.0,
-                "subsample": 0.75,
-                "colsample_bynode": 0.75,
-                "reg_lambda": 4.0,
-                "min_child_weight": 8,
-                "reg_alpha": 0.1,
-            },
-        },
-        {
-            "model_name": "xgboost_random_forest_search_02",
-            "tuning_stage": "targeted_search",
-            "params": {
-                "n_estimators": 300,
-                "max_depth": 4,
-                "learning_rate": 1.0,
-                "subsample": 0.65,
-                "colsample_bynode": 0.65,
-                "reg_lambda": 6.0,
-                "min_child_weight": 10,
-                "reg_alpha": 0.4,
-            },
-        },
-        {
-            "model_name": "xgboost_random_forest_search_03",
-            "tuning_stage": "targeted_search",
-            "params": {
-                "n_estimators": 220,
-                "max_depth": 5,
-                "learning_rate": 1.0,
-                "subsample": 0.8,
-                "colsample_bynode": 0.6,
-                "reg_lambda": 4.0,
-                "min_child_weight": 8,
-                "reg_alpha": 0.3,
-            },
-        },
-        {
-            "model_name": "xgboost_random_forest_search_04",
-            "tuning_stage": "targeted_search",
-            "params": {
-                "n_estimators": 280,
-                "max_depth": 5,
-                "learning_rate": 1.0,
-                "subsample": 0.72,
-                "colsample_bynode": 0.68,
-                "reg_lambda": 5.0,
-                "min_child_weight": 7,
-                "reg_alpha": 0.15,
-            },
-        },
-    ],
+    },
 }
 
 
@@ -367,7 +327,7 @@ def build_experience_paths(
         missing_summary_path=experience_dir / "experience_1_missing_summary.csv",
         model_results_path=experience_dir / "model_results.csv",
         family_results_path=experience_dir / "family_best_results.csv",
-        search_space_path=experience_dir / "targeted_search_space.json",
+        search_space_path=experience_dir / "systematic_search_space.json",
         mlflow_db_path=mlflow_db_path,
         mlflow_artifacts_dir=mlflow_artifacts_dir,
         mlflow_experiment_artifact_dir=mlflow_experiment_artifact_dir,
@@ -467,6 +427,10 @@ def register_candidate(
     *,
     model_family: str,
     search_family: str,
+    search_method: str,
+    search_block_name: str,
+    parameter_grid_index: int,
+    parameter_grid_size: int,
     regularization_profile: str,
     tuning_stage: str,
 ) -> None:
@@ -475,6 +439,10 @@ def register_candidate(
         "estimator": estimator,
         "model_family": model_family,
         "search_family": search_family,
+        "search_method": search_method,
+        "search_block_name": search_block_name,
+        "parameter_grid_index": parameter_grid_index,
+        "parameter_grid_size": parameter_grid_size,
         "regularization_profile": regularization_profile,
         "tuning_stage": tuning_stage,
     }
@@ -494,6 +462,100 @@ def ensure_xgboost_available() -> None:
         )
 
 
+def make_estimator(estimator_kind: str, *, seed: int, params: dict[str, Any]) -> Any:
+    """Construit un estimateur sklearn/xgboost a partir d'un type logique.
+
+    Args:
+        estimator_kind: Type d'estimateur declare dans la definition de grille.
+        seed: Graine aleatoire globale.
+        params: Hyperparametres de l'estimateur.
+
+    Returns:
+        Any: Estimateur pret a etre clone dans le pipeline.
+    """
+    if estimator_kind == "random_forest":
+        return RandomForestRegressor(random_state=seed, n_jobs=-1, **params)
+    if estimator_kind == "xgboost":
+        ensure_xgboost_available()
+        return XGBRegressor(
+            objective="reg:squarederror",
+            tree_method="hist",
+            random_state=seed,
+            n_jobs=-1,
+            **params,
+        )
+    if estimator_kind == "xgboost_random_forest":
+        ensure_xgboost_available()
+        return XGBRFRegressor(
+            objective="reg:squarederror",
+            tree_method="hist",
+            random_state=seed,
+            n_jobs=-1,
+            **params,
+        )
+    raise ValueError(f"Unknown estimator kind: {estimator_kind}")
+
+
+def _model_name_from_block(block: dict[str, Any], *, combo_index: int, combo_count: int) -> str:
+    """Construit le nom stable d'un candidat issu d'un bloc de grille."""
+    explicit_name = block.get("model_name")
+    if explicit_name is not None:
+        return str(explicit_name)
+    pattern = block.get("model_name_pattern")
+    if pattern is None:
+        raise ValueError("Each search block must define either model_name or model_name_pattern.")
+    return str(pattern).format(index=combo_index, total=combo_count)
+
+
+def expand_search_blocks() -> list[dict[str, Any]]:
+    """Deplie les blocs de grilles en liste plate de candidats systematiques.
+
+    Returns:
+        list[dict[str, Any]]: Candidats prets a etre instancies.
+    """
+    expanded_specs: list[dict[str, Any]] = []
+    search_method = str(SEARCH_SPACE_DEFINITION["search_method"])
+    families = dict(SEARCH_SPACE_DEFINITION["families"])
+
+    for search_family, family_definition in families.items():
+        estimator_kind = str(family_definition["estimator_kind"])
+        model_family = str(family_definition["model_family"])
+        blocks = list(family_definition["blocks"])
+
+        for block in blocks:
+            parameter_grid = list(ParameterGrid(dict(block["grid"])))
+            combo_count = len(parameter_grid)
+            if combo_count == 0:
+                raise ValueError(f"Empty parameter grid for search family {search_family!r}.")
+
+            for combo_index, params in enumerate(parameter_grid, start=1):
+                expanded_specs.append(
+                    {
+                        "model_name": _model_name_from_block(
+                            block,
+                            combo_index=combo_index,
+                            combo_count=combo_count,
+                        ),
+                        "params": dict(params),
+                        "estimator_kind": estimator_kind,
+                        "model_family": model_family,
+                        "search_family": str(search_family),
+                        "search_method": search_method,
+                        "search_block_name": str(
+                            block.get("model_name")
+                            or block.get("model_name_pattern")
+                            or search_family
+                        ),
+                        "parameter_grid_index": combo_index,
+                        "parameter_grid_size": combo_count,
+                        "tuning_stage": str(block["tuning_stage"]),
+                        "regularization_profile": str(block["regularization_profile"]),
+                    }
+                )
+
+    return expanded_specs
+
+
 def build_candidate_models(seed: int) -> dict[str, dict[str, object]]:
     """Construit le portefeuille de modeles candidats de l'experience.
 
@@ -505,69 +567,22 @@ def build_candidate_models(seed: int) -> dict[str, dict[str, object]]:
     """
     candidate_models: dict[str, dict[str, object]] = {}
 
-    for spec in SEARCH_SPACE_DEFINITION["random_forest_focus"]:
-        params = spec["params"]
+    for spec in expand_search_blocks():
         register_candidate(
             candidate_models,
             str(spec["model_name"]),
-            RandomForestRegressor(
-                random_state=seed,
-                n_jobs=-1,
-                **params,
+            make_estimator(
+                str(spec["estimator_kind"]),
+                seed=seed,
+                params=dict(spec["params"]),
             ),
-            model_family="random_forest",
-            search_family="random_forest_focus",
-            regularization_profile=(
-                "manual_targeted_search"
-                if spec["tuning_stage"] == "targeted_search"
-                else str(spec["tuning_stage"])
-            ),
-            tuning_stage=str(spec["tuning_stage"]),
-        )
-
-    ensure_xgboost_available()
-
-    for spec in SEARCH_SPACE_DEFINITION["xgboost_focus"]:
-        params = spec["params"]
-        register_candidate(
-            candidate_models,
-            str(spec["model_name"]),
-            XGBRegressor(
-                objective="reg:squarederror",
-                tree_method="hist",
-                random_state=seed,
-                n_jobs=-1,
-                **params,
-            ),
-            model_family="xgboost",
-            search_family="xgboost_focus",
-            regularization_profile=(
-                "manual_targeted_search"
-                if spec["tuning_stage"] == "targeted_search"
-                else str(spec["tuning_stage"])
-            ),
-            tuning_stage=str(spec["tuning_stage"]),
-        )
-
-    for spec in SEARCH_SPACE_DEFINITION["xgboost_random_forest_focus"]:
-        params = spec["params"]
-        register_candidate(
-            candidate_models,
-            str(spec["model_name"]),
-            XGBRFRegressor(
-                objective="reg:squarederror",
-                tree_method="hist",
-                random_state=seed,
-                n_jobs=-1,
-                **params,
-            ),
-            model_family="xgboost_random_forest",
-            search_family="xgboost_random_forest_focus",
-            regularization_profile=(
-                "manual_targeted_search"
-                if spec["tuning_stage"] == "targeted_search"
-                else str(spec["tuning_stage"])
-            ),
+            model_family=str(spec["model_family"]),
+            search_family=str(spec["search_family"]),
+            search_method=str(spec["search_method"]),
+            search_block_name=str(spec["search_block_name"]),
+            parameter_grid_index=int(spec["parameter_grid_index"]),
+            parameter_grid_size=int(spec["parameter_grid_size"]),
+            regularization_profile=str(spec["regularization_profile"]),
             tuning_stage=str(spec["tuning_stage"]),
         )
 
@@ -1091,6 +1106,10 @@ def evaluate_candidates(
             mlflow.log_param("model_name", model_name)
             mlflow.log_param("model_family", model_spec["model_family"])
             mlflow.log_param("search_family", model_spec["search_family"])
+            mlflow.log_param("search_method", model_spec["search_method"])
+            mlflow.log_param("search_block_name", model_spec["search_block_name"])
+            mlflow.log_param("parameter_grid_index", model_spec["parameter_grid_index"])
+            mlflow.log_param("parameter_grid_size", model_spec["parameter_grid_size"])
             mlflow.log_param("tuning_stage", model_spec["tuning_stage"])
             mlflow.log_param("target_col", context.target_col)
             mlflow.log_param("target_year", context.target_year)
@@ -1146,6 +1165,10 @@ def evaluate_candidates(
                     "model": model_name,
                     "model_family": model_spec["model_family"],
                     "search_family": model_spec["search_family"],
+                    "search_method": model_spec["search_method"],
+                    "search_block_name": model_spec["search_block_name"],
+                    "parameter_grid_index": model_spec["parameter_grid_index"],
+                    "parameter_grid_size": model_spec["parameter_grid_size"],
                     "tuning_stage": model_spec["tuning_stage"],
                     "regularization_profile": model_spec["regularization_profile"],
                     "train_mae": train_metrics["mae"],
@@ -1188,6 +1211,8 @@ def evaluate_candidates(
         mlflow.log_param("models_tested", ",".join(candidate_models.keys()))
         mlflow.log_param("selected_feature_strategy", "no_area_plus_recent_3_yield_years")
         mlflow.log_param("cross_validation_strategy", "GroupKFold(area)_on_train_only")
+        mlflow.log_param("search_method", SEARCH_SPACE_DEFINITION["search_method"])
+        mlflow.log_param("search_scope", SEARCH_SPACE_DEFINITION["scope"])
         mlflow.log_metric("best_test_rmse", float(results_df.loc[0, "test_rmse"]))
         mlflow.log_metric("best_test_r2", float(results_df.loc[0, "test_r2"]))
         mlflow.log_metric("best_cv_val_rmse_mean", float(results_df.loc[0, "cv_val_rmse_mean"]))
@@ -1227,6 +1252,10 @@ def export_p1_artifact(
         "model_name": best_model_name,
         "model_family": best_model_spec["model_family"],
         "search_family": best_model_spec["search_family"],
+        "search_method": best_model_spec["search_method"],
+        "search_block_name": best_model_spec["search_block_name"],
+        "parameter_grid_index": int(best_model_spec["parameter_grid_index"]),
+        "parameter_grid_size": int(best_model_spec["parameter_grid_size"]),
         "tuning_stage": best_model_spec["tuning_stage"],
         "regularization_profile": best_model_spec["regularization_profile"],
         "trained_at_utc": datetime.now(timezone.utc).isoformat(),

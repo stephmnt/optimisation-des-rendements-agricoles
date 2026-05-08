@@ -7,7 +7,7 @@
   "max_leaf_nodes": null,
   "max_samples": null,
   "min_impurity_decrease": 0.0,
-  "min_samples_leaf": 5,
+  "min_samples_leaf": 4,
   "min_samples_split": 10,
   "min_weight_fraction_leaf": 0.0,
   "monotonic_cst": null,

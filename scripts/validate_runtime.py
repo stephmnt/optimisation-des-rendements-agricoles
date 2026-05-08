@@ -13,17 +13,12 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from scripts.deployment_payload import DEPLOYMENT_REQUIRED_ARTIFACTS
 from scripts.pipeline_utils import ensure_paths_exist, relative_to_project
 from scripts.prediction_adjustment import AdjustedYieldService
 
 
-RUNTIME_REQUIRED_ARTIFACTS = [
-    Path("artifacts/models/p1_historical_pipeline.joblib"),
-    Path("artifacts/models/p1_historical_metadata.json"),
-    Path("artifacts/models/p23_simulation_pipeline.joblib"),
-    Path("artifacts/models/p23_simulation_metadata.json"),
-    Path("artifacts/experiments/experience_1/dataset_consolide_historique_colonnes.csv"),
-]
+RUNTIME_REQUIRED_ARTIFACTS = DEPLOYMENT_REQUIRED_ARTIFACTS
 
 
 def parse_args() -> argparse.Namespace:
