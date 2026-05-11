@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import logging
 from pathlib import Path
 from typing import Any
 
@@ -11,6 +12,29 @@ import mlflow.pyfunc
 import mlflow.sklearn
 import pandas as pd
 from mlflow.tracking import MlflowClient
+
+
+SKLEARN_PICKLE_WARNING_PREFIX = (
+    "Saving scikit-learn models in the pickle or cloudpickle format requires exercising caution"
+)
+
+
+class _SuppressSklearnPickleWarning(logging.Filter):
+    """Filtre le warning MLflow repete sur la serialisation pickle/cloudpickle."""
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        """Retourne `False` uniquement pour le warning verbeux attendu."""
+        return SKLEARN_PICKLE_WARNING_PREFIX not in record.getMessage()
+
+
+def configure_mlflow_sklearn_logging() -> None:
+    """Rend les logs MLflow sklearn lisibles pendant les entrainements longs."""
+    logger = logging.getLogger("mlflow.sklearn")
+    if not any(isinstance(item, _SuppressSklearnPickleWarning) for item in logger.filters):
+        logger.addFilter(_SuppressSklearnPickleWarning())
+
+
+configure_mlflow_sklearn_logging()
 
 
 def sanitize_logged_model_name(raw_name: str) -> str:

@@ -16,6 +16,11 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.mlflow_logging import log_and_register_sklearn_model
+from scripts.mlflow_config import (
+    SIMULATION_RUNTIME_EXPERIMENT_NAME,
+    experiment_artifact_location,
+    normalize_tracking_uri,
+)
 from scripts.pipeline_utils import ensure_paths_exist, relative_to_project
 from scripts.prediction_adjustment import (
     SIMULATION_METADATA_PATH,
@@ -32,7 +37,7 @@ SIMULATION_OUTPUTS = [
     SIMULATION_MODEL_PATH,
     SIMULATION_METADATA_PATH,
 ]
-SIMULATION_MLFLOW_EXPERIMENT_NAME = "simulation_runtime"
+SIMULATION_MLFLOW_EXPERIMENT_NAME = SIMULATION_RUNTIME_EXPERIMENT_NAME
 
 
 def parse_args() -> argparse.Namespace:
@@ -66,16 +71,17 @@ def parse_args() -> argparse.Namespace:
 
 def _ensure_simulation_mlflow_experiment(tracking_uri: str) -> None:
     """Initialise l'experiment MLflow utilise par la brique de simulation."""
+    tracking_uri = normalize_tracking_uri(tracking_uri)
     mlflow.set_tracking_uri(tracking_uri)
     client = MlflowClient(tracking_uri=tracking_uri)
     experiment = client.get_experiment_by_name(SIMULATION_MLFLOW_EXPERIMENT_NAME)
     if experiment is None:
-        artifact_location = (
-            PROJECT_ROOT / "artifacts" / "mlruns" / SIMULATION_MLFLOW_EXPERIMENT_NAME
-        ).resolve().as_uri()
         client.create_experiment(
             SIMULATION_MLFLOW_EXPERIMENT_NAME,
-            artifact_location=artifact_location,
+            artifact_location=experiment_artifact_location(
+                SIMULATION_MLFLOW_EXPERIMENT_NAME,
+                tracking_uri=tracking_uri,
+            ),
         )
     mlflow.set_experiment(SIMULATION_MLFLOW_EXPERIMENT_NAME)
 
@@ -127,6 +133,7 @@ def train_simulation_model(
     Returns:
         dict[str, object]: Resume du dataset utilise, des metriques et des sorties.
     """
+    tracking_uri = normalize_tracking_uri(tracking_uri)
     reused_existing_artifact = (
         not force_retrain
         and SIMULATION_MODEL_PATH.exists()

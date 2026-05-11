@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import logging
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -11,6 +12,8 @@ import pytest
 
 from scripts.mlflow_logging import (
     EvaluationPredictionLookupModel,
+    SKLEARN_PICKLE_WARNING_PREFIX,
+    configure_mlflow_sklearn_logging,
     log_and_register_sklearn_model,
     sanitize_logged_model_name,
 )
@@ -30,6 +33,28 @@ def test_sanitize_logged_model_name_uses_run_suffix() -> None:
     assert sanitize_logged_model_name("experience_1__xgboost_random_forest_search_04") == "xgboost_random_forest_search_04"
     assert sanitize_logged_model_name("best_model_summary::random_forest") == "random_forest"
     assert sanitize_logged_model_name(" model ") == "model"
+
+
+def test_configure_mlflow_sklearn_logging_filters_pickle_warning() -> None:
+    logger = logging.getLogger("mlflow.sklearn")
+    configure_mlflow_sklearn_logging()
+    records: list[logging.LogRecord] = []
+
+    class _ListHandler(logging.Handler):
+        def emit(self, record: logging.LogRecord) -> None:
+            records.append(record)
+
+    handler = _ListHandler()
+    logger.addHandler(handler)
+    try:
+        logger.warning("%s. Extra details.", SKLEARN_PICKLE_WARNING_PREFIX)
+        logger.warning("A different useful warning.")
+    finally:
+        logger.removeHandler(handler)
+
+    messages = [record.getMessage() for record in records]
+    assert all(SKLEARN_PICKLE_WARNING_PREFIX not in message for message in messages)
+    assert "A different useful warning." in messages
 
 
 def test_evaluation_prediction_lookup_model_returns_matching_rows(tmp_path: Path) -> None:

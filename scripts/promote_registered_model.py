@@ -14,6 +14,7 @@ import mlflow
 import mlflow.sklearn
 from mlflow.tracking import MlflowClient
 
+from scripts.mlflow_config import normalize_tracking_uri
 from scripts.runtime_model_specs import (
     DEFAULT_MLFLOW_TRACKING_URI,
     DEFAULT_MODELS_DIR,
@@ -162,6 +163,7 @@ def resolve_model_version_for_role(
     role_spec: RuntimeModelSpec,
     registered_model_name: str,
     requested_version: str | None = None,
+    allow_latest_version: bool = False,
 ) -> Any:
     """Selectionne strictement la version a exporter pour un role runtime."""
     if requested_version is not None:
@@ -180,6 +182,9 @@ def resolve_model_version_for_role(
             f"Registered model exists but no version could be resolved for role "
             f"{role_spec.role!r}."
         )
+
+    if allow_latest_version:
+        return max(versions, key=_version_sort_key)
 
     if len(versions) > 1:
         available = ", ".join(str(version.version) for version in sorted(versions, key=_version_sort_key))
@@ -295,6 +300,7 @@ def promote_single_registered_model(
     available_names: list[str],
     requested_name: str | None = None,
     requested_version: str | None = None,
+    allow_latest_version: bool = False,
 ) -> dict[str, Any]:
     """Promouvoit un registered model runtime unique depuis MLflow."""
     registered_model_name = resolve_registered_model_name_for_role(
@@ -308,6 +314,7 @@ def promote_single_registered_model(
         role_spec=role_spec,
         registered_model_name=registered_model_name,
         requested_version=requested_version,
+        allow_latest_version=allow_latest_version,
     )
     source_run = client.get_run(selected_version.run_id) if getattr(selected_version, "run_id", None) else None
 
@@ -361,8 +368,10 @@ def promote_registered_models(
     historical_version: str | None = None,
     simulation_registered_model: str | None = None,
     simulation_version: str | None = None,
+    allow_latest_version: bool = False,
 ) -> dict[str, Any]:
     """Promouvoit les deux registered models runtime depuis MLflow."""
+    tracking_uri = normalize_tracking_uri(tracking_uri)
     resolved_models_dir = Path(models_dir).resolve()
     historical_spec = with_models_dir(HISTORICAL_RUNTIME_MODEL_SPEC, resolved_models_dir)
     simulation_spec = with_models_dir(SIMULATION_RUNTIME_MODEL_SPEC, resolved_models_dir)
@@ -379,6 +388,7 @@ def promote_registered_models(
         available_names=available_names,
         requested_name=historical_registered_model,
         requested_version=historical_version,
+        allow_latest_version=allow_latest_version,
     )
     simulation_summary = promote_single_registered_model(
         client=client,
@@ -387,6 +397,7 @@ def promote_registered_models(
         available_names=available_names,
         requested_name=simulation_registered_model,
         requested_version=simulation_version,
+        allow_latest_version=allow_latest_version,
     )
     return {
         "tracking_uri": tracking_uri,

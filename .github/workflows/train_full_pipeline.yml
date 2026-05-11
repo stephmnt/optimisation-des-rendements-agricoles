@@ -8,11 +8,6 @@ on:
         required: false
         default: false
         type: boolean
-      run_experience_3:
-        description: "Also execute notebooks/experience_3.ipynb after the artifacts are rebuilt"
-        required: false
-        default: false
-        type: boolean
       reuse_simulation_artifact:
         description: "Reuse the existing local simulation artifact instead of forcing a retrain"
         required: false
@@ -51,9 +46,6 @@ jobs:
           args=("--json")
           if [ "${{ inputs.skip_preparation }}" = "true" ]; then
             args+=("--skip-preparation")
-          fi
-          if [ "${{ inputs.run_experience_3 }}" = "true" ]; then
-            args+=("--run-experience-3")
           fi
           if [ "${{ inputs.reuse_simulation_artifact }}" = "true" ]; then
             args+=("--reuse-simulation-artifact")

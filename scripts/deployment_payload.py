@@ -9,13 +9,17 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 import shutil
+import sys
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.runtime_model_specs import (
     HISTORICAL_RUNTIME_MODEL_SPEC,
     SIMULATION_RUNTIME_MODEL_SPEC,
 )
-
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 DEPLOYMENT_REQUIRED_ARTIFACTS = [
     HISTORICAL_RUNTIME_MODEL_SPEC.output_model_path.relative_to(PROJECT_ROOT),

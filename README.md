@@ -97,7 +97,9 @@ Repere rapide :
 - `scripts/train_simulation_model.py` regenere l'artefact du modele local ;
 - `scripts/promote_registered_model.py` reexporte ensuite les deux modeles runtime depuis MLflow vers `artifacts/models/` ;
 - `scripts/run_preparation.py` execute encore [notebooks/preparation.ipynb](https://github.com/stephmnt/optimisation-des-rendements-agricoles/blob/main/notebooks/preparation.ipynb) en mode headless pour preparer les donnees ;
-- `scripts/run_full_pipeline.py` orchestre la chaine complete : preparation, entrainement, enregistrement MLflow, promotion runtime et validation.
+- `scripts/run_full_pipeline.py` orchestre la chaine officielle : preparation, entrainement, enregistrement MLflow, promotion runtime et validation.
+- par defaut, `scripts/run_full_pipeline.py` promeut la derniere version MLflow disponible pour chaque modele runtime ; `--historical-version` et `--simulation-version` permettent de figer une version precise si besoin.
+- `notebooks/experience_2.ipynb` et `notebooks/experience_3.ipynb` restent conserves dans le depot comme archives ou supports de verification manuelle, mais ils ne font plus partie du pipeline standard.
 
 ### Déployer sur Hugging Face
 
@@ -207,6 +209,7 @@ MLflow est stocké dans une base SQLite :
 - artefacts MLflow : `artifacts/mlruns/` ; chaque run candidat contient aussi un artefact `model/` avec le pipeline entraîné
 - modèles sauvegardés : `artifacts/models/`
 - tableau de comparaison historique : `artifacts/model_comparison.csv`
+- experience d'orchestration du pipeline complet : `run_full_pipeline`
 - registered models runtime attendus :
   - `p1_historical_pipeline`
   - `p23_simulation_pipeline`
@@ -223,8 +226,13 @@ Par défaut, l'UI sera disponible sur `http://127.0.0.1:5000`.
 
 Important :
 
+- lancer `mlflow/mlflow.py` avec le bouton lecture de VS Code utilise la meme base officielle : `artifacts/mlflow.db` ;
+- si `.venv/bin/python` existe, `mlflow/mlflow.py` se relance avec cet interpreteur pour eviter les ecarts de version MLflow ;
+- `scripts/run_full_pipeline.py`, `scripts/experience_1.py`, `scripts/train_simulation_model.py` et `scripts/promote_registered_model.py` partagent le meme tracking URI par defaut ;
+- chaque execution de `scripts/run_full_pipeline.py` ajoute un run dans l'experience MLflow `run_full_pipeline`, en plus des runs detailles dans `experience_1` et `simulation_runtime` ;
 - il n'est pas nécessaire de laisser l'interface ouverte pendant l'exécution des notebooks ou des scripts d'entrainement ;
-- `scripts/experience_1.py`, `scripts/train_simulation_model.py` et `notebooks/experience_2.ipynb` ecrivent directement dans `artifacts/mlflow.db` ;
+- la chaine officielle ecrit dans `artifacts/mlflow.db` via `scripts/experience_1.py` et `scripts/train_simulation_model.py` ;
+- `notebooks/experience_2.ipynb` reste consultable dans le depot, mais il n'appartient plus au chemin de regeneration standard ;
 - les artefacts des runs sont stockés dans `artifacts/mlruns/` ;
 - l'UI peut donc être ouverte avant ou après l'exécution de ces etapes.
 - la piste historique `notebooks/modelisation.ipynb` est abandonnée ; le dépôt conserve seulement ses artefacts utiles pour archive.
@@ -284,7 +292,7 @@ Pour repartir d'un historique MLflow vide, arrêter d'abord l'interface MLflow e
 rm -f artifacts/mlflow.db
 ```
 
-Au prochain lancement de `python3 scripts/experience_1.py`, de `python3 scripts/train_simulation_model.py`, de `notebooks/experience_2.ipynb` ou de `python3 mlflow/mlflow.py`, la base sera recréée automatiquement.
+Au prochain lancement de `python3 scripts/experience_1.py`, de `python3 scripts/train_simulation_model.py` ou de `python3 scripts/run_full_pipeline.py`, la base sera recréée automatiquement.
 
 Si tu veux aussi nettoyer les anciens artefacts du backend fichier abandonné, tu peux supprimer en plus :
 

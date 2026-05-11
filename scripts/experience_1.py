@@ -45,13 +45,19 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.mlflow_logging import log_and_register_sklearn_model, log_named_sklearn_model
+from scripts.mlflow_config import (
+    DEFAULT_MLFLOW_TRACKING_URI,
+    EXPERIENCE_1_EXPERIMENT_NAME,
+    mlflow_artifacts_dir_for_tracking_uri,
+    normalize_tracking_uri,
+)
 from scripts.project_config import DEFAULT_CONFIG_PATH, load_preparation_config
 from scripts.runtime_model_specs import HISTORICAL_RUNTIME_MODEL_SPEC
 
 
 SEED = 42
 CV_N_SPLITS = 4
-MLFLOW_EXPERIMENT_NAME = "experience_1"
+MLFLOW_EXPERIMENT_NAME = EXPERIENCE_1_EXPERIMENT_NAME
 SEARCH_SPACE_DEFINITION = {
     "search_method": "parameter_grid",
     "scope": "all_candidate_families",
@@ -311,9 +317,9 @@ def build_experience_paths(
     cv_dir.mkdir(parents=True, exist_ok=True)
     models_dir.mkdir(parents=True, exist_ok=True)
 
-    resolved_tracking_uri = tracking_uri or f"sqlite:///{(artifacts_dir / 'mlflow.db').resolve()}"
+    resolved_tracking_uri = normalize_tracking_uri(tracking_uri or DEFAULT_MLFLOW_TRACKING_URI)
     mlflow_db_path = Path(resolved_tracking_uri.removeprefix("sqlite:///")).resolve()
-    mlflow_artifacts_dir = artifacts_dir / "mlruns"
+    mlflow_artifacts_dir = mlflow_artifacts_dir_for_tracking_uri(resolved_tracking_uri)
     mlflow_experiment_artifact_dir = mlflow_artifacts_dir / MLFLOW_EXPERIMENT_NAME
     mlflow_experiment_artifact_dir.mkdir(parents=True, exist_ok=True)
 
@@ -1342,7 +1348,7 @@ def run_experience_1(
     """
     resolved_config_path = Path(config_path) if config_path is not None else DEFAULT_CONFIG_PATH
     config = load_preparation_config(resolved_config_path, ensure_dirs=True)
-    resolved_tracking_uri = tracking_uri or f"sqlite:///{(Path(config['ARTIFACTS_DIR']) / 'mlflow.db').resolve()}"
+    resolved_tracking_uri = normalize_tracking_uri(tracking_uri or DEFAULT_MLFLOW_TRACKING_URI)
     paths = build_experience_paths(
         artifacts_dir=Path(config["ARTIFACTS_DIR"]),
         tracking_uri=resolved_tracking_uri,

@@ -15,8 +15,36 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_BACKEND_URI = f"sqlite:///{(PROJECT_ROOT / 'artifacts' / 'mlflow.db').resolve()}"
-DEFAULT_ARTIFACTS_DIR = (PROJECT_ROOT / "artifacts" / "mlruns").resolve()
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from scripts.mlflow_config import (
+    DEFAULT_MLFLOW_TRACKING_URI,
+    MLFLOW_ARTIFACTS_DIR,
+    ensure_mlflow_directories,
+    normalize_tracking_uri,
+)
+
+
+DEFAULT_BACKEND_URI = DEFAULT_MLFLOW_TRACKING_URI
+DEFAULT_ARTIFACTS_DIR = MLFLOW_ARTIFACTS_DIR
+PREFERRED_PROJECT_PYTHON = PROJECT_ROOT / ".venv" / "bin" / "python"
+REEXEC_ENV_FLAG = "OCR12_MLFLOW_VENV_REEXEC"
+
+
+def relaunch_with_project_python() -> None:
+    """Relance ce script avec le Python du `.venv` quand VS Code utilise un autre interpreteur."""
+    current_python = Path(sys.executable)
+    if (
+        PREFERRED_PROJECT_PYTHON.exists()
+        and current_python != PREFERRED_PROJECT_PYTHON
+        and os.environ.get(REEXEC_ENV_FLAG) != "1"
+    ):
+        os.environ[REEXEC_ENV_FLAG] = "1"
+        os.execv(
+            str(PREFERRED_PROJECT_PYTHON),
+            [str(PREFERRED_PROJECT_PYTHON), *sys.argv],
+        )
 
 
 def parse_args() -> argparse.Namespace:
@@ -58,11 +86,7 @@ def ensure_backend_target(raw_value: str) -> str:
         str: URI ou chemin normalise utilisable par MLflow.
     """
     if raw_value.startswith("sqlite:///"):
-        db_path = Path(raw_value.removeprefix("sqlite:///"))
-        if not db_path.is_absolute():
-            db_path = (PROJECT_ROOT / db_path).resolve()
-        db_path.parent.mkdir(parents=True, exist_ok=True)
-        return f"sqlite:///{db_path}"
+        return normalize_tracking_uri(raw_value)
 
     backend_dir = Path(raw_value)
     if not backend_dir.is_absolute():
@@ -145,6 +169,8 @@ def migrate_sqlite_artifact_locations(backend_uri: str, artifact_root: Path) -> 
 
 def main() -> None:
     """Lance le serveur MLflow avec la configuration du projet."""
+    relaunch_with_project_python()
+    ensure_mlflow_directories()
     args = parse_args()
     backend_uri = ensure_backend_target(args.backend_store_uri)
     default_artifact_root_uri, artifact_root_path = ensure_artifact_root(args.default_artifact_root)

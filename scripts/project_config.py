@@ -1,4 +1,4 @@
-"""Centralise le chargement de la configuration de preparation du projet."""
+"""Centralise le chargement de la configuration de préparation du projet."""
 
 from pathlib import Path
 
@@ -10,7 +10,7 @@ DEFAULT_CONFIG_PATH = PROJECT_ROOT / "config" / "project_paths.yaml"
 
 
 def _resolve_path(raw_path: str) -> Path:
-    """Resout un chemin de configuration relativement a la racine du projet."""
+    """Résout un chemin de configuration relativement à la racine du projet."""
     path = Path(raw_path)
     if path.is_absolute():
         return path
@@ -18,13 +18,13 @@ def _resolve_path(raw_path: str) -> Path:
 
 
 def ensure_preparation_directories(config: dict[str, object]) -> dict[str, object]:
-    """Cree les dossiers cibles attendus par la preparation.
+    """Crée les dossiers cibles attendus par la préparation.
 
     Args:
         config: Configuration chargee depuis `project_paths.yaml`.
 
     Returns:
-        dict[str, object]: Configuration inchangee, pour permettre le chainage.
+        dict[str, object]: Configuration inchangée, pour permettre le chainage.
     """
     artifacts_dir = config["ARTIFACTS_DIR"]
     pca_artifacts_dir = config["PCA_ARTIFACTS_DIR"]
@@ -45,14 +45,14 @@ def load_preparation_config(
     *,
     ensure_dirs: bool = False,
 ) -> dict[str, object]:
-    """Charge la configuration de preparation depuis le fichier YAML du projet.
+    """Charge la configuration de préparation depuis le fichier YAML du projet.
 
     Args:
         config_path: Chemin optionnel vers un fichier YAML de configuration.
-        ensure_dirs: Cree les dossiers cibles si `True`.
+        ensure_dirs: Crée les dossiers cibles si `True`.
 
     Returns:
-        dict[str, object]: Configuration normalisee avec des `Path` resolus.
+        dict[str, object]: Configuration normalisée avec des `Path` résolus.
     """
     path = config_path or DEFAULT_CONFIG_PATH
     raw_config = yaml.safe_load(path.read_text())

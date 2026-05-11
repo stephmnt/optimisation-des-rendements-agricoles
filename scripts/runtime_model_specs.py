@@ -5,9 +5,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
+from scripts.mlflow_config import DEFAULT_MLFLOW_TRACKING_URI, PROJECT_ROOT
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MLFLOW_TRACKING_URI = f"sqlite:///{(PROJECT_ROOT / 'artifacts' / 'mlflow.db').resolve()}"
+
 DEFAULT_MODELS_DIR = PROJECT_ROOT / "artifacts" / "models"
 
 
@@ -39,4 +39,3 @@ RUNTIME_MODEL_SPECS = {
     HISTORICAL_RUNTIME_MODEL_SPEC.role: HISTORICAL_RUNTIME_MODEL_SPEC,
     SIMULATION_RUNTIME_MODEL_SPEC.role: SIMULATION_RUNTIME_MODEL_SPEC,
 }
-

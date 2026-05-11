@@ -81,6 +81,23 @@ def test_resolve_model_version_for_role_requires_explicit_version_when_multiple_
     assert "--historical-version" in str(exc_info.value)
 
 
+def test_resolve_model_version_for_role_can_select_latest_version() -> None:
+    versions = [
+        SimpleNamespace(version="4"),
+        SimpleNamespace(version="5"),
+        SimpleNamespace(version="2"),
+    ]
+
+    selected_version = resolve_model_version_for_role(
+        versions,
+        role_spec=HISTORICAL_RUNTIME_MODEL_SPEC,
+        registered_model_name=HISTORICAL_RUNTIME_MODEL_SPEC.registered_model_name,
+        allow_latest_version=True,
+    )
+
+    assert selected_version.version == "5"
+
+
 def test_build_export_metadata_preserves_existing_fields_and_adds_runtime_registry_context() -> None:
     source_run = SimpleNamespace(
         info=SimpleNamespace(run_name="run-champion", experiment_id="7"),
