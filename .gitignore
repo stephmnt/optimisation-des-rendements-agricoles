@@ -12,6 +12,7 @@ hf_space_build/
 images/ 
 *.pptx
 *.keynote
+livrables/
 
 # vim
 *.swp
